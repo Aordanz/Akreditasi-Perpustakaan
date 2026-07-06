@@ -85,10 +85,10 @@
                 <span class="font-bold text-xl md:text-2xl text-black tracking-tight">Perpustakaan Universitas Sumatera Utara</span>
             </div>
             <nav class="hidden md:flex gap-6 font-semibold text-sm text-usu-green">
-                <a href="#" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1">Beranda</a>
+                <a href="/" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1">Beranda</a>
                 <a href="#" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1">Profil</a>
                 <a href="#" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1">Layanan</a>
-                <a href="#" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1 text-usu-dark font-bold">Akreditasi</a>
+                <a href="/akreditasi" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1 text-usu-dark font-bold">Akreditasi</a>
             </nav>
         </div>
     </header>
