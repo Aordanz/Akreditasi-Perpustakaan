@@ -137,13 +137,16 @@
                 <!-- Event 1952 -->
                 <div class="relative flex md:justify-between items-center w-full mb-16 group">
                     <div class="hidden md:block w-5/12 text-right pr-12" data-aos="fade-right" data-aos-offset="100">
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 group-hover:shadow-xl transition-all duration-500 group-hover:border-[#0a7a3b]/30">
-                            <h3 class="text-xl font-bold text-slate-800 mb-2">Awal Mula</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Berdirinya USU pada 20 Agustus 1952 turut menandai dimulainya layanan perpustakaan secara parsial. Dimulai dari Perpustakaan Fakultas Kedokteran (1952) dan disusul Fakultas Hukum (1954).</p>
-                            
-                            <!-- Extra Info on Hover -->
-                            <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-slate-100">
-                                <p class="text-slate-500 text-xs leading-relaxed italic">Gagasan awal ini dipelopori oleh para pendiri universitas yang menyadari bahwa literatur medis dan hukum sangat krusial untuk membangun fondasi pendidikan tinggi pertama di Sumatera Utara.</p>
+                        <div class="bg-[#044b25] p-6 rounded-2xl shadow-lg border-l-[6px] border-l-[#fecb00] group-hover:shadow-[0_20px_40px_rgba(4,75,37,0.3)] transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-[#0a7a3b] rounded-full blur-2xl opacity-60 -mr-10 -mt-10 pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-xl font-bold text-[#fecb00] mb-2">Awal Mula</h3>
+                                <p class="text-white/90 text-sm leading-relaxed">Berdirinya USU pada 20 Agustus 1952 turut menandai dimulainya layanan perpustakaan secara parsial. Dimulai dari Perpustakaan Fakultas Kedokteran (1952) dan disusul Fakultas Hukum (1954).</p>
+                                
+                                <!-- Extra Info on Hover -->
+                                <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-white/20">
+                                    <p class="text-green-100/70 text-xs leading-relaxed italic">Gagasan awal ini dipelopori oleh para pendiri universitas yang menyadari bahwa literatur medis dan hukum sangat krusial untuk membangun fondasi pendidikan tinggi pertama di Sumatera Utara.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -153,10 +156,13 @@
                     </div>
                     
                     <div class="w-full md:w-5/12 pl-16 md:pl-12" data-aos="fade-left" data-aos-offset="100">
-                        <div class="text-[#0a7a3b] font-black text-4xl md:text-5xl opacity-30 absolute -top-4 md:static">1952</div>
-                        <div class="md:hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mt-2">
-                            <h3 class="text-xl font-bold text-slate-800 mb-2">Awal Mula</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Berdirinya USU menandai dimulainya layanan perpustakaan. Dimulai dari Perpustakaan Fakultas Kedokteran (1952) dan Fakultas Hukum (1954).</p>
+                        <div class="text-[#0a7a3b] font-black text-4xl md:text-5xl opacity-30 absolute -top-4 md:static whitespace-nowrap">1952 - 1970</div>
+                        <div class="md:hidden bg-[#044b25] p-6 rounded-2xl shadow-lg border-l-[6px] border-l-[#fecb00] mt-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-[#0a7a3b] rounded-full blur-2xl opacity-60 -mr-8 -mt-8 pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-xl font-bold text-[#fecb00] mb-2">Awal Mula</h3>
+                                <p class="text-white/90 text-sm leading-relaxed">Berdirinya USU menandai dimulainya layanan perpustakaan. Dimulai dari Perpustakaan Fakultas Kedokteran (1952) dan Fakultas Hukum (1954).</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -164,13 +170,16 @@
                 <!-- Event 1970 -->
                 <div class="relative flex md:justify-between items-center w-full mb-16 flex-row-reverse group">
                     <div class="hidden md:block w-5/12 text-left pl-12" data-aos="fade-left" data-aos-offset="150">
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 group-hover:shadow-xl transition-all duration-500 group-hover:border-[#0a7a3b]/30">
-                            <h3 class="text-xl font-bold text-slate-800 mb-2">Sentralisasi Pertama</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Perpustakaan Pusat resmi didirikan untuk mengoordinasi perpustakaan fakultas yang sudah ada sebelumnya agar lebih terpadu.</p>
-                            
-                            <!-- Extra Info on Hover -->
-                            <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-slate-100">
-                                <p class="text-slate-500 text-xs leading-relaxed italic">Langkah sentralisasi ini bertujuan menghemat anggaran operasional, menyamakan standar katalogisasi buku, serta memudahkan mahasiswa mengakses referensi lintas disiplin ilmu.</p>
+                        <div class="bg-[#044b25] p-6 rounded-2xl shadow-lg border-l-[6px] border-l-[#fecb00] group-hover:shadow-[0_20px_40px_rgba(4,75,37,0.3)] transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-[#0a7a3b] rounded-full blur-2xl opacity-60 -mr-10 -mt-10 pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-xl font-bold text-[#fecb00] mb-2">Sentralisasi Pertama</h3>
+                                <p class="text-white/90 text-sm leading-relaxed">Perpustakaan Pusat resmi didirikan untuk mengoordinasi perpustakaan fakultas yang sudah ada sebelumnya agar lebih terpadu.</p>
+                                
+                                <!-- Extra Info on Hover -->
+                                <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-white/20">
+                                    <p class="text-green-100/70 text-xs leading-relaxed italic">Langkah sentralisasi ini bertujuan menghemat anggaran operasional, menyamakan standar katalogisasi buku, serta memudahkan mahasiswa mengakses referensi lintas disiplin ilmu.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -180,11 +189,14 @@
                     </div>
                     
                     <div class="w-full md:w-5/12 pl-16 md:pr-12 md:pl-0 md:text-right" data-aos="fade-right" data-aos-offset="150">
-                        <div class="text-[#0a7a3b] font-black text-4xl md:text-5xl opacity-30 absolute -top-4 md:static md:block hidden">1970</div>
-                        <div class="md:hidden text-[#0a7a3b] font-black text-4xl opacity-30 absolute -top-4">1970</div>
-                        <div class="md:hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mt-2">
-                            <h3 class="text-xl font-bold text-slate-800 mb-2">Sentralisasi Pertama</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Perpustakaan Pusat resmi didirikan untuk mengoordinasi perpustakaan fakultas.</p>
+                        <div class="text-[#0a7a3b] font-black text-4xl md:text-5xl opacity-30 absolute -top-4 md:static md:block hidden whitespace-nowrap">1970 - 1987</div>
+                        <div class="md:hidden text-[#0a7a3b] font-black text-4xl opacity-30 absolute -top-4 whitespace-nowrap">1970 - 1987</div>
+                        <div class="md:hidden bg-[#044b25] p-6 rounded-2xl shadow-lg border-l-[6px] border-l-[#fecb00] mt-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-[#0a7a3b] rounded-full blur-2xl opacity-60 -mr-8 -mt-8 pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-xl font-bold text-[#fecb00] mb-2">Sentralisasi Pertama</h3>
+                                <p class="text-white/90 text-sm leading-relaxed">Perpustakaan Pusat resmi didirikan untuk mengoordinasi perpustakaan fakultas.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,13 +204,16 @@
                 <!-- Event 1987 -->
                 <div class="relative flex md:justify-between items-center w-full mb-16 group">
                     <div class="hidden md:block w-5/12 text-right pr-12" data-aos="fade-right" data-aos-offset="150">
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 group-hover:shadow-xl transition-all duration-500 group-hover:border-[#0a7a3b]/30">
-                            <h3 class="text-xl font-bold text-slate-800 mb-2">Gedung Baru</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Seluruh perpustakaan di lingkungan USU digabungkan dan dipusatkan secara fisik ke dalam satu gedung baru seluas 6.090 m² di kampus Padang Bulan.</p>
-                            
-                            <!-- Extra Info on Hover -->
-                            <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-slate-100">
-                                <p class="text-slate-500 text-xs leading-relaxed italic">Peresmian gedung ini menjadi tonggak sejarah, menjadikannya salah satu perpustakaan perguruan tinggi terbesar di Indonesia pada masanya dengan arsitektur yang ikonik.</p>
+                        <div class="bg-[#044b25] p-6 rounded-2xl shadow-lg border-l-[6px] border-l-[#fecb00] group-hover:shadow-[0_20px_40px_rgba(4,75,37,0.3)] transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-[#0a7a3b] rounded-full blur-2xl opacity-60 -mr-10 -mt-10 pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-xl font-bold text-[#fecb00] mb-2">Gedung Baru</h3>
+                                <p class="text-white/90 text-sm leading-relaxed">Seluruh perpustakaan di lingkungan USU digabungkan dan dipusatkan secara fisik ke dalam satu gedung baru seluas 6.090 m² di kampus Padang Bulan.</p>
+                                
+                                <!-- Extra Info on Hover -->
+                                <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-white/20">
+                                    <p class="text-green-100/70 text-xs leading-relaxed italic">Peresmian gedung ini menjadi tonggak sejarah, menjadikannya salah satu perpustakaan perguruan tinggi terbesar di Indonesia pada masanya dengan arsitektur yang ikonik.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -208,10 +223,13 @@
                     </div>
                     
                     <div class="w-full md:w-5/12 pl-16 md:pl-12" data-aos="fade-left" data-aos-offset="150">
-                        <div class="text-[#0a7a3b] font-black text-4xl md:text-5xl opacity-30 absolute -top-4 md:static">1987</div>
-                        <div class="md:hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mt-2">
-                            <h3 class="text-xl font-bold text-slate-800 mb-2">Gedung Baru</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Seluruh perpustakaan digabungkan ke dalam satu gedung baru seluas 6.090 m² di kampus Padang Bulan.</p>
+                        <div class="text-[#0a7a3b] font-black text-4xl md:text-5xl opacity-30 absolute -top-4 md:static whitespace-nowrap">1987 - 2006</div>
+                        <div class="md:hidden bg-[#044b25] p-6 rounded-2xl shadow-lg border-l-[6px] border-l-[#fecb00] mt-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-[#0a7a3b] rounded-full blur-2xl opacity-60 -mr-8 -mt-8 pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-xl font-bold text-[#fecb00] mb-2">Gedung Baru</h3>
+                                <p class="text-white/90 text-sm leading-relaxed">Seluruh perpustakaan digabungkan ke dalam satu gedung baru seluas 6.090 m² di kampus Padang Bulan.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -219,13 +237,16 @@
                 <!-- Event 2006+ -->
                 <div class="relative flex md:justify-between items-center w-full flex-row-reverse group">
                     <div class="hidden md:block w-5/12 text-left pl-12" data-aos="fade-left" data-aos-offset="150">
-                        <div class="bg-gradient-to-br from-[#0a7a3b] to-[#044b25] text-white p-6 rounded-2xl shadow-xl border border-transparent hover:border-[#fecb00] transition-all duration-500">
-                            <h3 class="text-xl font-bold mb-2">Era PTN-BH & Digitalisasi</h3>
-                            <p class="text-white/80 text-sm leading-relaxed">Sistem perpustakaan cabang mulai dikembangkan untuk mendekatkan layanan ke berbagai fakultas. Kini beroperasi sebagai entitas mandiri yang modern di bawah status USU sebagai PTN-BH dengan layanan digital mutakhir.</p>
-                            
-                            <!-- Extra Info on Hover -->
-                            <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-white/20">
-                                <p class="text-[#fecb00] text-xs leading-relaxed italic">Inovasi mencakup integrasi E-Journal, otomatisasi sirkulasi mandiri, serta ruang baca interaktif bergaya co-working space demi memenuhi kebutuhan mahasiswa generasi digital.</p>
+                        <div class="bg-[#044b25] p-6 rounded-2xl shadow-lg border-l-[6px] border-l-[#fecb00] group-hover:shadow-[0_20px_40px_rgba(4,75,37,0.3)] transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-[#0a7a3b] rounded-full blur-2xl opacity-60 -mr-10 -mt-10 pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-xl font-bold text-[#fecb00] mb-2">Era PTN-BH & Digitalisasi</h3>
+                                <p class="text-white/90 text-sm leading-relaxed">Sistem perpustakaan cabang mulai dikembangkan untuk mendekatkan layanan ke berbagai fakultas. Kini beroperasi sebagai entitas mandiri yang modern di bawah status USU sebagai PTN-BH dengan layanan digital mutakhir.</p>
+                                
+                                <!-- Extra Info on Hover -->
+                                <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-white/20">
+                                    <p class="text-green-100/70 text-xs leading-relaxed italic">Inovasi mencakup integrasi E-Journal, otomatisasi sirkulasi mandiri, serta ruang baca interaktif bergaya co-working space demi memenuhi kebutuhan mahasiswa generasi digital.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -237,11 +258,14 @@
                     </div>
                     
                     <div class="w-full md:w-5/12 pl-16 md:pr-12 md:pl-0 md:text-right" data-aos="fade-right" data-aos-offset="150">
-                        <div class="text-[#fecb00] font-black text-4xl md:text-5xl opacity-70 absolute -top-4 md:static md:block hidden drop-shadow-sm">Sekarang</div>
-                        <div class="md:hidden text-[#fecb00] font-black text-3xl opacity-90 absolute -top-3">Sekarang</div>
-                        <div class="md:hidden bg-gradient-to-br from-[#0a7a3b] to-[#044b25] text-white p-6 rounded-2xl shadow-xl mt-3">
-                            <h3 class="text-xl font-bold mb-2">Era Modern & Cabang</h3>
-                            <p class="text-white/80 text-sm leading-relaxed">Sistem perpustakaan cabang dikembangkan, beroperasi mandiri mendukung USU sebagai PTN-BH dengan layanan digital terintegrasi.</p>
+                        <div class="text-[#fecb00] font-black text-4xl md:text-5xl opacity-70 absolute -top-4 md:static md:block hidden drop-shadow-sm whitespace-nowrap">2006 - Sekarang</div>
+                        <div class="md:hidden text-[#fecb00] font-black text-3xl opacity-90 absolute -top-3 whitespace-nowrap">2006 - Sekarang</div>
+                        <div class="md:hidden bg-[#044b25] p-6 rounded-2xl shadow-lg border-l-[6px] border-l-[#fecb00] mt-3 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-[#0a7a3b] rounded-full blur-2xl opacity-60 -mr-8 -mt-8 pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-xl font-bold text-[#fecb00] mb-2">Era Modern & Cabang</h3>
+                                <p class="text-white/90 text-sm leading-relaxed">Sistem perpustakaan cabang dikembangkan, beroperasi mandiri mendukung USU sebagai PTN-BH dengan layanan digital terintegrasi.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -265,9 +289,9 @@
                 
                 <!-- Large Highlight Card -->
                 <div class="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden relative group" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ruang Literasi" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <img src="{{ asset('kolam_perpustakaan.jpg') }}" alt="Ruang Literasi" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 w-full p-8">
+                    <div class="absolute bottom-0 left-0 w-full p-8 transition-transform duration-500 group-hover:-translate-y-3">
                         <span class="bg-[#0a7a3b] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">Indoor</span>
                         <h3 class="text-3xl font-bold text-white mb-2">Ruang Literasi Informasi</h3>
                         <p class="text-white/80 text-sm">Fasilitas komputer lengkap untuk pelatihan literasi, penelusuran jurnal, dan bimbingan OPAC bagi mahasiswa.</p>
@@ -275,8 +299,8 @@
                 </div>
 
                 <!-- OPAC -->
-                <div class="md:col-span-1 md:row-span-1 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-3xl p-6 bento-hover flex flex-col justify-between shadow-lg shadow-blue-500/20" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-12 h-12 bg-white/20 text-white rounded-full flex items-center justify-center mb-4">
+                <div class="md:col-span-1 md:row-span-1 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-3xl p-6 bento-hover group flex flex-col justify-between shadow-lg shadow-blue-500/20" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 bg-white/20 text-white rounded-full flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-125 group-hover:rotate-12">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
                     <div>
@@ -286,9 +310,9 @@
                 </div>
 
                 <!-- Ruang Rapat -->
-                <div class="md:col-span-1 md:row-span-1 bg-[#0a7a3b] text-white rounded-3xl p-6 bento-hover shadow-lg shadow-[#0a7a3b]/20 flex flex-col justify-between relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
-                    <svg class="absolute -right-4 -bottom-4 w-24 h-24 text-white/10" fill="currentColor" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m24 0v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75M16 3.13a4 4 0 010 7.75M9 13a4 4 0 100-8 4 4 0 000 8z"></path></svg>
-                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-4">
+                <div class="md:col-span-1 md:row-span-1 bg-[#0a7a3b] text-white rounded-3xl p-6 bento-hover group shadow-lg shadow-[#0a7a3b]/20 flex flex-col justify-between relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <svg class="absolute -right-4 -bottom-4 w-24 h-24 text-white/10 transition-transform duration-700 group-hover:scale-150 group-hover:-rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m24 0v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75M16 3.13a4 4 0 010 7.75M9 13a4 4 0 100-8 4 4 0 000 8z"></path></svg>
+                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-125 group-hover:rotate-12">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     </div>
                     <div class="relative z-10">
@@ -298,9 +322,9 @@
                 </div>
 
                 <!-- Outdoor Area -->
-                <div class="md:col-span-2 md:row-span-1 bg-slate-900 rounded-3xl overflow-hidden relative group" data-aos="fade-up" data-aos-delay="400">
-                    <img src="https://images.unsplash.com/photo-1588514109315-184511ef5b84?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Taman" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-40">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                <div class="md:col-span-2 md:row-span-1 bg-slate-900 hover:bg-slate-800 transition-colors duration-500 rounded-3xl overflow-hidden relative group bento-hover" data-aos="fade-up" data-aos-delay="400">
+
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end transition-transform duration-500 group-hover:-translate-y-2">
                         <span class="bg-[#fecb00] text-[#044b25] text-[10px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mb-2 self-start">Outdoor</span>
                         <h3 class="font-bold text-white text-xl">Taman Baca & Jogging Track</h3>
                         <p class="text-slate-300 text-sm mt-1">Ruang terbuka hijau, kolam, dan area santai.</p>
@@ -308,18 +332,18 @@
                 </div>
 
                 <!-- Loker & Musholla -->
-                <div class="md:col-span-1 md:row-span-1 bg-slate-50 border border-slate-100 rounded-3xl p-6 bento-hover flex flex-col justify-center items-center text-center" data-aos="fade-up" data-aos-delay="500">
-                    <div class="flex gap-2 mb-3">
-                        <div class="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-slate-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
-                        <div class="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-slate-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                <div class="md:col-span-1 md:row-span-1 bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white rounded-3xl p-6 bento-hover group flex flex-col justify-center items-center text-center shadow-lg shadow-fuchsia-500/20" data-aos="fade-up" data-aos-delay="500">
+                    <div class="flex gap-2 mb-3 transition-transform duration-500 group-hover:scale-125 group-hover:-translate-y-2">
+                        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
+                        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
                     </div>
-                    <h3 class="font-bold text-slate-800">Fasilitas Umum</h3>
-                    <p class="text-slate-500 text-xs mt-1">Loker penitipan, Free Charging & Musholla Iqra.</p>
+                    <h3 class="font-bold text-white">Fasilitas Umum</h3>
+                    <p class="text-white/80 text-xs mt-1">Loker penitipan, Free Charging & Musholla Iqra.</p>
                 </div>
 
                 <!-- Digital -->
-                <div class="md:col-span-1 md:row-span-1 bg-gradient-to-br from-[#fecb00] to-yellow-500 rounded-3xl p-6 bento-hover shadow-lg shadow-yellow-500/20 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="600">
-                    <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mb-4 text-[#044b25]">
+                <div class="md:col-span-1 md:row-span-1 bg-gradient-to-br from-[#fecb00] to-yellow-500 rounded-3xl p-6 bento-hover group shadow-lg shadow-yellow-500/20 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mb-4 text-[#044b25] transition-transform duration-500 group-hover:scale-125 group-hover:-rotate-12">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
                     <div>
@@ -333,7 +357,7 @@
     </section>
 
     <!-- Koleksi Section -->
-    <section class="py-24 bg-[#044b25] text-white overflow-hidden">
+    <section class="py-24 bg-[#0a7a3b] text-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row gap-12 items-center">
                 
