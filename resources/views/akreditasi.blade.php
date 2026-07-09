@@ -70,26 +70,26 @@
         <div class="space-y-6">
             <!-- LEVEL 1: Komponen -->
             @foreach ($komponens as $komponen)
-            <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ $loop->index * 100 }}" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-500 glow-hover"
+            <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ $loop->index * 100 }}" class="bg-white rounded-2xl shadow-sm border border-slate-200 border-l-[6px] border-l-[#0a7a3b] overflow-hidden transition-all duration-500 glow-hover"
                  :class="openLevel1 === {{ $komponen->id }} ? 'ring-2 ring-[#0a7a3b] shadow-xl' : ''">
                  
                 <button @click="openLevel1 = openLevel1 === {{ $komponen->id }} ? null : {{ $komponen->id }}" 
                         class="w-full flex items-center justify-between p-6 bg-white focus:outline-none group">
                     <div class="flex items-center gap-5 text-left">
                         <div class="w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl shrink-0 transition-all duration-300"
-                             :class="openLevel1 === {{ $komponen->id }} ? 'bg-[#0a7a3b] text-white shadow-lg shadow-[#0a7a3b]/40 scale-110' : 'bg-slate-100 text-slate-500 group-hover:bg-[#fecb00] group-hover:text-[#044b25]'">
+                             :class="openLevel1 === {{ $komponen->id }} ? 'bg-[#0a7a3b] text-[#fecb00] shadow-lg shadow-[#0a7a3b]/40 scale-110' : 'bg-[#e6f4ea] text-[#0a7a3b] group-hover:bg-[#0a7a3b] group-hover:text-[#fecb00]'">
                             {{ $komponen->nomor }}
                         </div>
                         <div>
                             <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Komponen</span>
                             <h2 class="font-bold text-xl md:text-2xl transition-colors"
-                                :class="openLevel1 === {{ $komponen->id }} ? 'text-[#0a7a3b]' : 'text-slate-800 group-hover:text-black'">
+                                :class="openLevel1 === {{ $komponen->id }} ? 'text-[#0a7a3b]' : 'text-slate-800 group-hover:text-[#0a7a3b]'">
                                 {{ $komponen->nama_komponen }}
                             </h2>
                         </div>
                     </div>
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-slate-50 transition-colors group-hover:bg-slate-100 shrink-0 border border-slate-100">
-                        <svg class="w-6 h-6 text-slate-400 transform transition-transform duration-500" :class="openLevel1 === {{ $komponen->id }} ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-[#e6f4ea] transition-colors group-hover:bg-green-200 shrink-0 border border-green-50">
+                        <svg class="w-6 h-6 text-[#0a7a3b] transform transition-transform duration-500" :class="openLevel1 === {{ $komponen->id }} ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                 </button>
 
