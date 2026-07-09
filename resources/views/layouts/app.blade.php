@@ -81,9 +81,8 @@
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left transition-transform duration-300 {{ request()->is('akreditasi') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
                     </a>
                     
-                    <div class="w-px h-6 bg-slate-300"></div>
-                    
                     @auth
+                        <div class="w-px h-6 bg-slate-300"></div>
                         <a href="{{ route('admin.dashboard') }}" class="bg-[#0a7a3b] hover:bg-[#044b25] text-white px-5 py-2 rounded-full font-bold transition-colors text-sm shadow-md shadow-[#0a7a3b]/20 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                             Dashboard Admin
@@ -95,10 +94,6 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                             </button>
                         </form>
-                    @else
-                        <a href="{{ route('login') }}" class="group relative inline-flex items-center justify-center px-6 py-2.5 font-bold text-white transition-all duration-200 bg-[#0a7a3b] rounded-full hover:bg-[#044b25] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0a7a3b] shadow-[0_4px_14px_0_rgba(10,122,59,0.39)] hover:shadow-[0_6px_20px_rgba(10,122,59,0.23)] hover:-translate-y-0.5">
-                            Login Admin
-                        </a>
                     @endauth
                 </nav>
 
@@ -117,20 +112,18 @@
                 <a href="/profil" class="block px-4 py-3 rounded-xl {{ request()->is('profil') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Profil</a>
 
                 <a href="/akreditasi" class="block px-4 py-3 rounded-xl {{ request()->is('akreditasi') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Akreditasi</a>
-                <div class="border-t border-slate-100 my-2 pt-2">
                     @auth
-                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-3 rounded-xl bg-[#0a7a3b]/10 text-[#0a7a3b] font-bold mb-2 flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                            Dashboard Admin
-                        </a>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="w-full text-left block px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 font-bold">Logout</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="block px-4 py-3 rounded-xl text-[#0a7a3b] font-bold hover:bg-green-50">Login Admin</a>
+                        <div class="border-t border-slate-100 my-2 pt-2">
+                            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-3 rounded-xl bg-[#0a7a3b]/10 text-[#0a7a3b] font-bold mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                                Dashboard Admin
+                            </a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="w-full text-left block px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 font-bold">Logout</button>
+                            </form>
+                        </div>
                     @endauth
-                </div>
             </div>
         </div>
     </header>
@@ -208,6 +201,11 @@
                 <div class="mt-4 md:mt-0 space-x-4">
                     <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
                     <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    @auth
+                        <a href="{{ route('admin.dashboard') }}" class="hover:text-white transition-colors">Dashboard Admin</a>
+                    @else
+                        <a href="{{ route('login') }}" class="hover:text-white transition-colors">Login Admin</a>
+                    @endauth
                 </div>
             </div>
         </div>
