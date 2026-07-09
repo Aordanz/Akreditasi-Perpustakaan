@@ -38,11 +38,13 @@
         </div>
         
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span class="inline-block py-1.5 px-4 rounded-full bg-white/10 border border-white/20 text-[#fecb00] text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md">Direktori Dokumen</span>
-            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-md">
+            <div data-aos="fade-down" data-aos-duration="1000">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-white/10 border border-white/20 text-[#fecb00] text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">Direktori Dokumen</span>
+            </div>
+            <h1 data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200" class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-xl">
                 Instrumen Akreditasi
             </h1>
-            <p class="text-slate-300 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400" class="text-slate-300 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
                 Jelajahi struktur hierarki standar akreditasi dan akses seluruh dokumen bukti yang mensyaratkan pencapaian Perpustakaan USU.
             </p>
         </div>
@@ -68,7 +70,7 @@
         <div class="space-y-6">
             <!-- LEVEL 1: Komponen -->
             @foreach ($komponens as $komponen)
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-500 glow-hover"
+            <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ $loop->index * 100 }}" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-500 glow-hover"
                  :class="openLevel1 === {{ $komponen->id }} ? 'ring-2 ring-[#0a7a3b] shadow-xl' : ''">
                  
                 <button @click="openLevel1 = openLevel1 === {{ $komponen->id }} ? null : {{ $komponen->id }}" 

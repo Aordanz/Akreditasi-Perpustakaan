@@ -74,10 +74,7 @@
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left transition-transform duration-300 {{ request()->is('profil') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
                     </a>
                     
-                    <a href="#" class="group relative py-2">
-                        <span class="text-slate-600 group-hover:text-[#0a7a3b] transition-colors duration-300">Layanan</span>
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                    </a>
+
 
                     <a href="/akreditasi" class="group relative py-2">
                         <span class="{{ request()->is('akreditasi') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">Akreditasi</span>
@@ -118,7 +115,7 @@
             <div class="px-4 pt-2 pb-6 space-y-1">
                 <a href="/" class="block px-4 py-3 rounded-xl {{ request()->is('/') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Beranda</a>
                 <a href="/profil" class="block px-4 py-3 rounded-xl {{ request()->is('profil') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Profil</a>
-                <a href="#" class="block px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50">Layanan</a>
+
                 <a href="/akreditasi" class="block px-4 py-3 rounded-xl {{ request()->is('akreditasi') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Akreditasi</a>
                 <div class="border-t border-slate-100 my-2 pt-2">
                     @auth

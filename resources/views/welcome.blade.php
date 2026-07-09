@@ -51,8 +51,8 @@
         <div class="max-w-7xl mx-auto relative z-10 flex flex-col-reverse lg:flex-row items-center gap-16">
             
             <!-- Text Content -->
-            <div class="flex-1 space-y-8" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
-                <div x-show="show" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 -translate-x-10" x-transition:enter-end="opacity-100 translate-x-0">
+            <div class="flex-1 space-y-8">
+                <div data-aos="fade-right" data-aos-duration="1000">
                     <span class="inline-block py-1 px-3 rounded-full bg-[#fecb00] text-[#044b25] text-sm font-bold tracking-wider uppercase mb-4 shadow-lg shadow-[#fecb00]/20">Standar Nasional</span>
                     <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight mb-4 drop-shadow-xl">
                         Akreditasi Unggul <br>
@@ -63,7 +63,7 @@
                     </p>
                 </div>
                 
-                <div class="flex flex-wrap gap-4" x-show="show" x-transition:enter="transition ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0">
+                <div class="flex flex-wrap gap-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                     <a href="/akreditasi" class="bg-[#fecb00] text-[#044b25] px-8 py-3.5 rounded-full font-extrabold hover:bg-white hover:text-[#0a7a3b] transition duration-300 shadow-[0_0_20px_rgba(254,203,0,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] transform hover:-translate-y-1 flex items-center gap-2">
                         Lihat Instrumen
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -76,8 +76,8 @@
             </div>
             
             <!-- Hero Illustration/Element -->
-            <div class="flex-1 relative w-full max-w-lg mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)">
-                <div x-show="show" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 scale-90 translate-x-10" x-transition:enter-end="opacity-100 scale-100 translate-x-0" class="relative">
+            <div class="flex-1 relative w-full max-w-lg mx-auto">
+                <div data-aos="fade-left" data-aos-duration="1000" data-aos-delay="400" class="relative">
                     
                     <!-- Decorative glowing orb -->
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#fecb00] rounded-full mix-blend-screen filter blur-[80px] opacity-40"></div>
@@ -126,7 +126,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-slate-100 flex flex-wrap justify-between gap-8 md:gap-4 items-center">
                 
-                <div class="text-center w-full md:w-auto flex-1">
+                <div class="text-center w-full md:w-auto flex-1" data-aos="fade-up" data-aos-delay="0">
                     <div class="text-4xl md:text-5xl font-black text-[#0a7a3b] mb-2 flex justify-center items-baseline" x-data="{ count: 0 }" x-intersect.once="let interval = setInterval(() => { if(count < 9) count++; else clearInterval(interval); }, 150)">
                         <span x-text="count">0</span><span class="text-2xl">+</span>
                     </div>
@@ -135,7 +135,7 @@
                 
                 <div class="hidden md:block w-px h-16 bg-slate-200"></div>
                 
-                <div class="text-center w-full md:w-auto flex-1">
+                <div class="text-center w-full md:w-auto flex-1" data-aos="fade-up" data-aos-delay="100">
                     <div class="text-4xl md:text-5xl font-black text-[#0a7a3b] mb-2 flex justify-center items-baseline" x-data="{ count: 0 }" x-intersect.once="let interval = setInterval(() => { if(count < 42) count += 2; else clearInterval(interval); }, 50)">
                         <span x-text="count">0</span><span class="text-2xl">K</span>
                     </div>
@@ -144,7 +144,7 @@
                 
                 <div class="hidden md:block w-px h-16 bg-slate-200"></div>
 
-                <div class="text-center w-full md:w-auto flex-1">
+                <div class="text-center w-full md:w-auto flex-1" data-aos="fade-up" data-aos-delay="200">
                     <div class="text-4xl md:text-5xl font-black text-[#0a7a3b] mb-2 flex justify-center items-baseline" x-data="{ count: 0 }" x-intersect.once="let interval = setInterval(() => { if(count < 6) count++; else clearInterval(interval); }, 200)">
                         <span x-text="count">0</span>
                     </div>
@@ -153,7 +153,7 @@
                 
                 <div class="hidden md:block w-px h-16 bg-slate-200"></div>
                 
-                <div class="text-center w-full md:w-auto flex-1">
+                <div class="text-center w-full md:w-auto flex-1" data-aos="fade-up" data-aos-delay="300">
                     <div class="text-4xl md:text-5xl font-black text-[#0a7a3b] mb-2 flex justify-center items-baseline" x-data="{ count: 0 }" x-intersect.once="let interval = setInterval(() => { if(count < 100) count += 5; else clearInterval(interval); }, 50)">
                         <span x-text="count">0</span><span class="text-2xl">%</span>
                     </div>
@@ -176,14 +176,20 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Large Featured Box -->
-                <div class="md:col-span-2 bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group overflow-hidden relative">
+                <div data-aos="fade-up" data-aos-duration="1000" class="md:col-span-2 bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-100 group overflow-hidden relative">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-green-50 rounded-full filter blur-3xl -mr-20 -mt-20 opacity-50 group-hover:opacity-100 transition duration-500"></div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 bg-[#0a7a3b] text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-[#0a7a3b]/30 group-hover:scale-110 group-hover:rotate-6 transition duration-300">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-[#0a7a3b] transition-colors">Kebijakan & Manajemen Mutu</h3>
-                        <p class="text-slate-600 leading-relaxed mb-6">Sertifikasi <strong>ISO 9001:2015</strong> membuktikan implementasi Sistem Manajemen Mutu secara tertulis, terstruktur, dan dievaluasi rutin. Kejelasan struktur PTN-BH mengakomodasi transisi tata kelola layanan.</p>
+                        <p class="text-slate-600 leading-relaxed mb-4">Sertifikasi <strong>ISO 9001:2015</strong> membuktikan implementasi Sistem Manajemen Mutu secara tertulis, terstruktur, dan dievaluasi rutin.</p>
+                        
+                        <!-- Extra Info on Hover -->
+                        <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mb-6">
+                            <p class="text-slate-500 text-sm leading-relaxed italic">Kejelasan struktur tata kelola ini memastikan setiap layanan (Mulai dari sirkulasi hingga digitalisasi) memenuhi standar baku yang disyaratkan oleh Perpustakaan Nasional RI dan audit PTN-BH.</p>
+                        </div>
+
                         <a href="/akreditasi" class="inline-flex items-center text-[#0a7a3b] font-bold hover:gap-2 transition-all">
                             Lihat Dokumen Bukti <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </a>
@@ -191,7 +197,7 @@
                 </div>
 
                 <!-- Small Box 1 -->
-                <div class="bg-gradient-to-br from-[#0a7a3b] to-[#044b25] rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-white group relative overflow-hidden">
+                <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" class="bg-gradient-to-br from-[#0a7a3b] to-[#044b25] rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 text-white group relative overflow-hidden">
                     <!-- Decor -->
                     <svg class="absolute bottom-0 right-0 text-white/10 w-40 h-40 transform translate-x-10 translate-y-10 group-hover:scale-110 transition duration-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     
@@ -199,29 +205,44 @@
                         <h3 class="text-4xl font-black text-[#fecb00] mb-2 text-shadow">Skor 4</h3>
                         <p class="font-bold text-lg mb-2">Nilai Maksimal</p>
                         <p class="text-white/80 text-sm">Diraih pada seluruh sub-komponen Administrasi, menunjukkan standar tertinggi tata kelola.</p>
+                        
+                        <!-- Extra Info on Hover -->
+                        <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-white/20">
+                            <p class="text-[#fecb00] text-xs leading-relaxed italic">Skor ini adalah bukti pengakuan resmi Asesor atas komitmen institusi dalam merawat aset bernilai sejarah dan fungsi intelektual.</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Small Box 2 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group">
+                <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-100 group">
                     <div class="w-12 h-12 bg-[#fecb00] text-[#044b25] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                     </div>
                     <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-[#0a7a3b] transition-colors">Evaluasi Rutin</h3>
-                    <p class="text-slate-500 text-sm">Monitoring berkala untuk fasilitas dan layanan sesuai Rencana Strategis.</p>
+                    <p class="text-slate-500 text-sm">Monitoring berkala fasilitas dan layanan sesuai Rencana Strategis.</p>
+                    
+                    <!-- Extra Info on Hover -->
+                    <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-slate-100">
+                        <p class="text-slate-500 text-xs leading-relaxed italic">Laporan triwulanan diterbitkan secara publik sebagai wujud transparansi dan peningkatan kualitas berkesinambungan.</p>
+                    </div>
                 </div>
 
                 <!-- Small Box 3 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group">
+                <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-100 group">
                     <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Dukungan Anggaran</h3>
                     <p class="text-slate-500 text-sm">Alokasi lebih dari 5% operasional mendukung layanan 42 jam/minggu.</p>
+                    
+                    <!-- Extra Info on Hover -->
+                    <div class="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden group-hover:mt-3 group-hover:pt-3 border-t border-transparent group-hover:border-slate-100">
+                        <p class="text-slate-500 text-xs leading-relaxed italic">Anggaran mandiri memberikan fleksibilitas ekstra untuk pengadaan ribuan eksemplar buku mutakhir setiap tahunnya.</p>
+                    </div>
                 </div>
 
                 <!-- Call to action block -->
-                <div class="bg-slate-900 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-between group overflow-hidden relative">
+                <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400" class="bg-slate-900 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-between group overflow-hidden relative">
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                     <div class="relative z-10">
                         <h3 class="font-bold text-xl text-white mb-1">Eksplorasi Lengkap</h3>
