@@ -275,13 +275,13 @@
                 </div>
 
                 <!-- OPAC -->
-                <div class="md:col-span-1 md:row-span-1 bg-slate-50 border border-slate-100 rounded-3xl p-6 bento-hover flex flex-col justify-between" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                <div class="md:col-span-1 md:row-span-1 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-3xl p-6 bento-hover flex flex-col justify-between shadow-lg shadow-blue-500/20" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 bg-white/20 text-white rounded-full flex items-center justify-center mb-4">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-800 text-lg">Katalog OPAC</h3>
-                        <p class="text-slate-500 text-xs mt-1">Terminal pencarian buku digital terpusat.</p>
+                        <h3 class="font-bold text-white text-lg">Katalog OPAC</h3>
+                        <p class="text-white/80 text-xs mt-1">Terminal pencarian buku digital terpusat.</p>
                     </div>
                 </div>
 
