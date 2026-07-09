@@ -15,6 +15,12 @@ class AkreditasiController extends Controller
         return view('akreditasi', compact('komponens'));
     }
 
+    public function adminDashboard()
+    {
+        $komponens = Komponen::with(['subKomponens.dokumenBuktis'])->get();
+        return view('admin.dashboard', compact('komponens'));
+    }
+
     public function upload(Request $request, $subKomponenId)
     {
         $request->validate([

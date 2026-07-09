@@ -1,349 +1,239 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akreditasi Perpustakaan USU</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Alpine.js for Interactivity -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-        }
-        .bg-pattern {
-            background-image: radial-gradient(circle at 10% 20%, rgba(141, 198, 63, 0.1) 0%, transparent 40%),
-                              radial-gradient(circle at 90% 80%, rgba(254, 203, 0, 0.05) 0%, transparent 40%);
-        }
-        .hero-pattern {
-            background: linear-gradient(135deg, var(--color-usu-dark) 0%, var(--color-usu-green) 50%, #1e8749 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-pattern::before {
-            content: "";
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(141, 198, 63, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 80%, rgba(254, 203, 0, 0.1) 0%, transparent 30%);
-            z-index: 0;
-            pointer-events: none;
-            animation: pulse-bg 10s infinite alternate;
-        }
-        @keyframes pulse-bg {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.1); opacity: 1; }
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Modal Animation */
-        .modal-enter { opacity: 0; transform: scale(0.9); }
-        .modal-enter-active { opacity: 1; transform: scale(1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .modal-leave { opacity: 1; transform: scale(1); }
-        .modal-leave-active { opacity: 0; transform: scale(0.9); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-    </style>
-</head>
-<body class="text-slate-800 antialiased bg-pattern" x-data="{ 
-    showModal: false, 
-    modalContent: { title: '', score: '', desc: '', detail: '' },
-    openModal(title, score, desc, detail) {
-        this.modalContent = { title, score, desc, detail };
-        this.showModal = true;
-        document.body.style.overflow = 'hidden';
-    },
-    closeModal() {
-        this.showModal = false;
-        setTimeout(() => document.body.style.overflow = 'auto', 300);
+@extends('layouts.app')
+@section('title', 'Akreditasi Perpustakaan USU')
+
+@push('styles')
+<style>
+    .hero-bg {
+        background: linear-gradient(135deg, #044b25 0%, #0a7a3b 50%, #1e8749 100%);
+        position: relative;
+        overflow: hidden;
     }
-}">
+    .hero-bg::before {
+        content: "";
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: radial-gradient(circle at 50% 50%, rgba(141,198,63,0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(254,203,0,0.1) 0%, transparent 40%);
+        z-index: 0;
+        animation: pulse-slow 15s infinite alternate;
+    }
+    @keyframes pulse-slow {
+        0% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+        100% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .float-anim {
+        animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    /* Counter animation style */
+    .counter-value {
+        font-variant-numeric: tabular-nums;
+    }
+</style>
+@endpush
 
-    <!-- Topbar -->
-    <div class="bg-usu-dark text-white py-1 px-4 text-xs flex justify-end gap-4 font-semibold">
-        <a href="#" class="hover:text-usu-light hover:underline transition">USU Official</a>
-        <a href="#" class="hover:text-usu-light hover:underline transition">MBKM</a>
-        <a href="#" class="hover:text-usu-light hover:underline transition">DIGILIB</a>
-        <a href="#" class="hover:text-usu-light hover:underline transition">Repositori USU</a>
-        <a href="#" class="hover:text-usu-light hover:underline transition">Resource Guide</a>
-        <span class="border-l border-white/30 pl-4 flex items-center gap-1 cursor-pointer hover:text-usu-yellow transition">
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
-            IN ENGLISH
-        </span>
-    </div>
-
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50 transition-all duration-300 border-b-[6px] border-[#0a7a3b]" x-data="{ scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)" :class="{ 'py-2 shadow-md': scrolled, 'py-4': !scrolled }">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center transition-all duration-300">
-            <div class="flex items-center gap-4 cursor-pointer group">
-                <!-- Logo USU -->
-                <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-16 h-16 object-contain group-hover:scale-105 transition duration-300">
-                <span class="font-bold text-xl md:text-2xl text-black tracking-tight">Perpustakaan Universitas Sumatera Utara</span>
-            </div>
-            <nav class="hidden md:flex gap-6 font-semibold text-sm text-usu-green">
-                <a href="/" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1">Beranda</a>
-                <a href="#" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1">Profil</a>
-                <a href="#" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1">Layanan</a>
-                <a href="/akreditasi" class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-usu-light hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out py-1 text-usu-dark font-bold">Akreditasi</a>
-            </nav>
-        </div>
-    </header>
+@section('content')
 
     <!-- Hero Section -->
-    <section class="hero-pattern text-white py-20 px-4" x-data="{ load: false }" x-init="setTimeout(() => load = true, 100)">
-        <div class="max-w-7xl mx-auto hero-content">
-            <div x-show="load" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 -translate-y-10" x-transition:enter-end="opacity-100 translate-y-0">
-                <h2 class="text-3xl md:text-5xl font-extrabold italic mb-2 font-serif text-usu-light">Bukti Akreditasi</h2>
-                <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 drop-shadow-lg uppercase">Perpustakaan USU</h1>
-            </div>
+    <section class="hero-bg text-white pt-24 pb-32 px-4 relative">
+        <div class="max-w-7xl mx-auto relative z-10 flex flex-col-reverse lg:flex-row items-center gap-16">
             
-            <div class="flex flex-col md:flex-row gap-6 mt-8" x-show="load" x-transition:enter="transition ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0">
-                <div class="flex-1 space-y-4">
-                    <div class="flex items-start gap-3 group cursor-pointer hover:bg-white/10 p-2 rounded-xl transition duration-300">
-                        <div class="w-8 h-8 rounded-full bg-usu-yellow flex items-center justify-center text-usu-dark shrink-0 mt-1 group-hover:scale-110 transition duration-300 group-hover:rotate-12">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="font-bold text-lg group-hover:text-usu-yellow transition duration-300">Akreditasi Kategori "A"</p>
-                            <p class="text-white/80 text-sm">Diraih pada tahun 2021 dari Perpustakaan Nasional RI</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 group cursor-pointer hover:bg-white/10 p-2 rounded-xl transition duration-300">
-                        <div class="w-8 h-8 rounded-full bg-usu-yellow flex items-center justify-center text-usu-dark shrink-0 mt-1 group-hover:scale-110 transition duration-300 group-hover:-rotate-12">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        </div>
-                        <div>
-                            <p class="font-bold text-lg group-hover:text-usu-yellow transition duration-300">PTN-BH & ISO 9001:2015</p>
-                            <p class="text-white/80 text-sm">Berstandar mutu internasional & pengelolaan mandiri</p>
-                        </div>
-                    </div>
+            <!-- Text Content -->
+            <div class="flex-1 space-y-8" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
+                <div x-show="show" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 -translate-x-10" x-transition:enter-end="opacity-100 translate-x-0">
+                    <span class="inline-block py-1 px-3 rounded-full bg-[#fecb00] text-[#044b25] text-sm font-bold tracking-wider uppercase mb-4 shadow-lg shadow-[#fecb00]/20">Standar Nasional</span>
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight mb-4 drop-shadow-xl">
+                        Akreditasi Unggul <br>
+                        <span class="text-[#8dc63f]">Perpustakaan USU</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-white/80 max-w-xl leading-relaxed">
+                        Mewujudkan layanan prima dan infrastruktur berstandar nasional menuju universitas bereputasi global.
+                    </p>
                 </div>
                 
-                <!-- Interactive QR Code -->
-                <div class="bg-white p-2 rounded-xl shrink-0 self-start border-4 border-usu-yellow/50 shadow-2xl transform rotate-3 hover:rotate-0 hover:scale-110 cursor-pointer transition-all duration-300" @click="alert('Scan QR untuk masuk ke repositori USU!')">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=Akreditasi+Perpustakaan+USU" alt="QR Code" class="w-28 h-28 opacity-90 mix-blend-multiply">
-                    <div class="text-center text-[0.6rem] text-usu-dark font-bold mt-1">TAP TO SCAN</div>
+                <div class="flex flex-wrap gap-4" x-show="show" x-transition:enter="transition ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0">
+                    <a href="/akreditasi" class="bg-[#fecb00] text-[#044b25] px-8 py-3.5 rounded-full font-extrabold hover:bg-white hover:text-[#0a7a3b] transition duration-300 shadow-[0_0_20px_rgba(254,203,0,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] transform hover:-translate-y-1 flex items-center gap-2">
+                        Lihat Instrumen
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <button class="glass-card text-white px-8 py-3.5 rounded-full font-bold hover:bg-white/10 transition duration-300 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Tonton Video Profil
+                    </button>
                 </div>
+            </div>
+            
+            <!-- Hero Illustration/Element -->
+            <div class="flex-1 relative w-full max-w-lg mx-auto" x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)">
+                <div x-show="show" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 scale-90 translate-x-10" x-transition:enter-end="opacity-100 scale-100 translate-x-0" class="relative">
+                    
+                    <!-- Decorative glowing orb -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#fecb00] rounded-full mix-blend-screen filter blur-[80px] opacity-40"></div>
+                    
+                    <!-- Main Card -->
+                    <div class="glass-card p-6 md:p-8 rounded-3xl shadow-2xl relative z-10 border-t border-l border-white/20 float-anim">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg">Kategori "A"</h3>
+                                    <p class="text-white/70 text-sm">Perpusnas RI</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-400/20 text-green-300 text-xs font-bold px-2 py-1 rounded-lg">Terakreditasi</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-[#fecb00] w-[95%]"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-white/80">
+                                <span>Kesesuaian Standar</span>
+                                <span class="font-bold text-white">95%</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Bottom Curve/Wave -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[50px] md:h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.98,131,201.2,122.9,243.6,118,283.4,103.5,321.39,56.44Z" class="fill-[#f8fafc]"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Animated Counters Section -->
+    <section class="py-12 -mt-10 relative z-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-slate-100 flex flex-wrap justify-between gap-8 md:gap-4 items-center">
+                
+                <div class="text-center w-full md:w-auto flex-1">
+                    <div class="text-4xl md:text-5xl font-black text-[#0a7a3b] mb-2 flex justify-center items-baseline" x-data="{ count: 0 }" x-intersect.once="let interval = setInterval(() => { if(count < 9) count++; else clearInterval(interval); }, 150)">
+                        <span x-text="count">0</span><span class="text-2xl">+</span>
+                    </div>
+                    <p class="text-slate-500 font-semibold">Tahun Pengalaman</p>
+                </div>
+                
+                <div class="hidden md:block w-px h-16 bg-slate-200"></div>
+                
+                <div class="text-center w-full md:w-auto flex-1">
+                    <div class="text-4xl md:text-5xl font-black text-[#0a7a3b] mb-2 flex justify-center items-baseline" x-data="{ count: 0 }" x-intersect.once="let interval = setInterval(() => { if(count < 42) count += 2; else clearInterval(interval); }, 50)">
+                        <span x-text="count">0</span><span class="text-2xl">K</span>
+                    </div>
+                    <p class="text-slate-500 font-semibold">Koleksi Digital & Cetak</p>
+                </div>
+                
+                <div class="hidden md:block w-px h-16 bg-slate-200"></div>
+
+                <div class="text-center w-full md:w-auto flex-1">
+                    <div class="text-4xl md:text-5xl font-black text-[#0a7a3b] mb-2 flex justify-center items-baseline" x-data="{ count: 0 }" x-intersect.once="let interval = setInterval(() => { if(count < 6) count++; else clearInterval(interval); }, 200)">
+                        <span x-text="count">0</span>
+                    </div>
+                    <p class="text-slate-500 font-semibold">Komponen Akreditasi</p>
+                </div>
+                
+                <div class="hidden md:block w-px h-16 bg-slate-200"></div>
+                
+                <div class="text-center w-full md:w-auto flex-1">
+                    <div class="text-4xl md:text-5xl font-black text-[#0a7a3b] mb-2 flex justify-center items-baseline" x-data="{ count: 0 }" x-intersect.once="let interval = setInterval(() => { if(count < 100) count += 5; else clearInterval(interval); }, 50)">
+                        <span x-text="count">0</span><span class="text-2xl">%</span>
+                    </div>
+                    <p class="text-slate-500 font-semibold">Standar Operasional</p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 py-16" x-data="{ activeAccordion: null }">
-        
-        <!-- Highlighted Administrasi Component -->
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 mb-16 transform transition hover:shadow-2xl hover:-translate-y-2 duration-300">
-            <div class="bg-usu-green px-8 py-6 flex justify-between items-center border-b-4 border-usu-light">
-                <div>
-                    <span class="bg-usu-yellow text-usu-dark text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block animate-pulse">Sorotan Utama</span>
-                    <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-                        Komponen 5: Administrasi
-                    </h2>
-                    <p class="text-white/80 mt-1">Penyelenggaraan dan Pengelolaan Perpustakaan</p>
-                </div>
-                <div class="w-20 h-20 bg-white rounded-full flex flex-col items-center justify-center shadow-[0_0_20px_rgba(254,203,0,0.5)] border-4 border-usu-yellow shrink-0 transform hover:scale-110 transition duration-300">
-                    <span class="text-3xl font-black text-usu-green leading-none">4</span>
-                    <span class="text-[0.65rem] text-slate-500 uppercase font-bold mt-1">Skor Maks</span>
-                </div>
-            </div>
+    <!-- Highlighted Feature: Bento Box Style -->
+    <section class="py-20 bg-[#f8fafc]" x-data="{ activeAccordion: null }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="p-8">
-                <p class="text-slate-600 mb-8 max-w-3xl text-lg">Berdasarkan instrumen Perka PNRI No. 10/2018, komponen ini meraih skor maksimal (4). Klik pada tiap kartu di bawah untuk melihat detail buktinya secara spesifik:</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Evidence 1 -->
-                    <div class="group cursor-pointer bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-usu-green hover:bg-green-50 transition-all duration-300 hover:shadow-lg" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-usu-green shrink-0 shadow-sm border border-green-100 group-hover:scale-110 transition duration-300 group-hover:bg-usu-green group-hover:text-white">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="font-bold text-xl text-slate-800 group-hover:text-usu-dark transition duration-300">Kebijakan & Manajemen Mutu</h3>
-                            </div>
-                            <div class="text-usu-green transform transition duration-300" :class="activeAccordion === 1 ? 'rotate-180' : ''">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <span class="text-[#0a7a3b] font-bold tracking-widest uppercase text-sm mb-2 block">Pencapaian Terbaik</span>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-6">Fokus Komponen 5: Administrasi</h2>
+                <p class="text-slate-600 text-lg">Penyelenggaraan dan Pengelolaan Perpustakaan yang mencapai skor maksimal berdasarkan instrumen Perka PNRI No. 10/2018.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Large Featured Box -->
+                <div class="md:col-span-2 bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group overflow-hidden relative">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-green-50 rounded-full filter blur-3xl -mr-20 -mt-20 opacity-50 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 bg-[#0a7a3b] text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-[#0a7a3b]/30 group-hover:scale-110 group-hover:rotate-6 transition duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         </div>
-                        <div x-show="activeAccordion === 1" x-collapse x-transition.duration.300ms class="mt-4 pt-4 border-t border-slate-200">
-                            <p class="text-slate-600 text-sm leading-relaxed">Sertifikasi <strong>ISO 9001:2015</strong> yang diraih pada 2020 membuktikan adanya implementasi Sistem Manajemen Mutu secara tertulis, terstruktur, dan dievaluasi rutin sesuai kriteria (skor 4 mensyaratkan kelengkapan kebijakan tertulis untuk perpustakaan).</p>
-                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-[#0a7a3b] transition-colors">Kebijakan & Manajemen Mutu</h3>
+                        <p class="text-slate-600 leading-relaxed mb-6">Sertifikasi <strong>ISO 9001:2015</strong> membuktikan implementasi Sistem Manajemen Mutu secara tertulis, terstruktur, dan dievaluasi rutin. Kejelasan struktur PTN-BH mengakomodasi transisi tata kelola layanan.</p>
+                        <a href="/akreditasi" class="inline-flex items-center text-[#0a7a3b] font-bold hover:gap-2 transition-all">
+                            Lihat Dokumen Bukti <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
                     </div>
+                </div>
+
+                <!-- Small Box 1 -->
+                <div class="bg-gradient-to-br from-[#0a7a3b] to-[#044b25] rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-white group relative overflow-hidden">
+                    <!-- Decor -->
+                    <svg class="absolute bottom-0 right-0 text-white/10 w-40 h-40 transform translate-x-10 translate-y-10 group-hover:scale-110 transition duration-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     
-                    <!-- Evidence 2 -->
-                    <div class="group cursor-pointer bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-usu-green hover:bg-green-50 transition-all duration-300 hover:shadow-lg" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-usu-green shrink-0 shadow-sm border border-green-100 group-hover:scale-110 transition duration-300 group-hover:bg-usu-green group-hover:text-white">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="font-bold text-xl text-slate-800 group-hover:text-usu-dark transition duration-300">Struktur PTN-BH yang Kuat</h3>
-                            </div>
-                            <div class="text-usu-green transform transition duration-300" :class="activeAccordion === 2 ? 'rotate-180' : ''">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
-                        </div>
-                        <div x-show="activeAccordion === 2" x-collapse x-transition.duration.300ms class="mt-4 pt-4 border-t border-slate-200">
-                            <p class="text-slate-600 text-sm leading-relaxed">Diperkuat dengan SK Rektor, struktur kelembagaan mengakomodasi transisi USU sebagai Perguruan Tinggi Negeri Berbadan Hukum (PTN-BH) dengan membagi tugas jelas ke Bidang Layanan Teknis, TI, hingga Tata Usaha.</p>
-                        </div>
-                    </div>
-
-                    <!-- Evidence 3 -->
-                    <div class="group cursor-pointer bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-usu-green hover:bg-green-50 transition-all duration-300 hover:shadow-lg" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-usu-green shrink-0 shadow-sm border border-green-100 group-hover:scale-110 transition duration-300 group-hover:bg-usu-green group-hover:text-white">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="font-bold text-xl text-slate-800 group-hover:text-usu-dark transition duration-300">Evaluasi Rutin (Monev)</h3>
-                            </div>
-                            <div class="text-usu-green transform transition duration-300" :class="activeAccordion === 3 ? 'rotate-180' : ''">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
-                        </div>
-                        <div x-show="activeAccordion === 3" x-collapse x-transition.duration.300ms class="mt-4 pt-4 border-t border-slate-200">
-                            <p class="text-slate-600 text-sm leading-relaxed">Laporan pelaksanaan kegiatan terstruktur (tahunan, triwulan, bulanan). Adanya monitoring dan evaluasi ketat terhadap fasilitas elektronik, langganan <em>database</em>, dan integrasi dengan fakultas.</p>
-                        </div>
-                    </div>
-
-                    <!-- Evidence 4 -->
-                    <div class="group cursor-pointer bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-usu-green hover:bg-green-50 transition-all duration-300 hover:shadow-lg" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-usu-green shrink-0 shadow-sm border border-green-100 group-hover:scale-110 transition duration-300 group-hover:bg-usu-green group-hover:text-white">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="font-bold text-xl text-slate-800 group-hover:text-usu-dark transition duration-300">Dukungan Anggaran</h3>
-                            </div>
-                            <div class="text-usu-green transform transition duration-300" :class="activeAccordion === 4 ? 'rotate-180' : ''">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
-                        </div>
-                        <div x-show="activeAccordion === 4" x-collapse x-transition.duration.300ms class="mt-4 pt-4 border-t border-slate-200">
-                            <p class="text-slate-600 text-sm leading-relaxed">Pengelolaan alokasi dana mandiri memastikan operasional 42 jam/minggu berjalan lancar. Peningkatan infrastruktur perpustakaan cabang turut membuktikan persentase anggaran yang sangat memadai (lebih dari standar 5%).</p>
-                        </div>
+                    <div class="relative z-10 h-full flex flex-col justify-center">
+                        <h3 class="text-4xl font-black text-[#fecb00] mb-2 text-shadow">Skor 4</h3>
+                        <p class="font-bold text-lg mb-2">Nilai Maksimal</p>
+                        <p class="text-white/80 text-sm">Diraih pada seluruh sub-komponen Administrasi, menunjukkan standar tertinggi tata kelola.</p>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Other Components Overview -->
-        <h3 class="text-2xl font-bold text-slate-800 mb-8 border-l-4 border-usu-light pl-4 flex items-center gap-3">
-            Ringkasan Komponen Lainnya
-            <span class="text-sm font-normal text-slate-500">(Klik kartu untuk detail)</span>
-        </h3>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <div class="group bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 cursor-pointer transition-all duration-300" 
-                 @click="openModal('Koleksi Perpustakaan', '3 / 4', 'Koleksi lengkap dan relevan', 'Skor 3 diraih karena ketersediaan judul buku referensi dan langganan jurnal elektronik (e-journal) yang memadai dan terus bertambah setiap tahunnya, mendukung langsung penelitian mahasiswa dan dosen.')">
-                <div class="flex justify-between items-center mb-4">
-                    <h4 class="font-bold text-slate-700 group-hover:text-usu-green transition duration-300">Koleksi</h4>
-                    <span class="bg-slate-100 text-slate-600 font-bold px-2 py-1 rounded text-sm group-hover:bg-usu-green group-hover:text-white transition duration-300">3 / 4</span>
+                <!-- Small Box 2 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group">
+                    <div class="w-12 h-12 bg-[#fecb00] text-[#044b25] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-[#0a7a3b] transition-colors">Evaluasi Rutin</h3>
+                    <p class="text-slate-500 text-sm">Monitoring berkala untuk fasilitas dan layanan sesuai Rencana Strategis.</p>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 mb-4 overflow-hidden relative">
-                    <div class="bg-usu-light h-2 rounded-full absolute top-0 left-0" style="width: 75%"></div>
-                </div>
-                <p class="text-xs text-slate-500 group-hover:text-slate-700 transition duration-300">Mencakup kelengkapan judul buku, jurnal elektronik, dan <em>database</em> terlanggan.</p>
-            </div>
 
-            <div class="group bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 cursor-pointer transition-all duration-300"
-                 @click="openModal('Sarana & Prasarana', '4 / 4', 'Infrastruktur dan fasilitas unggul', 'Skor maksimal diraih karena perpustakaan USU berlokasi strategis di pusat kampus dengan gedung yang megah. Fasilitas dilengkapi area baca luas, ruang diskusi, TIK modern (internet berkecepatan tinggi), dan sistem keamanan CCTV.')">
-                <div class="flex justify-between items-center mb-4">
-                    <h4 class="font-bold text-slate-700 group-hover:text-usu-green transition duration-300">Sarana & Prasarana</h4>
-                    <span class="bg-usu-green/10 text-usu-green font-bold px-2 py-1 rounded text-sm group-hover:bg-usu-green group-hover:text-white transition duration-300">4 / 4</span>
+                <!-- Small Box 3 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Dukungan Anggaran</h3>
+                    <p class="text-slate-500 text-sm">Alokasi lebih dari 5% operasional mendukung layanan 42 jam/minggu.</p>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 mb-4 overflow-hidden relative">
-                    <div class="bg-usu-green h-2 rounded-full absolute top-0 left-0" style="width: 100%"></div>
-                </div>
-                <p class="text-xs text-slate-500 group-hover:text-slate-700 transition duration-300">Gedung megah di pusat kampus, area baca nyaman, dan fasilitas TIK canggih.</p>
-            </div>
 
-            <div class="group bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 cursor-pointer transition-all duration-300"
-                 @click="openModal('Pelayanan Perpustakaan', '4 / 4', 'Layanan maksimal dan efisien', 'Perpustakaan USU memberikan pelayanan terbaik dengan jam operasional yang melampaui standar (lebih dari 40 jam seminggu). Sistem sirkulasi telah otomatisasi sepenuhnya berbasis barcode/RFID, memudahkan literasi informasi.')">
-                <div class="flex justify-between items-center mb-4">
-                    <h4 class="font-bold text-slate-700 group-hover:text-usu-green transition duration-300">Pelayanan</h4>
-                    <span class="bg-usu-green/10 text-usu-green font-bold px-2 py-1 rounded text-sm group-hover:bg-usu-green group-hover:text-white transition duration-300">4 / 4</span>
+                <!-- Call to action block -->
+                <div class="bg-slate-900 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-between group overflow-hidden relative">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                    <div class="relative z-10">
+                        <h3 class="font-bold text-xl text-white mb-1">Eksplorasi Lengkap</h3>
+                        <p class="text-slate-400 text-sm">Lihat ke-6 komponen lainnya</p>
+                    </div>
+                    <a href="/akreditasi" class="relative z-10 w-14 h-14 bg-white/10 rounded-full flex items-center justify-center text-white backdrop-blur-sm hover:bg-[#fecb00] hover:text-[#044b25] transition duration-300 transform group-hover:translate-x-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 mb-4 overflow-hidden relative">
-                    <div class="bg-usu-green h-2 rounded-full absolute top-0 left-0 transform origin-left transition-transform duration-1000" style="width: 100%"></div>
-                </div>
-                <p class="text-xs text-slate-500 group-hover:text-slate-700 transition duration-300">Sirkulasi otomatis, kemudahan literasi informasi, dan jam buka perpustakaan maksimal.</p>
-            </div>
-
-            <div class="group bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 cursor-pointer transition-all duration-300"
-                 @click="openModal('Tenaga Perpustakaan', '3 / 4', 'SDM profesional dan tersertifikasi', 'Tenaga pustakawan USU didukung oleh latar belakang pendidikan yang sesuai (ilmu perpustakaan) dan secara aktif mengikuti diklat kompetensi. Banyak dari mereka tersertifikasi dan berpartisipasi aktif dalam organisasi seperti Ikatan Pustakawan Indonesia.')">
-                <div class="flex justify-between items-center mb-4">
-                    <h4 class="font-bold text-slate-700 group-hover:text-usu-green transition duration-300">Tenaga Perpustakaan</h4>
-                    <span class="bg-slate-100 text-slate-600 font-bold px-2 py-1 rounded text-sm group-hover:bg-usu-green group-hover:text-white transition duration-300">3 / 4</span>
-                </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 mb-4 overflow-hidden relative">
-                    <div class="bg-usu-light h-2 rounded-full absolute top-0 left-0" style="width: 75%"></div>
-                </div>
-                <p class="text-xs text-slate-500 group-hover:text-slate-700 transition duration-300">Pustakawan tersertifikasi profesional dan pengurus inti di Ikatan Pustakawan Indonesia.</p>
             </div>
 
         </div>
-    </main>
+    </section>
 
-    <!-- Footer -->
-    <footer class="bg-usu-dark text-white py-12 mt-12 border-t-4 border-usu-yellow">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 p-2 shadow-lg">
-                <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU Footer" class="w-full h-full object-contain">
-            </div>
-            <p class="text-white/80 font-semibold text-lg mb-2">Universitas Sumatera Utara</p>
-            <p class="text-white/60 text-sm">© 2026 Bukti Instrumen Akreditasi. Penugasan Simulasi Desain Interaktif.</p>
-        </div>
-    </footer>
-
-    <!-- Alpine JS Modal Overlay -->
-    <div x-show="showModal" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto overflow-x-hidden bg-slate-900/70 backdrop-blur-sm p-4" x-transition.opacity.duration.300ms>
-        
-        <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 transform overflow-hidden"
-             @click.away="closeModal()" 
-             x-show="showModal"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 translate-y-8 scale-95"
-             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-             x-transition:leave-end="opacity-0 translate-y-8 scale-95">
-            
-            <!-- Modal Header -->
-            <div class="bg-usu-green px-6 py-4 flex justify-between items-center text-white">
-                <h3 class="font-bold text-xl" x-text="modalContent.title"></h3>
-                <button @click="closeModal()" class="text-white/70 hover:text-white hover:rotate-90 transition-all duration-300 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            
-            <!-- Modal Body -->
-            <div class="p-8">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-16 h-16 bg-usu-yellow/20 text-usu-dark rounded-2xl flex items-center justify-center font-black text-2xl border-2 border-usu-yellow">
-                        <span x-text="modalContent.score.split('/')[0].trim()"></span>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wider">Pencapaian Skor</p>
-                        <p class="text-lg font-bold text-slate-800" x-text="modalContent.desc"></p>
-                    </div>
-                </div>
-                
-                <div class="bg-slate-50 border border-slate-100 p-5 rounded-2xl">
-                    <h4 class="font-bold text-usu-green mb-2 text-sm uppercase">Detail Bukti Penilaian</h4>
-                    <p class="text-slate-600 leading-relaxed" x-text="modalContent.detail"></p>
-                </div>
-                
-                <div class="mt-8 text-right">
-                    <button @click="closeModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 px-6 rounded-full transition-colors duration-300">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
+@endsection
