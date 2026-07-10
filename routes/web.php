@@ -13,12 +13,14 @@ Route::middleware('guest')->group(function () {
         return view('profil');
     });
 
-    Route::get('/akreditasi', [AkreditasiController::class, 'index']);
-
     // Auth routes
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 });
+
+// Public routes accessible by everyone (guest or auth)
+Route::get('/akreditasi', [AkreditasiController::class, 'index']);
+Route::get('/dokumen/{id}/view', [AkreditasiController::class, 'viewDocument'])->name('dokumen.view');
 
 // Protected admin routes
 Route::middleware('auth')->group(function () {

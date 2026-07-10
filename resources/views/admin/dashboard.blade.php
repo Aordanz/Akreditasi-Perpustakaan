@@ -138,7 +138,7 @@
                                                             <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100 group-hover/file:bg-[#0a7a3b] group-hover/file:text-white transition-colors duration-300">
                                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                                             </div>
-                                                            <a href="{{ Storage::url($dokumen->path_file) }}" target="_blank" class="text-xs font-bold text-slate-700 hover:text-[#0a7a3b] truncate block" title="{{ $dokumen->nama_file }}">
+                                                            <a href="{{ route('dokumen.view', $dokumen->id) }}" target="_blank" class="text-xs font-bold text-slate-700 hover:text-[#0a7a3b] truncate block" title="{{ $dokumen->nama_file }}">
                                                                 {{ $dokumen->nama_file }}
                                                             </a>
                                                         </div>

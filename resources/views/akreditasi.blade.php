@@ -202,7 +202,7 @@
                                                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                                                                     </div>
                                                                     <div class="truncate">
-                                                                        <a href="{{ Storage::url($dokumen->path_file) }}" target="_blank" class="text-sm font-bold text-slate-800 hover:text-[#0a7a3b] truncate block transition-colors" title="{{ $dokumen->nama_file }}">
+                                                                        <a href="{{ route('dokumen.view', $dokumen->id) }}" target="_blank" class="text-sm font-bold text-slate-800 hover:text-[#0a7a3b] truncate block transition-colors" title="{{ $dokumen->nama_file }}">
                                                                             {{ $dokumen->nama_file }}
                                                                         </a>
                                                                         <div class="flex items-center gap-2 mt-1">
@@ -211,7 +211,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <a href="{{ Storage::url($dokumen->path_file) }}" target="_blank" class="text-slate-400 hover:text-white bg-slate-100 hover:bg-[#0a7a3b] p-2 rounded-lg transition-all ml-2 shrink-0 group-hover:shadow-md">
+                                                                <a href="{{ route('dokumen.view', $dokumen->id) }}" target="_blank" class="text-slate-400 hover:text-white bg-slate-100 hover:bg-[#0a7a3b] p-2 rounded-lg transition-all ml-2 shrink-0 group-hover:shadow-md">
                                                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                                                 </a>
                                                             </div>
