@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Komponen;
+use App\Models\SubKomponen;
 use App\Models\DokumenBukti;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AkreditasiController extends Controller
 {
@@ -24,12 +26,26 @@ class AkreditasiController extends Controller
     public function upload(Request $request, $subKomponenId)
     {
         $request->validate([
-            'dokumen' => 'required|file|mimes:pdf,doc,docx|max:10240',
+            'dokumen' => 'required|file|extensions:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240',
         ]);
 
         $file = $request->file('dokumen');
         $nama_file = $file->getClientOriginalName();
-        $path_file = $file->store('dokumen_bukti', 'public');
+        
+        // Dapatkan data SubKomponen dan Komponen untuk membuat struktur folder
+        $subKomponen = SubKomponen::with('komponen')->findOrFail($subKomponenId);
+        
+        $folder_komponen = $subKomponen->komponen->nomor . '. ' . $subKomponen->komponen->nama_komponen;
+        $folder_sub = $subKomponen->nomor_sub . ' ' . $subKomponen->nama_sub_komponen;
+        
+        // Membersihkan karakter yang tidak valid untuk folder (opsional, tapi disarankan)
+        $folder_komponen = str_replace(['/', '\\', ':', '*', '?', '"', '<', '>', '|'], '-', $folder_komponen);
+        $folder_sub = str_replace(['/', '\\', ':', '*', '?', '"', '<', '>', '|'], '-', $folder_sub);
+        
+        // Path dinamis: dokumen_bukti/1. Komponen.../1.1 Sub...
+        $dynamic_path = "dokumen_bukti/{$folder_komponen}/{$folder_sub}";
+        
+        $path_file = $file->store($dynamic_path, 'public');
 
         DokumenBukti::create([
             'sub_komponen_id' => $subKomponenId,
@@ -39,5 +55,11 @@ class AkreditasiController extends Controller
         ]);
 
         return back()->with('success', 'Dokumen berhasil diunggah!');
+    }
+
+    public function viewDocument($id)
+    {
+        $dokumen = DokumenBukti::findOrFail($id);
+        return view('viewer', compact('dokumen'));
     }
 }
