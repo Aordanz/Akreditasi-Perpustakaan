@@ -47,6 +47,26 @@
             <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400" class="text-slate-300 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
                 Jelajahi struktur hierarki standar akreditasi dan akses seluruh dokumen bukti yang mensyaratkan pencapaian Perpustakaan USU.
             </p>
+
+            @php
+                $totalSub = $komponens->sum(fn($k) => $k->subKomponens->count());
+                $subTerisi = $komponens->flatMap->subKomponens->filter(fn($sub) => $sub->dokumenBuktis->count() > 0)->count();
+                $persentase = $totalSub > 0 ? round(($subTerisi / $totalSub) * 100) : 0;
+            @endphp
+            
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600" class="mt-8 max-w-md mx-auto bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl text-left">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-bold text-slate-300 uppercase tracking-wider">Total Progres Kelengkapan</span>
+                    <span class="text-lg font-black text-[#fecb00]">{{ $persentase }}%</span>
+                </div>
+                <div class="w-full bg-black/40 rounded-full h-2.5 overflow-hidden shadow-inner">
+                    <div class="bg-gradient-to-r from-[#0a7a3b] to-[#fecb00] h-2.5 rounded-full shadow-[0_0_10px_rgba(254,203,0,0.5)] transition-all duration-1000 ease-out" style="width: {{ $persentase }}%"></div>
+                </div>
+                <div class="mt-2 text-right text-xs font-semibold text-slate-400">
+                    {{ $subTerisi }} dari {{ $totalSub }} Sub Komponen Terisi
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -128,61 +148,8 @@
                                 <div x-show="openLevel2 === {{ $sub->id }}" x-collapse x-cloak>
                                     <div class="p-5 md:p-7 bg-slate-50 border-t border-slate-100" x-data="{ openLevel3: null }">
                                         
-                                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                            
-                                            <!-- Kiri: Daftar Indikator -->
-                                            <div>
-                                                <h4 class="font-bold text-[#0a7a3b] mb-4 text-sm uppercase tracking-widest flex items-center gap-2">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                                                    Indikator Penilaian
-                                                </h4>
-
-                                                <div class="space-y-3">
-                                                    <!-- LEVEL 3: Indikator -->
-                                                    @forelse ($sub->indikators as $indikator)
-                                                    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                                                        <button @click="openLevel3 = openLevel3 === {{ $indikator->id }} ? null : {{ $indikator->id }}" 
-                                                                class="w-full flex items-start gap-3 p-4 focus:outline-none hover:bg-slate-50 transition-colors text-left group">
-                                                            <div class="mt-1 w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold shrink-0 group-hover:bg-[#fecb00] group-hover:text-[#044b25] transition-colors">
-                                                                <svg class="w-3.5 h-3.5 transform transition-transform" :class="openLevel3 === {{ $indikator->id }} ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
-                                                            </div>
-                                                            <div>
-                                                                <span class="font-bold text-slate-800 block text-sm">{{ $indikator->nomor_indikator }}</span>
-                                                                <span class="text-sm text-slate-600 mt-1 block leading-relaxed">{{ $indikator->nama_indikator }}</span>
-                                                            </div>
-                                                        </button>
-
-                                                        <!-- LEVEL 4 Wrapper -->
-                                                        <div x-show="openLevel3 === {{ $indikator->id }}" x-collapse x-cloak>
-                                                            <div class="p-4 pl-12 bg-slate-50/50 border-t border-slate-100">
-                                                                @if ($indikator->subIndikators->count() > 0)
-                                                                <div class="space-y-2">
-                                                                    <!-- LEVEL 4: Sub Indikator -->
-                                                                    @foreach ($indikator->subIndikators as $subIndikator)
-                                                                    <div class="flex items-start gap-3 p-3 rounded-lg bg-white border border-slate-200 hover:border-[#0a7a3b]/50 transition-colors">
-                                                                        <div class="mt-0.5 w-1.5 h-1.5 rounded-full bg-[#0a7a3b] shrink-0 mt-1.5"></div>
-                                                                        <div>
-                                                                            <span class="text-[11px] font-bold text-slate-400 block mb-0.5">{{ $subIndikator->nomor_sub_indikator }}</span>
-                                                                            <span class="text-sm text-slate-700 leading-snug block">{{ $subIndikator->nama_sub_indikator }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    @endforeach
-                                                                </div>
-                                                                @else
-                                                                <p class="text-slate-400 italic text-sm py-2">Tidak ada detail persyaratan spesifik.</p>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    @empty
-                                                    <div class="bg-white rounded-xl border border-slate-200 p-6 text-center border-dashed">
-                                                        <p class="text-slate-500 text-sm">Belum ada indikator.</p>
-                                                    </div>
-                                                    @endforelse
-                                                </div>
-                                            </div>
-
-                                            <!-- Kanan: Dokumen Bukti -->
+                                        <div class="w-full">
+                                            <!-- Dokumen Bukti (Full Width) -->
                                             <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm relative overflow-hidden flex flex-col h-full">
                                                 <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#0a7a3b] to-[#8dc63f]"></div>
                                                 
