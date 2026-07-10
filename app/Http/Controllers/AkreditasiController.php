@@ -62,4 +62,19 @@ class AkreditasiController extends Controller
         $dokumen = DokumenBukti::findOrFail($id);
         return view('viewer', compact('dokumen'));
     }
+
+    public function deleteDokumen($id)
+    {
+        $dokumen = DokumenBukti::findOrFail($id);
+        
+        // Delete the physical file if it exists
+        if (Storage::disk('public')->exists($dokumen->path_file)) {
+            Storage::disk('public')->delete($dokumen->path_file);
+        }
+        
+        // Delete the database record
+        $dokumen->delete();
+        
+        return back()->with('success', 'Dokumen berhasil dihapus!');
+    }
 }

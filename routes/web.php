@@ -27,4 +27,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/admin/dashboard', [AkreditasiController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::post('/admin/akreditasi/{subKomponenId}/upload', [AkreditasiController::class, 'upload'])->name('admin.akreditasi.upload');
+    Route::delete('/admin/akreditasi/dokumen/{id}', [AkreditasiController::class, 'deleteDokumen'])->name('admin.dokumen.delete');
 });
