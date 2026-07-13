@@ -58,9 +58,15 @@
             </div>
             <div class="mt-2 relative z-10">
                 <div class="text-2xl font-black">{{ $subTerisi }} <span class="text-xs font-normal text-green-200">/ {{ $totalSub }} Sub</span></div>
-                <div class="w-full bg-white/20 h-2 rounded-full overflow-hidden mt-3 shadow-inner">
-                    <div class="bg-[#fecb00] h-full rounded-full transition-all duration-1000 ease-out" style="width: {{ $persentase }}%"></div>
+                
+                <div class="w-full bg-black/20 rounded-full h-1.5 mt-3 overflow-hidden">
+                    <div class="bg-[#fecb00] h-1.5 rounded-full" style="width: {{ $persentase }}%"></div>
                 </div>
+
+                <a href="{{ route('admin.report') }}" target="_blank" class="mt-4 block w-full text-center bg-white/20 hover:bg-white/30 text-white py-1.5 rounded-lg text-xs font-bold transition-all border border-white/10 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Cetak Laporan
+                </a>
             </div>
         </div>
 
