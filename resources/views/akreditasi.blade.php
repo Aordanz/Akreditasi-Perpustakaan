@@ -23,51 +23,92 @@
     .glow-hover:hover {
         box-shadow: 0 0 20px rgba(10, 122, 59, 0.15);
     }
+    
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+    @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
 </style>
 @endpush
 
 @section('content')
 
     <!-- Header Section -->
-    <section class="bg-slate-900 pt-20 pb-24 relative overflow-hidden">
-        <!-- Abstract Background -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-[#0a7a3b] rounded-full mix-blend-screen filter blur-[100px] opacity-20 -mr-40 -mt-40"></div>
-            <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#fecb00] rounded-full mix-blend-screen filter blur-[100px] opacity-10 -ml-40 -mb-40"></div>
-            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
+    <section class="relative pt-24 pb-32 overflow-hidden" style="background-color: #094726;">
+        <!-- Dynamic Gradient Background -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <!-- Animated glowing orbs -->
+            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[50%] rounded-full mix-blend-screen filter blur-[120px] opacity-40 animate-blob" style="background-color: #0a7a3b;"></div>
+            <div class="absolute top-[20%] right-[-10%] w-[50%] h-[60%] rounded-full mix-blend-screen filter blur-[150px] opacity-10 animate-blob animation-delay-2000" style="background-color: #fecb00;"></div>
+            <div class="absolute bottom-[-20%] left-[20%] w-[60%] h-[60%] rounded-full mix-blend-screen filter blur-[150px] opacity-40 animate-blob animation-delay-4000" style="background-color: #044b25;"></div>
+            
+            <!-- Subtle Grid Pattern -->
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
         </div>
         
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div data-aos="fade-down" data-aos-duration="1000">
-                <span class="inline-block py-1.5 px-4 rounded-full bg-white/10 border border-white/20 text-[#fecb00] text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">Direktori Dokumen</span>
+            <div data-aos="fade-down" data-aos-duration="1000" class="mb-6 relative inline-flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full animate-ping opacity-20" style="border: 1px solid rgba(254,203,0,0.5);"></div>
+                <div class="absolute -inset-2 rounded-full animate-pulse" style="border: 1px solid rgba(10,122,59,0.5);"></div>
+                <span class="relative inline-flex items-center gap-2 py-1.5 px-5 rounded-full bg-white/10 border border-white/20 text-xs font-bold tracking-[0.15em] uppercase backdrop-blur-md shadow-2xl" style="color: #fecb00;">
+                    <svg class="w-4 h-4" style="color: #4ade80;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    Direktori Dokumen
+                </span>
             </div>
-            <h1 data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200" class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-xl">
+            
+            <h1 data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200" class="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
                 Instrumen Akreditasi
             </h1>
-            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400" class="text-slate-300 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
-                Jelajahi struktur hierarki standar akreditasi dan akses seluruh dokumen bukti yang mensyaratkan pencapaian Perpustakaan USU.
-            </p>
-
-            @php
-                $totalSub = $komponens->sum(fn($k) => $k->subKomponens->count());
-                $subTerisi = $komponens->flatMap->subKomponens->filter(fn($sub) => $sub->dokumenBuktis->count() > 0)->count();
-                $persentase = $totalSub > 0 ? round(($subTerisi / $totalSub) * 100) : 0;
-            @endphp
             
-            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600" class="mt-8 max-w-md mx-auto bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl text-left">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-bold text-slate-300 uppercase tracking-wider">Total Progres Kelengkapan</span>
-                    <span class="text-lg font-black text-[#fecb00]">{{ $persentase }}%</span>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400" class="text-slate-300 mt-4 max-w-2xl mx-auto text-lg leading-relaxed font-light">
+                Jelajahi struktur hierarki standar akreditasi dan akses seluruh dokumen bukti yang mensyaratkan pencapaian <strong class="text-white font-semibold">Perpustakaan USU</strong>.
+            </p>
+            
+            <!-- Quick Decor/Stats info (Not showing progress) -->
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600" class="mt-12 flex flex-wrap justify-center gap-6">
+                
+                <!-- Card 1: USU Green -->
+                <div class="flex items-center gap-5 px-8 py-5 rounded-2xl hover:-translate-y-1 transition-all duration-300 shadow-xl hover:shadow-[0_10px_30px_-10px_rgba(10,122,59,0.5)]" style="background: linear-gradient(145deg, #0a7a3b, #075a2b); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center shadow-inner" style="background-color: rgba(255,255,255,0.15); color: #fecb00;">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-4xl font-black text-white leading-none drop-shadow-md">{{ $komponens->count() }}</div>
+                        <div class="text-xs text-green-100 uppercase tracking-widest font-bold mt-2">Komponen Utama</div>
+                    </div>
                 </div>
-                <div class="w-full bg-black/40 rounded-full h-2.5 overflow-hidden shadow-inner">
-                    <div class="bg-gradient-to-r from-[#0a7a3b] to-[#fecb00] h-2.5 rounded-full shadow-[0_0_10px_rgba(254,203,0,0.5)] transition-all duration-1000 ease-out" style="width: {{ $persentase }}%"></div>
+                
+                <!-- Card 2: USU Yellow -->
+                <div class="flex items-center gap-5 px-8 py-5 rounded-2xl hover:-translate-y-1 transition-all duration-300 shadow-xl hover:shadow-[0_10px_30px_-10px_rgba(254,203,0,0.5)]" style="background: linear-gradient(145deg, #fecb00, #e5b600); border: 1px solid rgba(255,255,255,0.2);">
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center shadow-inner" style="background-color: rgba(0,0,0,0.05); color: #044b25;">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002-2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <div class="text-left">
+                        @php
+                            $totalSub = $komponens->sum(fn($k) => $k->subKomponens->count());
+                        @endphp
+                        <div class="text-4xl font-black text-[#044b25] leading-none drop-shadow-sm">{{ $totalSub }}</div>
+                        <div class="text-xs text-[#0a7a3b] uppercase tracking-widest font-black mt-2">Sub Komponen</div>
+                    </div>
                 </div>
-                <div class="mt-2 text-right text-xs font-semibold text-slate-400">
-                    {{ $subTerisi }} dari {{ $totalSub }} Sub Komponen Terisi
-                </div>
+                
             </div>
 
         </div>
+        
+        <!-- Bottom curve transition -->
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-50 to-transparent z-10 pointer-events-none"></div>
     </section>
 
     <!-- Main Content -->
