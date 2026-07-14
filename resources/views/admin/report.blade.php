@@ -55,7 +55,7 @@
 
         <div class="mb-6 page-break-inside-avoid">
             <div class="bg-slate-800 text-white p-3 rounded-t-lg flex justify-between items-center">
-                <h3 class="font-bold text-lg">Komponen {{ $komponen->nomor_komponen }}: {{ $komponen->nama_komponen }}</h3>
+                <h3 class="font-bold text-lg">Komponen {{ $komponen->nomor }}: {{ $komponen->nama_komponen }}</h3>
                 <span class="font-bold bg-white/20 px-3 py-1 rounded">{{ $k_persentase }}%</span>
             </div>
             <table class="w-full border-collapse border border-slate-300 text-sm">
@@ -74,7 +74,7 @@
                         @endphp
                         <tr class="{{ $docCount > 0 ? 'bg-white' : 'bg-red-50' }}">
                             <td class="border border-slate-300 p-2 font-semibold">{{ $sub->nomor_sub }}</td>
-                            <td class="border border-slate-300 p-2">{{ $sub->nama_sub }}</td>
+                            <td class="border border-slate-300 p-2">{{ $sub->nama_sub_komponen }}</td>
                             <td class="border border-slate-300 p-2 text-center">
                                 @if($docCount > 0)
                                     <span class="text-green-600 font-bold">Terisi</span>

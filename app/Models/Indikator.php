@@ -20,4 +20,9 @@ class Indikator extends Model
     {
         return $this->hasMany(SubIndikator::class, 'indikator_id');
     }
+
+    public function dokumenBuktis()
+    {
+        return $this->hasMany(DokumenBukti::class, 'indikator_id');
+    }
 }

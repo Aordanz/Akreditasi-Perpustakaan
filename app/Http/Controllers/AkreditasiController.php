@@ -13,48 +13,110 @@ class AkreditasiController extends Controller
     public function index()
     {
         // Fetch all komponen with their related data
-        $komponens = Komponen::with(['subKomponens.indikators.subIndikators', 'subKomponens.dokumenBuktis'])->get();
+        $komponens = Komponen::with([
+            'subKomponens.indikators.subIndikators.dokumenBuktis',
+            'subKomponens.indikators.dokumenBuktis',
+            'subKomponens.dokumenBuktis'
+        ])->get();
         return view('akreditasi', compact('komponens'));
     }
 
     public function adminDashboard()
     {
-        $komponens = Komponen::with(['subKomponens.dokumenBuktis'])->get();
+        $komponens = Komponen::with([
+            'subKomponens.indikators.subIndikators.dokumenBuktis',
+            'subKomponens.indikators.dokumenBuktis',
+            'subKomponens.dokumenBuktis'
+        ])->get();
         return view('admin.dashboard', compact('komponens'));
     }
 
     public function exportReport()
     {
-        $komponens = Komponen::with(['subKomponens.dokumenBuktis'])->get();
+        $komponens = Komponen::with([
+            'subKomponens.indikators.subIndikators.dokumenBuktis',
+            'subKomponens.indikators.dokumenBuktis',
+            'subKomponens.dokumenBuktis'
+        ])->get();
         return view('admin.report', compact('komponens'));
     }
 
-    public function upload(Request $request, $subKomponenId)
+    public function upload(Request $request, $type = null, $id = null)
     {
         $request->validate([
             'dokumen' => 'required|file|extensions:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240',
         ]);
 
+        // Handle backward compatibility (if old route is called)
+        if (is_numeric($type) && $id === null) {
+            $id = $type;
+            $type = 'sub_komponen';
+        }
+
         $file = $request->file('dokumen');
         $nama_file = $file->getClientOriginalName();
-        
-        // Dapatkan data SubKomponen dan Komponen untuk membuat struktur folder
-        $subKomponen = SubKomponen::with('komponen')->findOrFail($subKomponenId);
-        
-        $folder_komponen = $subKomponen->komponen->nomor . '. ' . $subKomponen->komponen->nama_komponen;
-        $folder_sub = $subKomponen->nomor_sub . ' ' . $subKomponen->nama_sub_komponen;
-        
-        // Membersihkan karakter yang tidak valid untuk folder (opsional, tapi disarankan)
-        $folder_komponen = str_replace(['/', '\\', ':', '*', '?', '"', '<', '>', '|'], '-', $folder_komponen);
-        $folder_sub = str_replace(['/', '\\', ':', '*', '?', '"', '<', '>', '|'], '-', $folder_sub);
-        
-        // Path dinamis: dokumen_bukti/1. Komponen.../1.1 Sub...
-        $dynamic_path = "dokumen_bukti/{$folder_komponen}/{$folder_sub}";
-        
+
+        $subKomponenId = null;
+        $indikatorId = null;
+        $subIndikatorId = null;
+        $code = '';
+
+        $cleanFn = function($str) {
+            return str_replace(['/', '\\', ':', '*', '?', '"', '<', '>', '|'], '-', $str);
+        };
+
+        if ($type === 'sub_indikator') {
+            $subIndikator = SubIndikator::with('indikator.subKomponen.komponen')->findOrFail($id);
+            $subIndikatorId = $subIndikator->id;
+            $indikator = $subIndikator->indikator;
+            $indikatorId = $indikator->id;
+            $sub = $indikator->subKomponen;
+            $subKomponenId = $sub->id;
+            $komponen = $sub->komponen;
+            $code = $subIndikator->nomor_sub_indikator;
+
+            $folder_komponen = $cleanFn($komponen->nomor . '. ' . $komponen->nama_komponen);
+            $folder_sub = $cleanFn($sub->nomor_sub . ' ' . $sub->nama_sub_komponen);
+            $folder_ind = $cleanFn($indikator->nomor_indikator . ' ' . $indikator->nama_indikator);
+            $folder_sub_ind = $cleanFn($subIndikator->nomor_sub_indikator . ' ' . $subIndikator->nama_sub_indikator);
+
+            $dynamic_path = "dokumen_bukti/{$folder_komponen}/{$folder_sub}/{$folder_ind}/{$folder_sub_ind}";
+        } elseif ($type === 'indikator') {
+            $indikator = Indikator::with('subKomponen.komponen')->findOrFail($id);
+            $indikatorId = $indikator->id;
+            $sub = $indikator->subKomponen;
+            $subKomponenId = $sub->id;
+            $komponen = $sub->komponen;
+            $code = $indikator->nomor_indikator;
+
+            $folder_komponen = $cleanFn($komponen->nomor . '. ' . $komponen->nama_komponen);
+            $folder_sub = $cleanFn($sub->nomor_sub . ' ' . $sub->nama_sub_komponen);
+            $folder_ind = $cleanFn($indikator->nomor_indikator . ' ' . $indikator->nama_indikator);
+
+            $dynamic_path = "dokumen_bukti/{$folder_komponen}/{$folder_sub}/{$folder_ind}";
+        } else { // sub_komponen
+            $sub = SubKomponen::with('komponen')->findOrFail($id);
+            $subKomponenId = $sub->id;
+            $komponen = $sub->komponen;
+            $code = $sub->nomor_sub;
+
+            $folder_komponen = $cleanFn($komponen->nomor . '. ' . $komponen->nama_komponen);
+            $folder_sub = $cleanFn($sub->nomor_sub . ' ' . $sub->nama_sub_komponen);
+
+            $dynamic_path = "dokumen_bukti/{$folder_komponen}/{$folder_sub}";
+        }
+
+        // Prepend code/prefix to filename if not already present
+        if (!str_starts_with($nama_file, $code)) {
+            $nama_file = $code . ' ' . $nama_file;
+        }
+
         $path_file = $file->store($dynamic_path, 'public');
 
         DokumenBukti::create([
             'sub_komponen_id' => $subKomponenId,
+            'indikator_id' => $indikatorId,
+            'sub_indikator_id' => $subIndikatorId,
             'nama_file' => $nama_file,
             'path_file' => $path_file,
             'tanggal_upload' => now(),

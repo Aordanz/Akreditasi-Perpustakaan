@@ -35,9 +35,15 @@
     </style>
 </head>
 <body>
+    @php
+        $previousUrl = url()->previous();
+        if (!$previousUrl || $previousUrl == request()->url()) {
+            $previousUrl = Auth::check() ? '/admin/dashboard' : '/akreditasi';
+        }
+    @endphp
     <div class="header">
         <div class="flex items-center gap-4">
-            <a href="javascript:history.back()" class="text-slate-500 hover:text-slate-800 transition-colors">
+            <a href="{{ $previousUrl }}" onclick="if(window.opener) { window.close(); return false; }" class="text-slate-500 hover:text-slate-800 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             </a>
             <div>
