@@ -135,8 +135,8 @@
                  :class="openLevel1 === {{ $komponen->id }} ? 'ring-2 ring-[#0a7a3b] shadow-xl' : ''">
                  
                 <button @click="openLevel1 = openLevel1 === {{ $komponen->id }} ? null : {{ $komponen->id }}" 
-                        class="w-full flex items-center justify-between p-6 bg-white focus:outline-none group">
-                    <div class="flex items-center gap-5 text-left">
+                        class="w-full flex items-center justify-between p-6 bg-white focus:outline-none group text-left">
+                    <div class="flex items-center gap-5">
                         <div class="w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl shrink-0 transition-all duration-300"
                              :class="openLevel1 === {{ $komponen->id }} ? 'bg-[#0a7a3b] text-[#fecb00] shadow-lg shadow-[#0a7a3b]/40 scale-110' : 'bg-[#e6f4ea] text-[#0a7a3b] group-hover:bg-[#0a7a3b] group-hover:text-[#fecb00]'">
                             {{ $komponen->nomor }}
@@ -172,8 +172,8 @@
                                      :class="openLevel2 === {{ $sub->id }} ? 'bg-[#0a7a3b]' : 'bg-slate-300'"></div>
 
                                 <button @click="openLevel2 = openLevel2 === {{ $sub->id }} ? null : {{ $sub->id }}" 
-                                        class="w-full flex items-center justify-between p-5 focus:outline-none group bg-white relative z-10">
-                                    <div class="flex items-center gap-4 text-left">
+                                        class="w-full flex items-center justify-between p-5 focus:outline-none group bg-white relative z-10 text-left">
+                                    <div class="flex items-center gap-4">
                                         <div class="w-12 h-12 rounded-xl bg-[#e8f3ec] text-[#0a7a3b] flex items-center justify-center font-bold shrink-0 group-hover:scale-105 transition-transform">
                                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                                         </div>
@@ -187,54 +187,128 @@
 
                                 <!-- LEVEL 3 & Dokumen Bukti Wrapper -->
                                 <div x-show="openLevel2 === {{ $sub->id }}" x-collapse x-cloak>
-                                    <div class="p-5 md:p-7 bg-slate-50 border-t border-slate-100" x-data="{ openLevel3: null }">
-                                        
-                                        <div class="w-full">
-                                            <!-- Dokumen Bukti (Full Width) -->
-                                            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm relative overflow-hidden flex flex-col h-full">
-                                                <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#0a7a3b] to-[#8dc63f]"></div>
-                                                
-                                                <h4 class="font-extrabold text-[#0a7a3b] text-base mb-5 flex items-center gap-2">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                                    Arsip Dokumen Bukti
-                                                </h4>
-                                                
-                                                <div class="flex-grow">
-                                                    <!-- Daftar Dokumen Terunggah -->
-                                                    @if ($sub->dokumenBuktis->count() > 0)
-                                                        <div class="space-y-3 mb-6">
-                                                            @foreach ($sub->dokumenBuktis as $dokumen)
-                                                            <div class="flex items-center justify-between bg-slate-50 p-3.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/40 hover:bg-[#e8f3ec]/30 transition-all group">
-                                                                <div class="flex items-center gap-4 overflow-hidden">
-                                                                    <div class="w-10 h-10 shrink-0 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-[#0a7a3b] shadow-sm group-hover:scale-105 transition-transform">
-                                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                                                                    </div>
-                                                                    <div class="truncate">
-                                                                        <a href="{{ route('dokumen.view', $dokumen->id) }}" target="_blank" class="text-sm font-bold text-slate-800 hover:text-[#0a7a3b] truncate block transition-colors" title="{{ $dokumen->nama_file }}">
-                                                                            {{ $dokumen->nama_file }}
-                                                                        </a>
-                                                                        <div class="flex items-center gap-2 mt-1">
-                                                                            <span class="text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-medium">{{ strtoupper(pathinfo($dokumen->path_file, PATHINFO_EXTENSION)) }}</span>
-                                                                            <span class="text-[11px] text-slate-400">{{ \Carbon\Carbon::parse($dokumen->tanggal_upload)->format('d M Y') }}</span>
-                                                                        </div>
-                                                                    </div>
+                                    <div class="p-5 md:p-7 bg-slate-50 border-t border-slate-100">
+                                        <div class="w-full space-y-4">
+                                            @if ($sub->indikators->count() > 0)
+                                                @foreach ($sub->indikators as $ind)
+                                                <div class="border-b border-slate-100 last:border-0 pb-4 last:pb-0 space-y-3.5">
+                                                    <!-- Level 3 Indikator -->
+                                                    <div class="flex items-start gap-2.5">
+                                                        <span class="px-2 py-0.5 bg-[#e6f4ea] text-[#0a7a3b] border border-green-200/60 rounded text-[10px] font-black shrink-0 mt-0.5">{{ $ind->nomor_indikator }}</span>
+                                                        <h4 class="text-xs font-bold text-slate-800 leading-relaxed">{{ $ind->nama_indikator }}</h4>
+                                                    </div>
+
+                                                    <!-- Level 4: Sub Indikator / Leaf Node -->
+                                                    @php
+                                                        $hasSubIndDocs = $ind->subIndikators->sum(fn($si) => $si->dokumenBuktis->count()) > 0;
+                                                    @endphp
+                                                    @if ($ind->subIndikators->count() > 0 && $hasSubIndDocs)
+                                                        {{-- Has subIndikators AND docs are at subInd level --}}
+                                                        <div class="pl-6 space-y-3 border-l border-slate-200 ml-3.5">
+                                                            @foreach ($ind->subIndikators as $subInd)
+                                                            <div class="space-y-1">
+                                                                <!-- Sub Indikator Title -->
+                                                                <div class="text-[11px] font-semibold text-slate-500 leading-snug flex items-center gap-1.5">
+                                                                    <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                                                                    <span>{{ $subInd->nomor_sub_indikator }} {{ $subInd->nama_sub_indikator }}</span>
                                                                 </div>
-                                                                <a href="{{ route('dokumen.view', $dokumen->id) }}" target="_blank" class="text-slate-400 hover:text-white bg-slate-100 hover:bg-[#0a7a3b] p-2 rounded-lg transition-all ml-2 shrink-0 group-hover:shadow-md">
-                                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                                                </a>
+
+                                                                <!-- Documents list -->
+                                                                <div class="pl-4">
+                                                                    @if ($subInd->dokumenBuktis->count() > 0)
+                                                                        <div class="space-y-1.5">
+                                                                            @foreach ($subInd->dokumenBuktis as $dokumen)
+                                                                            <a href="{{ route('dokumen.view', $dokumen->id) }}" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group max-w-2xl cursor-pointer">
+                                                                                <div class="flex items-center gap-2.5 min-w-0">
+                                                                                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+                                                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                                                    </div>
+                                                                                    <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">
+                                                                                        {{ $dokumen->nama_file }}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
+                                                                                    <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                                                                                </div>
+                                                                            </a>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @else
+                                                                        <span class="text-[10px] text-slate-400 italic">Belum ada dokumen bukti</span>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                             @endforeach
                                                         </div>
+                                                    @elseif ($ind->dokumenBuktis->count() > 0)
+                                                        {{-- Docs stored at indikator level (fallback, or no subIndikators) --}}
+                                                        <div class="pl-6 space-y-1.5 border-l border-slate-200 ml-3.5">
+                                                            @foreach ($ind->dokumenBuktis as $dokumen)
+                                                            <a href="{{ route('dokumen.view', $dokumen->id) }}" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group max-w-2xl cursor-pointer">
+                                                                <div class="flex items-center gap-2.5 min-w-0">
+                                                                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+                                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                                    </div>
+                                                                    <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">
+                                                                        {{ $dokumen->nama_file }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
+                                                                    <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                                                                </div>
+                                                            </a>
+                                                            @endforeach
+                                                        </div>
                                                     @else
-                                                        <div class="mb-6 border-2 border-dashed border-slate-200 rounded-xl p-8 text-center flex flex-col items-center justify-center h-full min-h-[150px] bg-slate-50/50">
-                                                            <svg class="w-10 h-10 text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                                            <p class="text-sm font-medium text-slate-500">Belum ada dokumen yang diunggah.</p>
+                                                        <!-- Indicator itself has files (No sub-indicators) -->
+                                                        <div class="pl-6 space-y-1.5 border-l border-slate-200 ml-3.5">
+                                                            @if ($ind->dokumenBuktis->count() > 0)
+                                                                @foreach ($ind->dokumenBuktis as $dokumen)
+                                                                <a href="{{ route('dokumen.view', $dokumen->id) }}" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group max-w-2xl cursor-pointer">
+                                                                    <div class="flex items-center gap-2.5 min-w-0">
+                                                                        <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+                                                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                                        </div>
+                                                                        <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">
+                                                                            {{ $dokumen->nama_file }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
+                                                                        <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                                                                    </div>
+                                                                </a>
+                                                                @endforeach
+                                                            @else
+                                                                <span class="text-[10px] text-slate-400 italic">Belum ada dokumen bukti</span>
+                                                            @endif
                                                         </div>
                                                     @endif
                                                 </div>
-
-
-                                            </div>
+                                                @endforeach
+                                            @else
+                                                <!-- Sub-component itself has files (No indicators) -->
+                                                <div class="space-y-1.5">
+                                                    @if ($sub->dokumenBuktis->count() > 0)
+                                                        @foreach ($sub->dokumenBuktis as $dokumen)
+                                                        <a href="{{ route('dokumen.view', $dokumen->id) }}" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group max-w-2xl cursor-pointer">
+                                                            <div class="flex items-center gap-2.5 min-w-0">
+                                                                <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+                                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                                </div>
+                                                                <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">
+                                                                    {{ $dokumen->nama_file }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
+                                                                <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                                                            </div>
+                                                        </a>
+                                                        @endforeach
+                                                    @else
+                                                        <span class="text-[10px] text-slate-400 italic">Belum ada dokumen bukti</span>
+                                                    @endif
+                                                </div>
+                                            @endif
 
                                         </div>
                                     </div>

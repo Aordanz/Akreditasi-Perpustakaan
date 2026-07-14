@@ -28,5 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [AkreditasiController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::get('/admin/report', [AkreditasiController::class, 'exportReport'])->name('admin.report');
     Route::post('/admin/akreditasi/{subKomponenId}/upload', [AkreditasiController::class, 'upload'])->name('admin.akreditasi.upload');
+    Route::post('/admin/akreditasi/upload/{type}/{id}', [AkreditasiController::class, 'upload'])->name('admin.akreditasi.upload.spesifik');
     Route::delete('/admin/akreditasi/dokumen/{id}', [AkreditasiController::class, 'deleteDokumen'])->name('admin.dokumen.delete');
 });

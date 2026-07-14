@@ -1,0 +1,1298 @@
+[
+    {
+        "nomor": 1,
+        "nama": "KOMPONEN KOLEKSI PERPUSTAKAAN",
+        "sub_komponens": [
+            {
+                "nomor_sub": "1.1",
+                "nama_sub": "Tata Kelola Koleksi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "1.1.1",
+                        "nama_indikator": "Perpustakaan memiliki kebijakan tertulis yang jelas dan terimplementasi terkait pengembangan koleksi, yang mencakup seleksi, pengadaan, evaluasi, penyiangan, dan keterlibatan sivitas akademika",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.1.1-1",
+                                "nama_sub_indikator": "Dokumen Kebijakan Pengembangan Koleksi"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.1.1-2",
+                                "nama_sub_indikator": "Berita Acara Penyusunan atau  peninjauan kebijakan"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "1.1.2",
+                        "nama_indikator": "Perpustakaan secara rutin melakukan pengadaan atau penambahan koleksi untuk mendukung kebutuhan akademik, sesuai dengan perkembangan ilmu, kurikulum, dan permintaan sivitas akademika dari tahun sebelumnya",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.1.2-1",
+                                "nama_sub_indikator": "Laporan tahunan pengembangan koleksi"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.1.2-2",
+                                "nama_sub_indikator": "Daftar koleksi baru beserta tahun pengadaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.1.2-3",
+                                "nama_sub_indikator": "Bukti pengadaan (invoice dan / atau berita acara)"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.1.2-4",
+                                "nama_sub_indikator": "Dokumentasi katalog terbaru"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.1.2-5",
+                                "nama_sub_indikator": "Tangkapan layar tambahan koleksi"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.1.2-6",
+                                "nama_sub_indikator": "Persentase penambahan koleksi dihitung dari penambahan koleksi tahun sebelumnya"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "1.2",
+                "nama_sub": "Keragaman Koleksi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "1.2.3",
+                        "nama_indikator": "Jenis koleksi Perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.2.3-1",
+                                "nama_sub_indikator": "Laporan jumlah dan jenis koleksi perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.2.3-2",
+                                "nama_sub_indikator": "Tangkapan layar/laporan sistem otomasi yang menunjukkan jumlah koleksi perpustakaan"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "1.3",
+                "nama_sub": "Ketercukupan Koleksi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "1.3.4",
+                        "nama_indikator": "Presentase program studi Universitas yang memiliki koleksi inti",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.3.4-1",
+                                "nama_sub_indikator": "Dokumen atau laporan rekapitulasi jumlah dan\njenis koleksi perpustakaan (karya cetak dan\nkarya rekam) disahkan oleh pejabat yang\nberwenang;"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.4-2",
+                                "nama_sub_indikator": "Tangkapan layar atau laporan sistem otomasi\nyang menunjukan jumlah koleksi perpustakaan;"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.4-3",
+                                "nama_sub_indikator": "Silabus mata kuliah pada program studi"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.4-4",
+                                "nama_sub_indikator": "Koleksi inti yang wajib dimiliki oleh program\nstudi 80% dari keseluruhan koleksi."
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "1.3.5",
+                        "nama_indikator": "Perpustakaan secara berkala melakukan evaluasi koleksi untuk menjamin relevansi, akurasi, dan keterkinian isi koleksi terhadap kebutuhan akademik",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.3.5-1",
+                                "nama_sub_indikator": "Instrumen/formulir evaluasi koleksi"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.5-2",
+                                "nama_sub_indikator": "Berita acara penyiangan (weeding) berdasarkan\nhasil evaluasi;"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.5-3",
+                                "nama_sub_indikator": "Laporan bukti tindak lanjut"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.5-4",
+                                "nama_sub_indikator": "Notulen rapat atau tim penilai koleksi;"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.5-5",
+                                "nama_sub_indikator": "Daftar revisi koleksi pasca evaluasi"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "1.3.6",
+                        "nama_indikator": "Perpustakaan melaksanakan kegiatan seleksi bahan perpustakaan secara terencana, objektif, dan berbasis kebutuhan sivitas akademika, relevansi kurikulum, serta perkembangan ilmu pengetahuan.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.3.6-1",
+                                "nama_sub_indikator": "Dokumen panduan atau prosedur operasional\nstandar (POS) seleksi bahan perpustakaan;"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.6-2",
+                                "nama_sub_indikator": "Formulir usulan bahan perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.6-3",
+                                "nama_sub_indikator": "Berita acara atau notulen rapat seleksi;"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.3.6-4",
+                                "nama_sub_indikator": "Daftar bahan perpustakaan terseleksi"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "1.4",
+                "nama_sub": "Jumlah Koleksi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "1.4.7",
+                        "nama_indikator": "Perpustakaan memiliki jumlah koleksi yang memadai, sesuai dengan kebutuhan kurikulum dan jumlah sivitas akademika, dalam bentuk tercetak dan elektronik/digital",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.4.7-1",
+                                "nama_sub_indikator": "Dokumen atau laporan jumlah koleksi\nperpustakaan disahkan oleh pejabat yang\nberwenang;"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.4.7-2",
+                                "nama_sub_indikator": "Tangkapan layar atau laporan sistem otomasi\nyang menunjukan jumlah koleksi perpustakaan."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "1.5",
+                "nama_sub": "Sarana Akses Koleksi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "1.5.8",
+                        "nama_indikator": "Perpustakaan universitas memiliki alat atau sarana untuk akses koleksi yang lebih mudah dan cepat",
+                        "sub_indikators": []
+                    },
+                    {
+                        "nomor_indikator": "1.5.8",
+                        "nama_indikator": "Foto/tangkapan layar sistem pencarian",
+                        "sub_indikators": []
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "1.6",
+                "nama_sub": "Akses Koleksi Elektronik atau Digital",
+                "indikators": [
+                    {
+                        "nomor_indikator": "1.6.9",
+                        "nama_indikator": "Perpustakaan menyediakan akses terhadap koleksi elektronik (e-resources) seperti e-book, e-journal, database ilmiah, dan repositori digital untuk mendukung kebutuhan pembelajaran dan penelitian\nsivitas akademika",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.6.9-1",
+                                "nama_sub_indikator": "Laporan daftar platform e-resources yang\ndilanggan atau tersedia;"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.6.9-2",
+                                "nama_sub_indikator": "Tangkapan layar portal akses e-resource dan informasi autentifikasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.6.9-3",
+                                "nama_sub_indikator": "Dokumen kerja sama/langganan pemanfaatan\ndatabase elektronik seperti kontrak, MoU, atau\nsurat penunjukan langganan."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "1.7",
+                "nama_sub": "Repositori Institusi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "1.7.10",
+                        "nama_indikator": "Perpustakaan mengelola repositori institusi sebagai pusat penyimpanan, pengelolaan, dan diseminasi karya ilmiah sivitas akademika dalam format digital yang dapat diakses secara terbuka  dan berkelanjutan oleh sivitas akademika",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.7.10-1",
+                                "nama_sub_indikator": "Dokumen kebijakan pengembangan repositori"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.7.10-2",
+                                "nama_sub_indikator": "Tangkapan layar sistem repositori"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "1.7.11",
+                        "nama_indikator": "Persentase penambahan jumlah unggahan karya ilmiah sivitas akademika pada repositori institusi per tahun",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.7.11-1",
+                                "nama_sub_indikator": "Dokumen/laporan statistik perkembangan koleksi repositori tahun berjalan dengan tahun sebelumnya"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.7.11-2",
+                                "nama_sub_indikator": "Tangkapan layar sistem repositori"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.7.11-3",
+                                "nama_sub_indikator": "Penghitungan persentase dengan membandingkan penambahan koleksi repositori"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "1.7.12",
+                        "nama_indikator": "Perpustakaan melaksanakan pengorganisasian koleksi secara sistematis dan sesuai standar untuk memudahkan temu kembali informasi bagi sivitas akademika.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.7.12-1",
+                                "nama_sub_indikator": "SOP pengorganisasian bahan perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.7.12-2",
+                                "nama_sub_indikator": "Dokumentasi/foto hasil katalogisasi dan klasifikasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.7.12-3",
+                                "nama_sub_indikator": "Tangkapan Layar OPAC"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "1.8",
+                "nama_sub": "Pelestarian Koleksi Perpustakaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "1.8.13",
+                        "nama_indikator": "Kegiatan pelestarian koleksi dalam upaya menjaga kondisi fisik dan isi informasi untuk memperpanjang usia pakai koleksi dalam 3 (tiga) tahun.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "1.8.13-1",
+                                "nama_sub_indikator": "SOP Pemeliharaan/pelestarian koleksi"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.8.13-2",
+                                "nama_sub_indikator": "Laporan kegiatan pelestarian"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.8.13-3",
+                                "nama_sub_indikator": "Jadwal kegiatan pelestarian tahunan"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.8.13-4",
+                                "nama_sub_indikator": "Daftar koleksi yang direstorasi/dirawat"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.8.13-5",
+                                "nama_sub_indikator": "Dokumentasi visual kegiatan pelestarian"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "nomor": 2,
+        "nama": "KOMPONEN SARANA DAN PRASARANA PERPUSTAKAAN",
+        "sub_komponens": [
+            {
+                "nomor_sub": "2.1",
+                "nama_sub": "Gedung atau Ruang Perpustakaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "2.1.1",
+                        "nama_indikator": "Perpustakaan memiliki luas gedung atau ruang yang memadai dan representatif untuk mendukung fungsi layanan, pengelolaan koleksi, kegiatan literasi, serta kenyamanan sivitas akademika",
+                        "sub_indikators": []
+                    },
+                    {
+                        "nomor_indikator": "2.1.1",
+                        "nama_indikator": "Gambar/denah/blueprint ruang/gedung perpustakaan",
+                        "sub_indikators": []
+                    },
+                    {
+                        "nomor_indikator": "2.1.2",
+                        "nama_indikator": "Ruang atau area yang terdapat pada perpustakaan.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.1.2-1",
+                                "nama_sub_indikator": "Gambar/denah ruang perpustakaan, area layanan lain, dan area terbuka"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.1.2-2",
+                                "nama_sub_indikator": "Ruang layanan dasar, ruang pendukung atau area terbuka"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "2.2",
+                "nama_sub": "Sarana dan Prasarana Perpustakaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "2.2.3",
+                        "nama_indikator": "Perpustakaan memiliki sarana dan prasarana yang memadai, layak, dan fungsional untuk mendukung kegiatan layanan, akses informasi, pengelolaan koleksi, kenyamanan, dan keselamatan sivitas akademika.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.2.3-1",
+                                "nama_sub_indikator": "Daftar inventaris sarana dan prasarana perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.2.3-2",
+                                "nama_sub_indikator": "Foto dokumentasi fisik sarana dan prasarana"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "2.3",
+                "nama_sub": "Perabotan dan Peralatan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "2.3.4",
+                        "nama_indikator": "Tersedianya perabot dan peralatan perpustakaan yang mendukung kenyamanan aktivitas membaca sesuai kebutuhan",
+                        "sub_indikators": []
+                    },
+                    {
+                        "nomor_indikator": "2.3.4",
+                        "nama_indikator": "Daftar inventaris dan foto perabotan dan peralatan perpustakaan",
+                        "sub_indikators": []
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "2.4",
+                "nama_sub": "Perangkat IT dan Multimedia",
+                "indikators": [
+                    {
+                        "nomor_indikator": "2.4.5",
+                        "nama_indikator": "Ketersediaan perangkat komputer untuk mendukung fungsi layanan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.4.5-1",
+                                "nama_sub_indikator": "Daftar inventaris perangkat komputer"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.4.5-2",
+                                "nama_sub_indikator": "Foto pemanfaatan perangkat komputer"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "2.4.6",
+                        "nama_indikator": "Ketersediaan jaringan internet",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.4.6-1",
+                                "nama_sub_indikator": "Hasil uji kecepatan internet disetiap ruang"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.4.6-2",
+                                "nama_sub_indikator": "Tangkapan layar layanan ISP"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.4.6-3",
+                                "nama_sub_indikator": "Peta atau denah jangkauan WIFI"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "2.4.7",
+                        "nama_indikator": "Perpustakaan menyediakan perangkat multimedia yang memadai untuk mendukung layanan informasi, pembelajaran mandiri, dan kegiatan literasi digital bagi sivitas akademika.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.4.7-1",
+                                "nama_sub_indikator": "Daftar perangkat multimedia"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.4.7-2",
+                                "nama_sub_indikator": "Foto perangkat multimedia"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "2.4.8",
+                        "nama_indikator": "Legalitas perangkat lunak yang digunakan dalam mendukung operasional perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.4.8-1",
+                                "nama_sub_indikator": "Daftar perangkat lunak yang digunakan"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.4.8-2",
+                                "nama_sub_indikator": "Dokumen/tangkapan layar lisensi/aspek legal"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "2.5",
+                "nama_sub": "Sarana Keamanan dan Fasilitas Umum",
+                "indikators": [
+                    {
+                        "nomor_indikator": "2.5.9",
+                        "nama_indikator": "Perpustakaan menyediakan sarana keamanan dan keselamatan yang memadai untuk melindungi koleksi, sivitas akademika, dan staf, serta mendukung ketertiban operasional layanan.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.5.9-1",
+                                "nama_sub_indikator": "Daftar inventaris sarana keamanan dan keselamatan"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.5.9-2",
+                                "nama_sub_indikator": "Dokumentasi dan letak alat keamanan"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.5.9-3",
+                                "nama_sub_indikator": "Sertifikat/berita acara pemeriksaan atau uji fungsi perangkat"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.5.9-4",
+                                "nama_sub_indikator": "POS tanggap darurat dan sistem keamanan"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.5.9-5",
+                                "nama_sub_indikator": "Berita acara pelatihan atau simulasi keselamatan"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "2.5.10",
+                        "nama_indikator": "Ketersediaan fasilitas umum",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.5.10-1",
+                                "nama_sub_indikator": "Foto dan letak fasilitas umum"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.5.10-2",
+                                "nama_sub_indikator": "Daftar fasilitas umum"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "2.6",
+                "nama_sub": "Pengawasan dan Pemeliharanaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "2.6.11",
+                        "nama_indikator": "Perpustakaan melaksanakan pengawasan secara berkala terhadap kondisi sarana, prasarana, dan lingkungan fisik untuk menjamin kenyamanan, keamanan, dan kelancaran layanan perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.6.11-1",
+                                "nama_sub_indikator": "Data inventaris dan aset perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.6.11-2",
+                                "nama_sub_indikator": "Jadwal monitoring aset dan sarana prasarana"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.6.11-3",
+                                "nama_sub_indikator": "Instrumen dan bukti monitoring kelayakan sarana prasarana"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.6.11-4",
+                                "nama_sub_indikator": "Dokumentasi perbaikan atau tindak lanjut dari hasil pengawasan"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "nomor": 3,
+        "nama": "KOMPONEN PELAYANAN PERPUSTAKAAN",
+        "sub_komponens": [
+            {
+                "nomor_sub": "3.1",
+                "nama_sub": "Waktu Layanan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "3.1.1",
+                        "nama_indikator": "Perpustakaan menyelenggarakan layanan\nfisik secara konsisten dan memadai setiap\nminggu untuk menjamin aksesibilitas\nlayanan bagi seluruh sivitas akademika.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.1.1-1",
+                                "nama_sub_indikator": "SK Jam buka layanan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.1.1-2",
+                                "nama_sub_indikator": "Jadwal layanan fisik perpustakaan"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "3.2",
+                "nama_sub": "Keragaman Layanan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "3.2.2",
+                        "nama_indikator": "Perpustakaan menyelenggarakan berbagai jenis layanan yang mendukung fungsi pendidikan, penelitian, dan pengabdian kepada masyarakat secara aktif dan berkelanjutan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.2.2-1",
+                                "nama_sub_indikator": "Daftar jenis layanan yang dilaksanakan di perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.2.2-2",
+                                "nama_sub_indikator": "Laporan pelaksanaan layanan"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "3.2.3",
+                        "nama_indikator": "Perpustakaan menyelenggarakan layanan sirkulasi (peminjaman, pengembalian, perpanjangan, reservasi) dengan sistem yang terkelola baik, terdigitalisasi, dan mudah diakses oleh sivitas akademika",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.2.3-1",
+                                "nama_sub_indikator": "Tangkapan layar sistem otomasi perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.2.3-2",
+                                "nama_sub_indikator": "SOP Panduan layanan sirkulasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.2.3-3",
+                                "nama_sub_indikator": "Dokumen sivitas akademika melakukan transaksi mandiri"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "3.2.4",
+                        "nama_indikator": "Perpustakaan menyelenggarakan sistem layanan referensi yang profesional, terstruktur, dan mampu membantu sivitas akademika dalam menemukan, mengevaluasi, dan memanfaatkan sumber informasi ilmiah secara efektif.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.2.4-1",
+                                "nama_sub_indikator": "Daftar pustakawan referensi dan jadwal layanan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.2.4-2",
+                                "nama_sub_indikator": "Dokumentasi kegiatan/interaksi di layanan referensi"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.2.4-3",
+                                "nama_sub_indikator": "Rekapitulasi permintaan referensi"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.2.4-4",
+                                "nama_sub_indikator": "Statistik layanan referensi"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "3.3",
+                "nama_sub": "Sarana Akses",
+                "indikators": [
+                    {
+                        "nomor_indikator": "3.3.5",
+                        "nama_indikator": "Perpustakaan menyediakan sistem akses layanan yang mudah, cepat, dan dapat dijangkau oleh sivitas akademika secara luring maupun daring dengan memperhatikan inklusivitas dan kenyamanan sivitas akademika",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.3.5-1",
+                                "nama_sub_indikator": "Daftar sistem akses layanan di perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.5-2",
+                                "nama_sub_indikator": "Tangkapan layar sisten akses daring"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.5-3",
+                                "nama_sub_indikator": "SOP dan panduan penggunaan sistem layanan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.5-4",
+                                "nama_sub_indikator": "Statistik penggunaan kanal digital"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "3.3.6",
+                        "nama_indikator": "Perpustakaan menyediakan berbagai jenis layanan konsultasi riset yang membantu sivitas akademika dalam proses penelitian, penulisan ilmiah, dan publikasi, baik secara teknis maupun akademik",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.3.6-1",
+                                "nama_sub_indikator": "Daftar jenis layanan konsultasi riset"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.6-2",
+                                "nama_sub_indikator": "Jadwal kegiatan konsultasi riset"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.6-3",
+                                "nama_sub_indikator": "Dokumentasi kegiataan kolsultasi riset"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.6-4",
+                                "nama_sub_indikator": "Daftar permintaan layanan konsultasi riset"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.6-5",
+                                "nama_sub_indikator": "Laporan pelaksanaan konsutasi riset"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "3.3.7",
+                        "nama_indikator": "Perpustakaan menyelenggarakan layanan pinjam antar perpustakaan untuk memperluas akses informasi bagi sivitas akademika dan mendukung kegiatan akademik yang tidak dapat dipenuhi dari koleksi lokal",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.3.7-1",
+                                "nama_sub_indikator": "Surat kerjasama/MoU/nota kesepahaman"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.7-2",
+                                "nama_sub_indikator": "Laporan transaksi layanan silang/pinjam antar perpustakaan tahunan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.7-3",
+                                "nama_sub_indikator": "Form permintaan layanan silang/pinjam antar perpustakaan oleh sivitas akademika"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.7-4",
+                                "nama_sub_indikator": "Dokumen komunikasi atau surat permintaan.peminjaman antar institusi"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "3.3.8",
+                        "nama_indikator": "Perpustakaan menyelenggarakan kegiatan / layanan literasi informasi secara terstruktur dan berkelanjutan untuk meningkatkan kemampuan sivitas akademika dalam mengakses, mengevaluasi, dan menggunakan informasi secara efektif dan bertanggung jawab.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.3.8-1",
+                                "nama_sub_indikator": "Jadwal atau kalender kegiatan literasi informasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.8-2",
+                                "nama_sub_indikator": "Daftar hadir atau rekap peserta"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.8-3",
+                                "nama_sub_indikator": "Dokumentasi kegiatan literasi informasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.8-4",
+                                "nama_sub_indikator": "Laporan kegiatan literasi informasi"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "3.3.9",
+                        "nama_indikator": "Perpustakaan menyelenggarakan layanan ekstensi sebagai bagian dari kontribusi universitas dalam pengabdian kepada masyarakat dan perluasan akses informasi di luar sivitas akademika dalam 3 tahun terakhir",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.3.9-1",
+                                "nama_sub_indikator": "Proposal dan laporan kegiatan layanan ekstensi"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.9-2",
+                                "nama_sub_indikator": "Dokumentasi kegiatan layanan ekstensi"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.9-3",
+                                "nama_sub_indikator": "Surat atau naskah kerjasama atau MoU dengan lembaga/komunitas eksternal"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "3.3.10",
+                        "nama_indikator": "Perpustakaan memiliki sistem layanan pengaduan/keluhan yang jelas, responsif, dan digunakan secara aktif untuk meningkatkan layanan perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.3.10-1",
+                                "nama_sub_indikator": "Laporan pelaksanaan sistem layanan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.10-2",
+                                "nama_sub_indikator": "Tangkapan layar solusi pengaduan di sosial media perpustakaan"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "3.3.11",
+                        "nama_indikator": "Perpustakaan melaksanakan kegiatan orientasi secara rutin setiap tahun bagi mahasiswa baru atau sivitas akademika baru untuk memperkenalkan layanan, koleksi, fasilitas, dan sistem akses informasi di perpustakaan.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "3.3.11-1",
+                                "nama_sub_indikator": "Jadwal kegiatan orientasi perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.11-2",
+                                "nama_sub_indikator": "Daftar hadir dan materi orientasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "3.3.11-3",
+                                "nama_sub_indikator": "Dokumentasi (foto/video) kegiatan"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "nomor": 4,
+        "nama": "KOMPONEN TENAGA PERPUSTAKAAN",
+        "sub_komponens": [
+            {
+                "nomor_sub": "4.1",
+                "nama_sub": "Kualifikasi Tenaga",
+                "indikators": [
+                    {
+                        "nomor_indikator": "4.1.1",
+                        "nama_indikator": "Kualifikasi pendidikan kepala perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "4.1.1-1",
+                                "nama_sub_indikator": "SK pengangkatan kepala perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.1.1-2",
+                                "nama_sub_indikator": "Ijazah terakhir dan/atau transkrip nilai Kepala Perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.1.1-3",
+                                "nama_sub_indikator": "SK jabatan fungsional perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.1.1-4",
+                                "nama_sub_indikator": "Daftar Riwayat Hidup dan dokumen kepala perpustakaan; pengalaman kerja di bidang perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.1.1-5",
+                                "nama_sub_indikator": "Sertifikat pelatihan/kepemimpinan bidang perpustakaan kepala perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.1.1-6",
+                                "nama_sub_indikator": "Kriteria kepala perpustakaan"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "4.1.2",
+                        "nama_indikator": "Kualifikasi pendidikan tenaga perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "4.1.2-1",
+                                "nama_sub_indikator": "Dokumen hasil analisis formasi jabatan tenaga perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.1.2-2",
+                                "nama_sub_indikator": "Ijazah dan sertifikat lainnya (tenaga perpustakaan)"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.1.2-3",
+                                "nama_sub_indikator": "Deskripsi pekerjaan (tenaga perpustakaan)"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "4.2",
+                "nama_sub": "Jumlah Tenaga Perpustakaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "4.2.3",
+                        "nama_indikator": "Perpustakaan memiliki pustakawan memadai untuk mendukung layanan dan pengembangan perpustakaan secara efektif dan berkelanjutan.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "4.2.3-1",
+                                "nama_sub_indikator": "Dokumen atau daftar/rekap Tenaga Perpustakaan disahkan oleh pejabat yang berwenang"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.2.3-2",
+                                "nama_sub_indikator": "SK Pengangkatan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.2.3-3",
+                                "nama_sub_indikator": "Perhitungan persentase pustakawan harus memenuhi jumlah ketercukupan"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "4.2.4",
+                        "nama_indikator": "Perpustakaan memiliki tenaga teknis memadai untuk mendukung layanan dan pengembangan perpustakaan secara efektif dan berkelanjutan.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "4.2.4-1",
+                                "nama_sub_indikator": "Dokumen atau daftar/rekap Tenaga Perpustakaan disahkan oleh pejabat yang berwenang"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.2.4-2",
+                                "nama_sub_indikator": "SK Pengangkatan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.2.4-3",
+                                "nama_sub_indikator": "Perhitungan persentase pustakawan harus memenuhi jumlah ketercukupan"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "4.3",
+                "nama_sub": "Pembinaan dan Pengembangan Kompetensi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "4.3.5",
+                        "nama_indikator": "Perpustakaan memiliki tenaga perpustakaan (pustakawan dan tenaga teknis) yang tersertifikasi kompetensi sesuai dengan jenjang dan bidang tugasnya",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "4.3.5-1",
+                                "nama_sub_indikator": "Daftar jumlah tenaga perpustakaan keseluruhan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.3.5-2",
+                                "nama_sub_indikator": "Daftar jumlah tenaga perpustakaan tersertifikasi"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "4.3.6",
+                        "nama_indikator": "Tenaga Perpustakaan yang mengikuti kegiatan peningkatan kompetensi pustakawan dan tenaga teknis secara berkelanjutan guna mendukung kualitas layanan dan transformasi digital dalam 1 (satu) tahun terakhir.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "4.3.6-1",
+                                "nama_sub_indikator": "Jumlah tenaga perpustakaan yang dibuktikan dengan SK atau Surat Tugas sebagai kepala perpustakaan dan tenaga perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.3.6-2",
+                                "nama_sub_indikator": "Jumlah kegiatan PKB yang diikuti oleh tenaga perpustakaan dalam 1 (satu) tahun terakhir."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "nomor": 5,
+        "nama": "KOMPONEN PENYELENGARAAN PERPUSTAKAAN",
+        "sub_komponens": [
+            {
+                "nomor_sub": "5.1",
+                "nama_sub": "Status Organisasi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "5.1.1",
+                        "nama_indikator": "Status Organisasi",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "5.1.1-1",
+                                "nama_sub_indikator": "Dokumen Statuta Universitas"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.1.1-2",
+                                "nama_sub_indikator": "SK pendirian perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.1.1-3",
+                                "nama_sub_indikator": "Dokumen yang menggambarkan perpustakaan masuk ke dalam unsur struktur organisasi universitas/lembaga induk"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "5.2",
+                "nama_sub": "Kelengkapan Perangkat Aturan Organisasi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "5.2.2",
+                        "nama_indikator": "Perpustakaan memiliki status kelembagaan yang jelas dan berkedudukan strategis dalam struktur organisasi universitas untuk mendukung fungsi akademik secara optimal.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "5.2.2-1",
+                                "nama_sub_indikator": "Dokumen umum penyelenggaraan perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.2.2-2",
+                                "nama_sub_indikator": "Dokumen perencanaan strategis atau sejenisnya"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.2.2-3",
+                                "nama_sub_indikator": "Prosedur operasional standar"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.2.2-4",
+                                "nama_sub_indikator": "Kode etik pustakawan"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.2.2-5",
+                                "nama_sub_indikator": "Manual mutu"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.2.2-6",
+                                "nama_sub_indikator": "Petunjuk teknis (Instruksi Kerja)"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "5.3",
+                "nama_sub": "Kelengkapan Perangkat Manajemen",
+                "indikators": [
+                    {
+                        "nomor_indikator": "5.3.3",
+                        "nama_indikator": "Perpustakaan memiliki dokumen perencanaan kerja dan memenuhi pencapaian kinerja.",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "5.3.3-1",
+                                "nama_sub_indikator": "Dokumen perencanaan kerja disahkan oleh pejabat yang berwenang"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.3.3-2",
+                                "nama_sub_indikator": "Laporan kegiatan dan kinerja tahunan perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.3.3-3",
+                                "nama_sub_indikator": "Dokumentasi kegiatan berdasarkan program kerja"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.3.3-4",
+                                "nama_sub_indikator": "Persentase dihitung dari kinerja tahunan/IKU Unit"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "5.4",
+                "nama_sub": "Kelengkapan Struktur Organisasi",
+                "indikators": [
+                    {
+                        "nomor_indikator": "5.4.4",
+                        "nama_indikator": "Perpustakaan memiliki struktur organisasi yang jelas, terdokumentasi, sesuai dengan tugas, fungsi, dan kebutuhan layanan perpustakaan di universitas",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "5.4.4-1",
+                                "nama_sub_indikator": "Struktur organisasi perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.4.4-2",
+                                "nama_sub_indikator": "SK kepala perpustakaan dan staf pendukung"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.4.4-3",
+                                "nama_sub_indikator": "Uraian tugas setiap posisi/unit dalam struktur"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "5.5",
+                "nama_sub": "Pelibatan Sivitas Akademika dalam Penyelenggaraan Perpustakaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "5.5.5",
+                        "nama_indikator": "Perpustakaan melibatkan pemangku kepentingan (dosen, mahasiswa, tenaga kependidikan, pimpinan institusi, mitra luar) dalam perencanaan, pengembangan, pelaksanaan, dan evaluasi layanan serta kebijakan perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "5.5.5-1",
+                                "nama_sub_indikator": "Dokumentasi keterlibatan pemangku kepentingan, dan sivitas akademika dalam penyelenggaraan , seperti rapat koordinasi, edaran pimpinan berkaitan dengan perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.5.5-2",
+                                "nama_sub_indikator": "SK Tim Pengembang Perpustakaan yang melibatkan lintas unit atau program studi"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.5.5-3",
+                                "nama_sub_indikator": "Surat rekomendasi atau masukan tertulis dari pimpinan program studi/dekanat"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.5.5-4",
+                                "nama_sub_indikator": "Program kolaboratif dengan mitra pemangku kepentingan"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "5.6",
+                "nama_sub": "Komitmen Pimpinan Universitas",
+                "indikators": [
+                    {
+                        "nomor_indikator": "5.6.6",
+                        "nama_indikator": "Pimpinan Universitas menunjukkan komitmen yang kuat terhadap pengembangan perpustakaan melalui kebijakan, alokasi anggaran, dukungan program, dan pengakuan kelembagaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "5.6.6-1",
+                                "nama_sub_indikator": "SK penguatan/pengembangan status kelembagaan perpustakaan;"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.6.6-2",
+                                "nama_sub_indikator": "Keanggotaan senat akademik;"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.6.6-3",
+                                "nama_sub_indikator": "Pengesahan rencana strategis atau rencana operasional perpustakaan oleh pimpinan;"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.6.6-4",
+                                "nama_sub_indikator": "Kenaikan anggaran perpustakaan setiap tahun;"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.6.6-5",
+                                "nama_sub_indikator": "Notulen rapat pimpinan yang membahas atau melibatkan perpustakaan;"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.6.6-6",
+                                "nama_sub_indikator": "Surat tugas atau keikutsertaan pimpinan dalam kegiatan strategis perpustakaan;"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.6.6-7",
+                                "nama_sub_indikator": "Dokumentasi dukungan kehadiran pimpinan pada program perpustakaan."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "5.7",
+                "nama_sub": "Pengakuan/Rekognisi Kinerja",
+                "indikators": [
+                    {
+                        "nomor_indikator": "5.7.7",
+                        "nama_indikator": "Pengakuan terhadap kinerja penyelenggaraan perpustakaan dalam 3 (tiga) tahun terakhir",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "5.7.7-1",
+                                "nama_sub_indikator": "Sertifikat penghargaan dan/atau prestasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.7.7-2",
+                                "nama_sub_indikator": "Surat keputusan atau pengakuan dari rektorat/pimpinan institusi;"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.7.7-3",
+                                "nama_sub_indikator": "Sertifikasi sistem manajemen mutu;"
+                            },
+                            {
+                                "nomor_sub_indikator": "5.7.7-4",
+                                "nama_sub_indikator": "Publikasi karya ilmiah pustakawan yang mendapatkan pengakuan."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "nomor": 6,
+        "nama": "KOMPONEN PENGELOLAAN PERPUSTAKAAN",
+        "sub_komponens": [
+            {
+                "nomor_sub": "6.1",
+                "nama_sub": "Anggaran Perpustakaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "6.1.1",
+                        "nama_indikator": "Perpustakaan memiliki anggaran rutin dan pengembangan yang memadai, dialokasikan secara proporsional dan dikelola secara akuntabel untuk mendukung operasional, layanan, pengembangan koleksi, SDM, dan teknologi informasi",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "6.1.1-1",
+                                "nama_sub_indikator": "Dokumen Rencana Kerja Anggaran Lembaga"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.1.1-2",
+                                "nama_sub_indikator": "Laporan realisasi anggaran universitas dalam 3 (tiga) tahun terakhir"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.1.1-3",
+                                "nama_sub_indikator": "Laporan tahunan perpustakaan"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "6.2",
+                "nama_sub": "Kelengkapan Perangkat Teknologi dalam Pengelolaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "6.2.2",
+                        "nama_indikator": "Perpustakaan memiliki situs website perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "6.2.2-1",
+                                "nama_sub_indikator": "Tangkapan gambar website perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.2.2-2",
+                                "nama_sub_indikator": "Daftar fitur website"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.2.2-3",
+                                "nama_sub_indikator": "Tangkapan gambar website yang diperbarui secara berkala"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "6.2.3",
+                        "nama_indikator": "Sistem informasi manajemen atau pengelolaan perpustakaan berbasis TIK (Otomasi)",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "6.2.3-1",
+                                "nama_sub_indikator": "Tangkapan layar OPAC bisa diakses melalui website universitas"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.2.3-2",
+                                "nama_sub_indikator": "Tangkapan layar aplikasi berbasis android/iOS"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.2.3-3",
+                                "nama_sub_indikator": "Tangkapan layar data sivitas akademika sinkron otomatis"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.2.3-4",
+                                "nama_sub_indikator": "Tangkapan layar laporan otomatis dari sistem untuk statsitik peminjaman, keanggotaan dan kunjungan"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "6.3",
+                "nama_sub": "Kerja sama Perpustakaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "6.3.4",
+                        "nama_indikator": "Perpustakaan menjalin dan mengimplementasikan kerja sama dengan pihak eksternal, baik nasional maupun internasional, yang mendukung pengembangan layanan, sumber daya, dan peningkatan kapasitas kelembagaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "6.3.4-1",
+                                "nama_sub_indikator": "Dokumen kerja sama (MoU, PKS, dan sejenisnya)"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.3.4-2",
+                                "nama_sub_indikator": "Dokumentasi kegiatan kerja sama"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.3.4-3",
+                                "nama_sub_indikator": "Surat tugas, undangan, atau notulensi rapat kerja sama"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.3.4-4",
+                                "nama_sub_indikator": "Dokumentasi keikutsertaan dalam konsorsium, forum ilmiah, atau asosiasi profesi pustakawan"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "6.4",
+                "nama_sub": "Inovasi dalam Pengelolaan Perpustakaan",
+                "indikators": [
+                    {
+                        "nomor_indikator": "6.4.5",
+                        "nama_indikator": "Perpustakaan secara aktif mengembangkan dan menerapkan inovasi dalam pengelolaan, layanan, atau sistem untuk meningkatkan efisiensi, jangkauan, dan kualitas layanan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "6.4.5-1",
+                                "nama_sub_indikator": "Dokumen program proyek inovatif"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.4.5-2",
+                                "nama_sub_indikator": "Laporan pemanfaatan inovasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.4.5-3",
+                                "nama_sub_indikator": "Dokumentasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.4.5-4",
+                                "nama_sub_indikator": "Sertifikat"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.4.5-5",
+                                "nama_sub_indikator": "SK tim inovasi"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "nomor_sub": "6.5",
+                "nama_sub": "Dukungan Perpustakaan dalam Akrediasi Lembaga",
+                "indikators": [
+                    {
+                        "nomor_indikator": "6.5.6",
+                        "nama_indikator": "Perpustakaan berperan aktif atau berkontribusi dalam akreditasi program studi dan akreditasi institusi dalam 3 tahun terakhir",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "6.5.6-1",
+                                "nama_sub_indikator": "Surat tugas/permohonan peran perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.5.6-2",
+                                "nama_sub_indikator": "Dokumentasi kegiatan asesmen lapangan"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.5.6-3",
+                                "nama_sub_indikator": "Rekap jumlah program studi yang dilayani untuk akreditasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.5.6-4",
+                                "nama_sub_indikator": "Materi yang disediakan"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "6.5.7",
+                        "nama_indikator": "Pemanfaatan perpustakaan secara aktif oleh sivitas akademika baik internal maupun eksterna",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "6.5.7-1",
+                                "nama_sub_indikator": "Laporan hasil pemanfaatan sivitas akademika"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.5.7-2",
+                                "nama_sub_indikator": "Laporan hasil pemanfaatan masyarakat atau sivitas akademika yang bukan anggota"
+                            }
+                        ]
+                    },
+                    {
+                        "nomor_indikator": "6.5.8",
+                        "nama_indikator": "Tingkat indeks kepuasan sivitas akademika terhadap pengelolaan perpustakaan",
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "6.5.8-1",
+                                "nama_sub_indikator": "Laporan hasil survei"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.5.8-2",
+                                "nama_sub_indikator": "Kuesioner survei kepuasan sivitas akademika"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.5.8-3",
+                                "nama_sub_indikator": "Dokumen tindak lanjut perbaikan layanan"
+                            },
+                            {
+                                "nomor_sub_indikator": "6.5.8-4",
+                                "nama_sub_indikator": "Publikasi hasil survei"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
