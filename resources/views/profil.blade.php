@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Profil - Perpustakaan USU')
+@section('title', __('Profil - Perpustakaan USU'))
 
 @push('styles')
 <style>
@@ -70,15 +70,15 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-4xl mx-auto mb-20">
                 <span data-aos="fade-up" class="inline-block py-1.5 px-4 rounded-full bg-white/10 border border-white/20 text-[#fecb00] text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
-                    Profil Institusi
+                    {{ __('Profil Institusi') }}
                 </span>
                 
                 <h1 data-aos="zoom-in" data-aos-delay="100" class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-8">
-                    "Menjadi Perpustakaan Perguruan Tinggi Terkemuka dalam Tataran Global"
+                    {{ __('"Menjadi Perpustakaan Perguruan Tinggi Terkemuka dalam Tataran Global"') }}
                 </h1>
                 
                 <p data-aos="fade-up" data-aos-delay="200" class="text-lg md:text-xl text-white/80 font-medium">
-                    Visi Utama Perpustakaan Universitas Sumatera Utara
+                    {{ __('Visi Utama Perpustakaan Universitas Sumatera Utara') }}
                 </p>
             </div>
 
@@ -90,8 +90,8 @@
                     <div class="w-14 h-14 bg-[#fecb00] text-[#044b25] rounded-2xl flex items-center justify-center mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Akses Global</h3>
-                    <p class="text-white/70 leading-relaxed text-sm">Menyediakan akses terhadap berbagai sumber informasi global dan layanan secara tepat waktu, tepat guna, dan efektif untuk mendukung fungsi Tridharma USU.</p>
+                    <h3 class="text-xl font-bold mb-3">{{ __('Akses Global') }}</h3>
+                    <p class="text-white/70 leading-relaxed text-sm">{{ __('Menyediakan akses terhadap berbagai sumber informasi global dan layanan secara tepat waktu, tepat guna, dan efektif untuk mendukung fungsi Tridharma USU.') }}</p>
                 </div>
 
                 <!-- Misi 2 -->
@@ -99,8 +99,8 @@
                     <div class="w-14 h-14 bg-[#fecb00] text-[#044b25] rounded-2xl flex items-center justify-center mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Pengadaan Koleksi</h3>
-                    <p class="text-white/70 leading-relaxed text-sm">Melakukan pengadaan dan penyediaan bahan perpustakaan cetak maupun elektronik secara berkesinambungan dan relevan dengan program studi.</p>
+                    <h3 class="text-xl font-bold mb-3">{{ __('Pengadaan Koleksi') }}</h3>
+                    <p class="text-white/70 leading-relaxed text-sm">{{ __('Melakukan pengadaan dan penyediaan bahan perpustakaan cetak maupun elektronik secara berkesinambungan dan relevan dengan program studi.') }}</p>
                 </div>
 
                 <!-- Misi 3 -->
@@ -108,8 +108,8 @@
                     <div class="w-14 h-14 bg-[#fecb00] text-[#044b25] rounded-2xl flex items-center justify-center mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Literasi Informasi</h3>
-                    <p class="text-white/70 leading-relaxed text-sm">Membantu mahasiswa dan dosen agar terampil dalam menemukan, mengevaluasi, dan menggunakan informasi yang relevan dengan kebutuhan mereka.</p>
+                    <h3 class="text-xl font-bold mb-3">{{ __('Literasi Informasi') }}</h3>
+                    <p class="text-white/70 leading-relaxed text-sm">{{ __('Membantu mahasiswa dan dosen agar terampil dalam menemukan, mengevaluasi, dan menggunakan informasi yang relevan dengan kebutuhan mereka.') }}</p>
                 </div>
             </div>
         </div>
@@ -128,8 +128,8 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-4">Fasilitas Unggulan</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto text-lg">Mendukung ekosistem belajar yang nyaman baik di dalam ruangan (Indoor) maupun ruang terbuka (Outdoor).</p>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-4">{{ __('Fasilitas Unggulan') }}</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg">{{ __('Mendukung ekosistem belajar yang nyaman baik di dalam ruangan (Indoor) maupun ruang terbuka (Outdoor).') }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-4 md:h-[600px]">
@@ -140,8 +140,8 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 w-full p-8 transition-transform duration-500 group-hover:-translate-y-3">
                         <span class="bg-[#0a7a3b] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">Indoor</span>
-                        <h3 class="text-3xl font-bold text-white mb-2">Ruang Literasi Informasi</h3>
-                        <p class="text-white/80 text-sm">Fasilitas komputer lengkap untuk pelatihan literasi, penelusuran jurnal, dan bimbingan OPAC bagi mahasiswa.</p>
+                        <h3 class="text-3xl font-bold text-white mb-2">{{ __('Ruang Literasi Informasi') }}</h3>
+                        <p class="text-white/80 text-sm">{{ __('Fasilitas komputer lengkap untuk pelatihan literasi, penelusuran jurnal, dan bimbingan OPAC bagi mahasiswa.') }}</p>
                     </div>
                 </div>
 
@@ -151,8 +151,8 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="font-bold text-white text-lg">Katalog OPAC</h3>
-                        <p class="text-white/80 text-xs mt-1">Terminal pencarian buku digital terpusat.</p>
+                        <h3 class="font-bold text-white text-lg">{{ __('Katalog OPAC') }}</h3>
+                        <p class="text-white/80 text-xs mt-1">{{ __('Terminal pencarian buku digital terpusat.') }}</p>
                     </div>
                 </div>
 
@@ -163,8 +163,8 @@
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     </div>
                     <div class="relative z-10">
-                        <h3 class="font-bold text-lg">Ruang Rapat & TGCL</h3>
-                        <p class="text-white/80 text-xs mt-1">Fasilitas konferensi dan diskusi akademis.</p>
+                        <h3 class="font-bold text-lg">{{ __('Ruang Rapat & TGCL') }}</h3>
+                        <p class="text-white/80 text-xs mt-1">{{ __('Fasilitas konferensi dan diskusi akademis.') }}</p>
                     </div>
                 </div>
 
@@ -173,8 +173,8 @@
 
                     <div class="absolute inset-0 p-6 flex flex-col justify-end transition-transform duration-500 group-hover:-translate-y-2">
                         <span class="bg-[#fecb00] text-[#044b25] text-[10px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mb-2 self-start">Outdoor</span>
-                        <h3 class="font-bold text-white text-xl">Taman Baca & Jogging Track</h3>
-                        <p class="text-slate-300 text-sm mt-1">Ruang terbuka hijau, kolam, dan area santai.</p>
+                        <h3 class="font-bold text-white text-xl">{{ __('Taman Baca & Jogging Track') }}</h3>
+                        <p class="text-slate-300 text-sm mt-1">{{ __('Ruang terbuka hijau, kolam, dan area santai.') }}</p>
                     </div>
                 </div>
 
@@ -184,8 +184,8 @@
                         <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
                         <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
                     </div>
-                    <h3 class="font-bold text-white">Fasilitas Umum</h3>
-                    <p class="text-white/80 text-xs mt-1">Loker penitipan, Free Charging & Musholla Iqra.</p>
+                    <h3 class="font-bold text-white">{{ __('Fasilitas Umum') }}</h3>
+                    <p class="text-white/80 text-xs mt-1">{{ __('Loker penitipan, Free Charging & Musholla Iqra.') }}</p>
                 </div>
 
                 <!-- Digital -->
@@ -194,8 +194,8 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="font-bold text-[#044b25] text-lg">Layanan Digital</h3>
-                        <p class="text-[#044b25]/80 text-xs mt-1">E-journal, E-book & Repositori terintegrasi.</p>
+                        <h3 class="font-bold text-[#044b25] text-lg">{{ __('Layanan Digital') }}</h3>
+                        <p class="text-[#044b25]/80 text-xs mt-1">{{ __('E-journal, E-book & Repositori terintegrasi.') }}</p>
                     </div>
                 </div>
 
@@ -209,27 +209,27 @@
             <div class="flex flex-col md:flex-row gap-12 items-center">
                 
                 <div class="flex-1 space-y-6" data-aos="fade-right">
-                    <span class="text-[#fecb00] font-bold tracking-widest uppercase text-sm border-b border-[#fecb00] pb-1">Koleksi Kami</span>
-                    <h2 class="text-3xl md:text-5xl font-black leading-tight">Gudang Ilmu Pengetahuan Modern</h2>
+                    <span class="text-[#fecb00] font-bold tracking-widest uppercase text-sm border-b border-[#fecb00] pb-1">{{ __('Koleksi Kami') }}</span>
+                    <h2 class="text-3xl md:text-5xl font-black leading-tight">{{ __('Gudang Ilmu Pengetahuan Modern') }}</h2>
                     <p class="text-white/80 text-lg leading-relaxed">
-                        Kami menyediakan ribuan literatur dari berbagai disiplin ilmu yang relevan dengan seluruh program studi di Universitas Sumatera Utara.
+                        {{ __('Kami menyediakan ribuan literatur dari berbagai disiplin ilmu yang relevan dengan seluruh program studi di Universitas Sumatera Utara.') }}
                     </p>
                     
                     <div class="grid grid-cols-2 gap-6 mt-8">
                         <div data-aos="fade-up" data-aos-delay="200">
-                            <div class="text-3xl font-black text-[#8dc63f] mb-1">Cetak</div>
+                            <div class="text-3xl font-black text-[#8dc63f] mb-1">{{ __('Cetak') }}</div>
                             <ul class="text-white/70 space-y-2 text-sm">
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Buku Teks Berkualitas</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Jurnal Akademik</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Skripsi, Tesis, Disertasi</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> {{ __('Buku Teks Berkualitas') }}</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> {{ __('Jurnal Akademik') }}</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> {{ __('Skripsi, Tesis, Disertasi') }}</li>
                             </ul>
                         </div>
                         <div data-aos="fade-up" data-aos-delay="400">
-                            <div class="text-3xl font-black text-[#8dc63f] mb-1">Digital</div>
+                            <div class="text-3xl font-black text-[#8dc63f] mb-1">{{ __('Digital') }}</div>
                             <ul class="text-white/70 space-y-2 text-sm">
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> E-Journals Internasional</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Ratusan Ribu E-Books</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Repositori USU Institusi</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> {{ __('E-Journals Internasional') }}</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> {{ __('Ratusan Ribu E-Books') }}</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#fecb00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> {{ __('Repositori USU Institusi') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -243,16 +243,16 @@
                     <div class="relative z-10">
                         <svg class="w-12 h-12 text-[#fecb00] mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         
-                        <h3 class="text-2xl font-bold mb-2 text-white">Butuh Referensi?</h3>
-                        <p class="text-[#8dc63f] mb-8 font-medium">Buka setiap Senin - Jumat</p>
+                        <h3 class="text-2xl font-bold mb-2 text-white">{{ __('Butuh Referensi?') }}</h3>
+                        <p class="text-[#8dc63f] mb-8 font-medium">{{ __('Buka setiap Senin - Jumat') }}</p>
                         
                         <a href="#" class="block text-center w-full bg-white text-[#044b25] font-bold py-4 rounded-xl hover:bg-[#fecb00] transition-colors shadow-lg hover:shadow-xl hover:-translate-y-1 transform duration-300">
-                            Kunjungi Repositori USU
+                            {{ __('Kunjungi Repositori USU') }}
                         </a>
                         
                         <div class="mt-6 flex items-start gap-3 text-white/60 text-xs">
                             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <p>Jl. Perpustakaan No. 1, Kampus USU, Padang Bulan, Medan 20155</p>
+                            <p>{{ __('Jalan Perpustakaan No.1, Kampus USU, Padang Bulan, Medan') }} 20155</p>
                         </div>
                     </div>
                 </div>

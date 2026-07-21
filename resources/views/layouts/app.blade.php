@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Perpustakaan USU')</title>
+    <title>@yield('title', __('Perpustakaan USU'))</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Alpine.js -->
@@ -30,21 +30,9 @@
 </head>
 <body class="text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <!-- Topbar -->
-    <div class="bg-[#044b25] text-white py-1.5 px-4 text-[11px] md:text-xs flex justify-center md:justify-end gap-3 md:gap-6 font-medium tracking-wide z-50 relative shadow-inner">
-        <a href="#" class="hover:text-[#fecb00] transition-colors duration-300">USU Official</a>
-        <a href="#" class="hover:text-[#fecb00] transition-colors duration-300">MBKM</a>
-        <a href="#" class="hover:text-[#fecb00] transition-colors duration-300">DIGILIB</a>
-        <a href="#" class="hover:text-[#fecb00] transition-colors duration-300">Repositori USU</a>
-        <span class="border-l border-white/20 pl-3 md:pl-6 flex items-center gap-1.5 cursor-pointer hover:text-[#fecb00] transition-colors duration-300">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
-            EN
-        </span>
-    </div>
-
     <!-- Header / Navbar (Glassmorphism) -->
     <header class="sticky top-0 z-40 transition-all duration-300 backdrop-blur-md bg-white/80 border-b border-slate-200/50" 
-            x-data="{ scrolled: false, mobileMenu: false }" 
+            x-data="{ scrolled: false, mobileMenu: false, langMenu: false }" 
             @scroll.window="scrolled = (window.pageYOffset > 10)" 
             :class="{ 'shadow-lg border-b-[#0a7a3b] border-b-[3px] py-1': scrolled, 'py-3': !scrolled }">
         
@@ -57,40 +45,51 @@
                         <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-12 h-12 md:w-14 md:h-14 object-contain relative z-10 transform group-hover:scale-105 transition duration-500">
                     </div>
                     <div class="flex flex-col justify-center">
-                        <span class="font-black text-lg md:text-xl text-slate-900 tracking-tight leading-tight">Perpustakaan</span>
-                        <span class="font-bold text-xs md:text-sm text-[#0a7a3b] tracking-wide uppercase">Universitas Sumatera Utara</span>
+                        <span class="font-black text-lg md:text-xl text-slate-900 tracking-tight leading-tight">{{ __('Perpustakaan') }}</span>
+                        <span class="font-bold text-xs md:text-sm text-[#0a7a3b] tracking-wide uppercase">{{ __('Universitas Sumatera Utara') }}</span>
                     </div>
                 </a>
 
                 <!-- Desktop Nav -->
                 <nav class="hidden lg:flex items-center gap-8 font-semibold text-sm">
                     <a href="/" class="group relative py-2">
-                        <span class="{{ request()->is('/') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">Beranda</span>
+                        <span class="{{ request()->is('/') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">{{ __('Beranda') }}</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left transition-transform duration-300 {{ request()->is('/') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
                     </a>
                     
                     <a href="/profil" class="group relative py-2">
-                        <span class="{{ request()->is('profil') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">Profil</span>
+                        <span class="{{ request()->is('profil') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">{{ __('Profil') }}</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left transition-transform duration-300 {{ request()->is('profil') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
                     </a>
                     
-
-
                     <a href="/akreditasi" class="group relative py-2">
-                        <span class="{{ request()->is('akreditasi') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">Akreditasi</span>
+                        <span class="{{ request()->is('akreditasi') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">{{ __('Akreditasi') }}</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left transition-transform duration-300 {{ request()->is('akreditasi') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
                     </a>
+
+                    <!-- Language Switcher Desktop -->
+                    <div class="relative" @click.away="langMenu = false">
+                        <button @click="langMenu = !langMenu" class="flex items-center gap-1.5 text-slate-600 hover:text-[#0a7a3b] transition-colors duration-300 font-bold focus:outline-none py-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                            <span>{{ strtoupper(app()->getLocale()) }}</span>
+                            <svg class="w-3.5 h-3.5 transform transition-transform duration-200" :class="{'rotate-180': langMenu}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="langMenu" x-transition x-cloak class="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden py-1 z-50">
+                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2.5 text-sm {{ app()->getLocale() == 'id' ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Bahasa Indonesia</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2.5 text-sm {{ app()->getLocale() == 'en' ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Bahasa Inggris</a>
+                        </div>
+                    </div>
                     
                     @auth
                         <div class="w-px h-6 bg-slate-300"></div>
                         <a href="{{ route('admin.dashboard') }}" class="bg-[#0a7a3b] hover:bg-[#044b25] text-white px-5 py-2 rounded-full font-bold transition-colors text-sm shadow-md shadow-[#0a7a3b]/20 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                            Dashboard Admin
+                            {{ __('Dashboard Admin') }}
                         </a>
                         <form action="{{ route('logout') }}" method="POST" class="inline">
                             @csrf
                             <button type="submit" class="bg-red-50 hover:bg-red-500 text-red-600 hover:text-white px-5 py-2 rounded-full transition-all duration-300 font-bold shadow-sm hover:shadow-md border border-red-100 hover:border-red-500 flex items-center gap-2">
-                                <span>Logout</span>
+                                <span>{{ __('Logout') }}</span>
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                             </button>
                         </form>
@@ -108,22 +107,30 @@
         <!-- Mobile Navigation (Alpine) -->
         <div x-show="mobileMenu" x-collapse x-cloak class="lg:hidden bg-white border-t border-slate-100 shadow-xl absolute w-full">
             <div class="px-4 pt-2 pb-6 space-y-1">
-                <a href="/" class="block px-4 py-3 rounded-xl {{ request()->is('/') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Beranda</a>
-                <a href="/profil" class="block px-4 py-3 rounded-xl {{ request()->is('profil') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Profil</a>
+                <a href="/" class="block px-4 py-3 rounded-xl {{ request()->is('/') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">{{ __('Beranda') }}</a>
+                <a href="/profil" class="block px-4 py-3 rounded-xl {{ request()->is('profil') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">{{ __('Profil') }}</a>
+                <a href="/akreditasi" class="block px-4 py-3 rounded-xl {{ request()->is('akreditasi') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">{{ __('Akreditasi') }}</a>
+                
+                <div class="border-t border-slate-100 my-2 pt-2">
+                    <p class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Bahasa / Language</p>
+                    <div class="flex gap-2 px-4">
+                        <a href="{{ route('lang.switch', 'id') }}" class="flex-1 text-center py-2 rounded-lg {{ app()->getLocale() == 'id' ? 'bg-[#0a7a3b] text-white font-bold' : 'bg-slate-100 text-slate-600' }}">ID</a>
+                        <a href="{{ route('lang.switch', 'en') }}" class="flex-1 text-center py-2 rounded-lg {{ app()->getLocale() == 'en' ? 'bg-[#0a7a3b] text-white font-bold' : 'bg-slate-100 text-slate-600' }}">EN</a>
+                    </div>
+                </div>
 
-                <a href="/akreditasi" class="block px-4 py-3 rounded-xl {{ request()->is('akreditasi') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">Akreditasi</a>
-                    @auth
-                        <div class="border-t border-slate-100 my-2 pt-2">
-                            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-3 rounded-xl bg-[#0a7a3b]/10 text-[#0a7a3b] font-bold mb-2 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                                Dashboard Admin
-                            </a>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="w-full text-left block px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 font-bold">Logout</button>
-                            </form>
-                        </div>
-                    @endauth
+                @auth
+                    <div class="border-t border-slate-100 my-2 pt-2">
+                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-3 rounded-xl bg-[#0a7a3b]/10 text-[#0a7a3b] font-bold mb-2 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                            {{ __('Dashboard Admin') }}
+                        </a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full text-left block px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 font-bold">{{ __('Logout') }}</button>
+                        </form>
+                    </div>
+                @endauth
             </div>
         </div>
     </header>
@@ -147,12 +154,12 @@
                             <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-12 h-12 object-cover rounded-full bg-white">
                         </div>
                         <div>
-                            <span class="block font-bold text-white text-lg leading-tight group-hover:text-[#fecb00] transition duration-300">Perpustakaan</span>
-                            <span class="block font-medium text-[#0a7a3b] text-xs uppercase tracking-wider">Universitas Sumatera Utara</span>
+                            <span class="block font-bold text-white text-lg leading-tight group-hover:text-[#fecb00] transition duration-300">{{ __('Perpustakaan') }}</span>
+                            <span class="block font-medium text-[#0a7a3b] text-xs uppercase tracking-wider">{{ __('Universitas Sumatera Utara') }}</span>
                         </div>
                     </a>
                     <p class="text-green-100/80 text-sm leading-relaxed mb-6 max-w-md">
-                        Menjadi pusat sumber belajar dan informasi yang unggul untuk mendukung pencapaian visi Universitas Sumatera Utara sebagai institusi bereputasi internasional.
+                        {{ __('Mewujudkan layanan prima dan infrastruktur berstandar nasional menuju universitas bereputasi global.') }}
                     </p>
                     <div class="flex gap-4">
                         <!-- X (Twitter) -->
@@ -171,12 +178,10 @@
                 </div>
                 
                 <div>
-                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm border-b border-white/20 pb-2">Tautan Cepat</h3>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm border-b border-white/20 pb-2">{{ __('Tautan Cepat') }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">Profil Perpustakaan</a></li>
-                        <li><a href="#" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">Layanan Anggota</a></li>
-                        <li><a href="/akreditasi" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">Akreditasi & Mutu</a></li>
-                        <li><a href="#" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">Repositori Institusi</a></li>
+                        <li><a href="/profil" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Profil') }}</a></li>
+                        <li><a href="/akreditasi" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Akreditasi') }}</a></li>
                     </ul>
                 </div>
                 
@@ -185,7 +190,7 @@
                     <ul class="space-y-4 text-green-100/80">
                         <li class="flex items-start gap-3 hover:text-white transition-colors duration-300">
                             <svg class="w-5 h-5 text-[#fecb00] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span class="text-sm">Jl. Perpustakaan No.1, Kampus USU Padang Bulan, Medan 20155</span>
+                            <span class="text-sm">{{ __('Jalan Perpustakaan No.1, Kampus USU, Padang Bulan, Medan') }} 20155</span>
                         </li>
                         <li class="flex items-center gap-3 hover:text-white transition-colors duration-300">
                             <svg class="w-5 h-5 text-[#fecb00] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
@@ -200,12 +205,12 @@
             </div>
             
             <div class="pt-8 border-t border-white/10 text-center md:flex md:justify-between md:items-center text-xs md:text-sm text-green-100/60">
-                <p>&copy; {{ date('Y') }} Perpustakaan Universitas Sumatera Utara. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} {{ __('Perpustakaan USU') }}. {{ __('Seluruh hak cipta dilindungi undang-undang.') }}</p>
                 <div class="mt-4 md:mt-0 space-x-4">
-                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">{{ __('Kebijakan Privasi') }}</a>
+                    <a href="#" class="hover:text-white transition-colors">{{ __('Syarat & Ketentuan') }}</a>
                     @auth
-                        <a href="{{ route('admin.dashboard') }}" class="hover:text-white transition-colors">Dashboard Admin</a>
+                        <a href="{{ route('admin.dashboard') }}" class="hover:text-white transition-colors">{{ __('Dashboard Admin') }}</a>
                     @else
                         <a href="{{ route('login') }}" class="hover:text-white transition-colors">Login Admin</a>
                     @endauth

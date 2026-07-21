@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Instrumen Akreditasi - Perpustakaan USU')
+@section('title', __('Instrumen Akreditasi - Perpustakaan USU'))
 
 @push('styles')
 <style>
@@ -63,16 +63,16 @@
                 <div class="absolute -inset-2 rounded-full animate-pulse" style="border: 1px solid rgba(10,122,59,0.5);"></div>
                 <span class="relative inline-flex items-center gap-2 py-1.5 px-5 rounded-full bg-white/10 border border-white/20 text-xs font-bold tracking-[0.15em] uppercase backdrop-blur-md shadow-2xl" style="color: #fecb00;">
                     <svg class="w-4 h-4" style="color: #4ade80;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                    Direktori Dokumen
+                    {{ __('Direktori Dokumen') }}
                 </span>
             </div>
             
             <h1 data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200" class="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
-                Instrumen Akreditasi
+                {{ __('Instrumen Akreditasi') }}
             </h1>
             
             <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400" class="text-slate-300 mt-4 max-w-2xl mx-auto text-lg leading-relaxed font-light">
-                Jelajahi struktur hierarki standar akreditasi dan akses seluruh dokumen bukti yang mensyaratkan pencapaian <strong class="text-white font-semibold">Perpustakaan USU</strong>.
+                {!! __('Jelajahi struktur hierarki standar akreditasi dan akses seluruh dokumen bukti yang mensyaratkan pencapaian <strong class="text-white font-semibold">Perpustakaan USU</strong>.') !!}
             </p>
             
             <!-- Quick Decor/Stats info (Not showing progress) -->
@@ -85,7 +85,7 @@
                     </div>
                     <div class="text-left">
                         <div class="text-4xl font-black text-white leading-none drop-shadow-md">{{ $komponens->count() }}</div>
-                        <div class="text-xs text-green-100 uppercase tracking-widest font-bold mt-2">Komponen Utama</div>
+                        <div class="text-xs text-green-100 uppercase tracking-widest font-bold mt-2">{{ __('Komponen Utama') }}</div>
                     </div>
                 </div>
                 
@@ -99,7 +99,7 @@
                             $totalSub = $komponens->sum(fn($k) => $k->subKomponens->count());
                         @endphp
                         <div class="text-4xl font-black text-[#044b25] leading-none drop-shadow-sm">{{ $totalSub }}</div>
-                        <div class="text-xs text-[#0a7a3b] uppercase tracking-widest font-black mt-2">Sub Komponen</div>
+                        <div class="text-xs text-[#0a7a3b] uppercase tracking-widest font-black mt-2">{{ __('Sub Komponen') }}</div>
                     </div>
                 </div>
                 
@@ -142,10 +142,10 @@
                             {{ $komponen->nomor }}
                         </div>
                         <div>
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Komponen</span>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">{{ __('Komponen') }}</span>
                             <h2 class="font-bold text-xl md:text-2xl transition-colors"
                                 :class="openLevel1 === {{ $komponen->id }} ? 'text-[#0a7a3b]' : 'text-slate-800 group-hover:text-[#0a7a3b]'">
-                                {{ $komponen->nama_komponen }}
+                                {{ __($komponen->nama_komponen) }}
                             </h2>
                         </div>
                     </div>
@@ -178,8 +178,8 @@
                                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                                         </div>
                                         <div>
-                                            <span class="text-[10px] font-extrabold text-[#0a7a3b] uppercase tracking-widest block mb-0.5 bg-green-50 inline-block px-2 py-0.5 rounded-md">Sub Komponen {{ $sub->nomor_sub }}</span>
-                                            <h3 class="font-bold text-slate-800 text-lg group-hover:text-[#0a7a3b] transition-colors mt-1">{{ $sub->nama_sub_komponen }}</h3>
+                                            <span class="text-[10px] font-extrabold text-[#0a7a3b] uppercase tracking-widest block mb-0.5 bg-green-50 inline-block px-2 py-0.5 rounded-md">{{ __('Sub Komponen') }} {{ $sub->nomor_sub }}</span>
+                                            <h3 class="font-bold text-slate-800 text-lg group-hover:text-[#0a7a3b] transition-colors mt-1">{{ __($sub->nama_sub_komponen) }}</h3>
                                         </div>
                                     </div>
                                     <svg class="w-5 h-5 text-slate-400 transform transition-transform duration-300 shrink-0" :class="openLevel2 === {{ $sub->id }} ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -195,22 +195,18 @@
                                                     <!-- Level 3 Indikator -->
                                                     <div class="flex items-start gap-2.5">
                                                         <span class="px-2 py-0.5 bg-[#e6f4ea] text-[#0a7a3b] border border-green-200/60 rounded text-[10px] font-black shrink-0 mt-0.5">{{ $ind->nomor_indikator }}</span>
-                                                        <h4 class="text-xs font-bold text-slate-800 leading-relaxed">{{ $ind->nama_indikator }}</h4>
+                                                        <h4 class="text-xs font-bold text-slate-800 leading-relaxed">{{ __($ind->nama_indikator) }}</h4>
                                                     </div>
 
                                                     <!-- Level 4: Sub Indikator / Leaf Node -->
-                                                    @php
-                                                        $hasSubIndDocs = $ind->subIndikators->sum(fn($si) => $si->dokumenBuktis->count()) > 0;
-                                                    @endphp
-                                                    @if ($ind->subIndikators->count() > 0 && $hasSubIndDocs)
-                                                        {{-- Has subIndikators AND docs are at subInd level --}}
+                                                    @if ($ind->subIndikators->count() > 0)
                                                         <div class="pl-6 space-y-3 border-l border-slate-200 ml-3.5">
                                                             @foreach ($ind->subIndikators as $subInd)
                                                             <div class="space-y-1">
                                                                 <!-- Sub Indikator Title -->
                                                                 <div class="text-[11px] font-semibold text-slate-500 leading-snug flex items-center gap-1.5">
                                                                     <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-                                                                    <span>{{ $subInd->nomor_sub_indikator }} {{ $subInd->nama_sub_indikator }}</span>
+                                                                    <span>{{ $subInd->nomor_sub_indikator }} {{ __($subInd->nama_sub_indikator) }}</span>
                                                                 </div>
 
                                                                 <!-- Documents list -->
@@ -234,29 +230,10 @@
                                                                             @endforeach
                                                                         </div>
                                                                     @else
-                                                                        <span class="text-[10px] text-slate-400 italic">Belum ada dokumen bukti</span>
+                                                                        <span class="text-[10px] text-slate-400 italic">{{ __('Belum ada dokumen bukti') }}</span>
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @elseif ($ind->dokumenBuktis->count() > 0)
-                                                        {{-- Docs stored at indikator level (fallback, or no subIndikators) --}}
-                                                        <div class="pl-6 space-y-1.5 border-l border-slate-200 ml-3.5">
-                                                            @foreach ($ind->dokumenBuktis as $dokumen)
-                                                            <a href="{{ route('dokumen.view', $dokumen->id) }}" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group max-w-2xl cursor-pointer">
-                                                                <div class="flex items-center gap-2.5 min-w-0">
-                                                                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
-                                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                                                    </div>
-                                                                    <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">
-                                                                        {{ $dokumen->nama_file }}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
-                                                                    <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-                                                                </div>
-                                                            </a>
                                                             @endforeach
                                                         </div>
                                                     @else
@@ -279,7 +256,7 @@
                                                                 </a>
                                                                 @endforeach
                                                             @else
-                                                                <span class="text-[10px] text-slate-400 italic">Belum ada dokumen bukti</span>
+                                                                <span class="text-[10px] text-slate-400 italic">{{ __('Belum ada dokumen bukti') }}</span>
                                                             @endif
                                                         </div>
                                                     @endif
@@ -305,7 +282,7 @@
                                                         </a>
                                                         @endforeach
                                                     @else
-                                                        <span class="text-[10px] text-slate-400 italic">Belum ada dokumen bukti</span>
+                                                        <span class="text-[10px] text-slate-400 italic">{{ __('Belum ada dokumen bukti') }}</span>
                                                     @endif
                                                 </div>
                                             @endif
