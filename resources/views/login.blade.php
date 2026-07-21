@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - Perpustakaan USU</title>
+    <title>{{ __('Login Admin - Perpustakaan USU') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -66,11 +66,11 @@
                         <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-16 h-16 object-contain rounded-xl bg-white p-1">
                     </div>
                     <h1 class="text-4xl lg:text-5xl font-black mb-4 leading-tight">
-                        Sistem Informasi <br>
-                        <span class="text-[#fecb00]">Akreditasi</span>
+                        {{ __('Sistem Informasi') }} <br>
+                        <span class="text-[#fecb00]">{{ __('Akreditasi') }}</span>
                     </h1>
                     <p class="text-white/80 text-lg leading-relaxed mb-12">
-                        Portal admin Perpustakaan Universitas Sumatera Utara untuk mengelola dokumen dan instrumen akreditasi secara terpusat.
+                        {{ __('Portal admin Perpustakaan Universitas Sumatera Utara untuk mengelola dokumen dan instrumen akreditasi secara terpusat.') }}
                     </p>
                     
                     <div class="flex items-center gap-4 bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
@@ -78,8 +78,8 @@
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         </div>
                         <div>
-                            <h4 class="font-bold">Akses Aman</h4>
-                            <p class="text-sm text-white/70">Sistem dilindungi enkripsi terkini</p>
+                            <h4 class="font-bold">{{ __('Akses Aman') }}</h4>
+                            <p class="text-sm text-white/70">{{ __('Sistem dilindungi enkripsi terkini') }}</p>
                         </div>
                     </div>
                 </div>
@@ -96,14 +96,14 @@
                     <div class="lg:hidden flex items-center gap-3 mb-10">
                         <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-12 h-12 object-contain rounded-lg shadow-sm border border-slate-100">
                         <div>
-                            <span class="block font-black text-slate-800 leading-tight">Perpustakaan</span>
-                            <span class="block text-xs font-bold text-[#0a7a3b] uppercase tracking-wider">Universitas Sumatera Utara</span>
+                            <span class="block font-black text-slate-800 leading-tight">{{ __('Perpustakaan') }}</span>
+                            <span class="block text-xs font-bold text-[#0a7a3b] uppercase tracking-wider">{{ __('Universitas Sumatera Utara') }}</span>
                         </div>
                     </div>
 
                     <div class="mb-10">
-                        <h2 class="text-3xl font-black text-slate-900 mb-2">Selamat Datang</h2>
-                        <p class="text-slate-500 font-medium">Silakan login untuk mengakses panel administrator.</p>
+                        <h2 class="text-3xl font-black text-slate-900 mb-2">{{ __('Selamat Datang') }}</h2>
+                        <p class="text-slate-500 font-medium">{{ __('Silakan login untuk mengakses panel administrator.') }}</p>
                     </div>
 
                     @if ($errors->any())
@@ -119,7 +119,7 @@
                         <div class="relative group">
                             <input type="email" name="email" id="email" value="{{ old('email') }}" required placeholder=" " 
                                    class="floating-input w-full px-4 py-4 rounded-xl outline-none text-slate-800 font-medium z-10 relative bg-transparent">
-                            <label for="email" class="floating-label z-20">Alamat Email</label>
+                            <label for="email" class="floating-label z-20">{{ __('Alamat Email') }}</label>
                             
                             <!-- Icon inside input -->
                             <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-[#0a7a3b] transition-colors z-0">
@@ -130,7 +130,7 @@
                         <div class="relative group" x-data="{ showPass: false }">
                             <input :type="showPass ? 'text' : 'password'" name="password" id="password" required placeholder=" " 
                                    class="floating-input w-full px-4 py-4 rounded-xl outline-none text-slate-800 font-medium z-10 relative bg-transparent pr-12">
-                            <label for="password" class="floating-label z-20">Kata Sandi</label>
+                            <label for="password" class="floating-label z-20">{{ __('Kata Sandi') }}</label>
                             
                             <button type="button" @click="showPass = !showPass" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-[#0a7a3b] focus:text-[#0a7a3b] transition-colors z-20 focus:outline-none">
                                 <svg x-show="!showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.29 3.29m0 0a10.05 10.05 0 015.42-2.81m5.858 2.572c1.756.96 3.22 2.44 4.08 4.21A10.05 10.05 0 0115 19.33"></path></svg>
@@ -141,12 +141,12 @@
                         <div class="flex items-center justify-between">
                             <label class="flex items-center gap-2 cursor-pointer group">
                                 <input type="checkbox" name="remember" class="w-4 h-4 text-[#0a7a3b] rounded border-slate-300 focus:ring-[#0a7a3b]">
-                                <span class="text-sm font-medium text-slate-600 group-hover:text-slate-800 transition-colors">Ingat Saya</span>
+                                <span class="text-sm font-medium text-slate-600 group-hover:text-slate-800 transition-colors">{{ __('Ingat Saya') }}</span>
                             </label>
                         </div>
 
                         <button type="submit" class="w-full bg-[#0a7a3b] hover:bg-[#044b25] text-white font-bold py-4 rounded-xl transition-all duration-300 shadow-[0_4px_14px_0_rgba(10,122,59,0.39)] hover:shadow-[0_6px_20px_rgba(10,122,59,0.23)] hover:-translate-y-0.5 flex justify-center items-center gap-2 group">
-                            Masuk ke Sistem
+                            {{ __('Masuk ke Sistem') }}
                             <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </button>
                     </form>
@@ -156,7 +156,7 @@
                             <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-[#0a7a3b] group-hover:text-white transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             </div>
-                            Kembali ke Halaman Publik
+                            {{ __('Kembali ke Halaman Publik') }}
                         </a>
                     </div>
                 </div>
