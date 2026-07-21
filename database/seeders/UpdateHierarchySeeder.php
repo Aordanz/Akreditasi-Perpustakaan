@@ -17,15 +17,19 @@ class UpdateHierarchySeeder extends Seeder
      */
     public function run(): void
     {
+        \DB::beginTransaction();
+        
         $jsonPath = database_path('seeders/hierarchy.json');
         if (!File::exists($jsonPath)) {
             $this->command->error("JSON file not found at: {$jsonPath}");
+            \DB::rollBack();
             return;
         }
 
         $jsonData = json_decode(File::get($jsonPath), true);
         if (!$jsonData) {
             $this->command->error("Invalid JSON data");
+            \DB::rollBack();
             return;
         }
 
@@ -56,12 +60,12 @@ class UpdateHierarchySeeder extends Seeder
 
         // Loop through components to populate
         foreach ($jsonData as $compData) {
-            $komponen = Komponen::where('nomor', $compData['nomor'])->first();
+            $komponen = Komponen::where('nomor', (string)$compData['nomor'])->first();
             $compName = $toTitleCase($compData['nama']);
             if (!$komponen) {
                 // Create if it doesn't exist
                 $komponen = Komponen::create([
-                    'nomor' => $compData['nomor'],
+                    'nomor' => (string)$compData['nomor'],
                     'nama_komponen' => $compName
                 ]);
             } else {
@@ -70,13 +74,14 @@ class UpdateHierarchySeeder extends Seeder
             }
 
             foreach ($compData['sub_komponens'] as $subData) {
-                $sub = SubKomponen::where('nomor_sub', $subData['nomor_sub'])
+                $nomorSub = trim((string)$subData['nomor_sub']);
+                $sub = SubKomponen::where('nomor_sub', $nomorSub)
                                   ->where('komponen_id', $komponen->id)
                                   ->first();
                 if (!$sub) {
                     $sub = SubKomponen::create([
                         'komponen_id' => $komponen->id,
-                        'nomor_sub' => $subData['nomor_sub'],
+                        'nomor_sub' => $nomorSub,
                         'nama_sub_komponen' => $subData['nama_sub']
                     ]);
                 } else {
@@ -99,35 +104,33 @@ class UpdateHierarchySeeder extends Seeder
                     }
                 }
             }
+            $this->command->info("Finished looping sub komponen for: " . $compData['nomor'] . " - Total indicators so far: " . Indikator::count());
         }
 
         $this->command->info("Seeded components, subcomponents, indicators, and sub-indicators.");
 
-        // Migrate existing documents based on filename prefixes
+        // Migrate existing documents based on filename prefixes and folder paths
         $documents = DokumenBukti::all();
         $migratedCount = 0;
 
-        // Fetch all indicators and sub-indicators for local lookup
-        $allSubIndikators = SubIndikator::all();
+        $allSubIndikators = SubIndikator::with('indikator')->get();
         $allIndikators = Indikator::all();
+        $allSubKomponens = SubKomponen::all();
 
         foreach ($documents as $doc) {
-            $filename = $doc->nama_file;
+            $path = $doc->path_file;
+            $name = $doc->nama_file;
             $matched = false;
 
-            // 1. Try to match SubIndikator first
+            // 1. Try matching SubIndikator code in path or filename
             foreach ($allSubIndikators as $subInd) {
-                // Match prefix (e.g. "1.1.1-1" prefix in "1.1.1-1 Dokumen...")
-                if (str_starts_with($filename, $subInd->nomor_sub_indikator)) {
+                $code = $subInd->nomor_sub_indikator;
+                if (str_contains($path, $code) || str_contains($name, $code)) {
                     $doc->sub_indikator_id = $subInd->id;
                     $doc->indikator_id = $subInd->indikator_id;
-                    
-                    // Also make sure sub_komponen_id is correct
-                    $parentIndikator = $allIndikators->firstWhere('id', $subInd->indikator_id);
-                    if ($parentIndikator) {
-                        $doc->sub_komponen_id = $parentIndikator->sub_komponen_id;
+                    if ($subInd->indikator) {
+                        $doc->sub_komponen_id = $subInd->indikator->sub_komponen_id;
                     }
-                    
                     $doc->save();
                     $matched = true;
                     $migratedCount++;
@@ -135,10 +138,11 @@ class UpdateHierarchySeeder extends Seeder
                 }
             }
 
-            // 2. If no SubIndikator matches, try to match Indikator
+            // 2. Try matching Indikator code in path or filename
             if (!$matched) {
                 foreach ($allIndikators as $ind) {
-                    if (str_starts_with($filename, $ind->nomor_indikator)) {
+                    $code = $ind->nomor_indikator;
+                    if (str_contains($path, $code) || str_contains($name, $code)) {
                         $doc->indikator_id = $ind->id;
                         $doc->sub_komponen_id = $ind->sub_komponen_id;
                         $doc->save();
@@ -149,11 +153,27 @@ class UpdateHierarchySeeder extends Seeder
                 }
             }
 
+            // 3. Fallback: match SubKomponen code in path or filename
             if (!$matched) {
-                $this->command->warn("Could not auto-migrate document: {$filename}");
+                foreach ($allSubKomponens as $sub) {
+                    $code = $sub->nomor_sub;
+                    if (str_contains($path, '/' . $code . ' ') || str_contains($path, '/' . $code . '/') || str_starts_with($name, $code)) {
+                        $doc->sub_komponen_id = $sub->id;
+                        $doc->save();
+                        $matched = true;
+                        $migratedCount++;
+                        break;
+                    }
+                }
+            }
+
+            if (!$matched) {
+                $this->command->warn("Could not auto-migrate document: {$name}");
             }
         }
 
         $this->command->info("Successfully migrated {$migratedCount} out of {$documents->count()} documents.");
+        
+        \DB::commit();
     }
 }
