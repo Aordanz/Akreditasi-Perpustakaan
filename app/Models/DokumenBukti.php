@@ -9,7 +9,7 @@ class DokumenBukti extends Model
     protected $table = 'dokumen_bukti';
     public $timestamps = false;
 
-    protected $fillable = ['sub_komponen_id', 'indikator_id', 'sub_indikator_id', 'nama_file', 'path_file', 'tanggal_upload'];
+    protected $fillable = ['sub_komponen_id', 'indikator_id', 'sub_indikator_id', 'kode_dokumen', 'nama_file', 'path_file', 'tanggal_upload'];
 
     public function subKomponen()
     {
@@ -24,5 +24,20 @@ class DokumenBukti extends Model
     public function subIndikator()
     {
         return $this->belongsTo(SubIndikator::class, 'sub_indikator_id');
+    }
+
+    public function getIsYoutubeAttribute()
+    {
+        return str_contains($this->path_file, 'youtube.com') || str_contains($this->path_file, 'youtu.be');
+    }
+
+    public function getYoutubeEmbedUrlAttribute()
+    {
+        $url = $this->path_file;
+        $videoId = '';
+        if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|user/[^/]+/|u/\w+/)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match)) {
+            $videoId = $match[1];
+        }
+        return $videoId ? 'https://www.youtube.com/embed/' . $videoId : $url;
     }
 }

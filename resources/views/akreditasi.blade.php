@@ -39,6 +39,9 @@
         66% { transform: translate(-20px, 20px) scale(0.9); }
         100% { transform: translate(0px, 0px) scale(1); }
     }
+    body.modal-fullscreen header {
+        display: none !important;
+    }
 </style>
 @endpush
 
@@ -112,7 +115,36 @@
     </section>
 
     <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 -mt-10 relative z-20" x-data="{ openLevel1: null }">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 -mt-10 relative z-20" 
+          x-data="{ 
+              openLevel1: null,
+              modalOpen: false,
+              modalTitle: '',
+              modalUrl: '',
+              modalIsYoutube: false,
+              modalIsFullscreen: false,
+              openModal(title, url, isYoutube) {
+                  this.modalTitle = title;
+                  this.modalUrl = url;
+                  this.modalIsYoutube = isYoutube;
+                  this.modalOpen = true;
+                  this.modalIsFullscreen = false;
+                  document.body.classList.add('overflow-hidden');
+              },
+              closeModal() {
+                  this.modalOpen = false;
+                  this.modalIsFullscreen = false;
+                  document.body.classList.remove('overflow-hidden', 'modal-fullscreen');
+              },
+              toggleFullscreen() {
+                  this.modalIsFullscreen = !this.modalIsFullscreen;
+                  if (this.modalIsFullscreen) {
+                      document.body.classList.add('modal-fullscreen');
+                  } else {
+                      document.body.classList.remove('modal-fullscreen');
+                  }
+              }
+          }">
         
         @if(session('success'))
         <div class="mb-8 bg-green-50 border-l-4 border-[#0a7a3b] p-4 rounded-r-lg shadow-sm" x-data="{ show: true }" x-show="show" x-transition>
@@ -187,105 +219,65 @@
 
                                 <!-- LEVEL 3 & Dokumen Bukti Wrapper -->
                                 <div x-show="openLevel2 === {{ $sub->id }}" x-collapse x-cloak>
-                                    <div class="p-5 md:p-7 bg-slate-50 border-t border-slate-100">
+                                    <div class="p-5 md:p-7 bg-slate-50/50 border-t border-slate-100">
                                         <div class="w-full space-y-4">
-                                            @if ($sub->indikators->count() > 0)
-                                                @foreach ($sub->indikators as $ind)
-                                                <div class="border-b border-slate-100 last:border-0 pb-4 last:pb-0 space-y-3.5">
-                                                    <!-- Level 3 Indikator -->
-                                                    <div class="flex items-start gap-2.5">
-                                                        <span class="px-2 py-0.5 bg-[#e6f4ea] text-[#0a7a3b] border border-green-200/60 rounded text-[10px] font-black shrink-0 mt-0.5">{{ $ind->nomor_indikator }}</span>
-                                                        <h4 class="text-xs font-bold text-slate-800 leading-relaxed">{{ __($ind->nama_indikator) }}</h4>
+                                            @foreach ($sub->indikators as $ind)
+                                                @foreach ($ind->subIndikators as $subInd)
+                                                <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm overflow-hidden transition-all">
+                                                    <div class="w-full flex items-center justify-between p-4 bg-slate-50/60 border-b border-slate-100">
+                                                        <div class="flex items-start gap-3 min-w-0 pr-3">
+                                                            <span class="px-2.5 py-1 bg-[#e6f4ea] text-[#0a7a3b] border border-green-200/80 rounded-lg text-xs font-black shrink-0 mt-0.5">{{ $subInd->nomor_sub_indikator }}</span>
+                                                            <h4 class="text-xs md:text-sm font-bold text-slate-800 leading-snug pt-0.5">{{ __($subInd->nama_sub_indikator) }}</h4>
+                                                        </div>
                                                     </div>
-
-                                                    <!-- Level 4: Sub Indikator / Leaf Node -->
-                                                    @if ($ind->subIndikators->count() > 0)
-                                                        <div class="pl-6 space-y-3 border-l border-slate-200 ml-3.5">
-                                                            @foreach ($ind->subIndikators as $subInd)
-                                                            <div class="space-y-1">
-                                                                <!-- Sub Indikator Title -->
-                                                                <div class="text-[11px] font-semibold text-slate-500 leading-snug flex items-center gap-1.5">
-                                                                    <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-                                                                    <span>{{ $subInd->nomor_sub_indikator }} {{ __($subInd->nama_sub_indikator) }}</span>
-                                                                </div>
-
-                                                                <!-- Documents list -->
-                                                                <div class="pl-4">
-                                                                    @if ($subInd->dokumenBuktis->count() > 0)
-                                                                        <div class="space-y-1.5">
-                                                                            @foreach ($subInd->dokumenBuktis as $dokumen)
-                                                                            <a href="{{ route('dokumen.view', $dokumen->id) }}" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group max-w-2xl cursor-pointer">
-                                                                                <div class="flex items-center gap-2.5 min-w-0">
-                                                                                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
-                                                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                                                                    </div>
-                                                                                    <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">
-                                                                                        {{ $dokumen->nama_file }}
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
-                                                                                    <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-                                                                                </div>
-                                                                            </a>
-                                                                            @endforeach
+                                                    <div class="p-4 bg-white">
+                                                        @php $activeDocs = $subInd->dokumenBuktis->filter(fn($d) => !empty($d->nama_file)); @endphp
+                                                        @if ($activeDocs->count() > 0)
+                                                            <div class="space-y-2">
+                                                                @foreach ($activeDocs as $dokumen)
+                                                                    @php 
+                                                                        $isYt = $dokumen->is_youtube;
+                                                                        $isExists = $isYt ? true : ($dokumen->path_file ? Storage::disk('public')->exists($dokumen->path_file) : false); 
+                                                                    @endphp
+                                                                    @if ($isExists)
+                                                                    <a href="#" @click.prevent="openModal('{{ addslashes($dokumen->nama_file) }}', '{{ $isYt ? $dokumen->youtube_embed_url : route('dokumen.view', ['id' => $dokumen->id, 'embed' => 'true']) }}', {{ $isYt ? 'true' : 'false' }})" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group cursor-pointer">
+                                                                        <div class="flex items-center gap-2.5 min-w-0">
+                                                                            <div class="w-7 h-7 rounded-lg {{ $isYt ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-emerald-50 text-emerald-600 border border-emerald-100' }} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+                                                                                @if ($isYt)
+                                                                                    <svg class="w-3.5 h-3.5 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                                                                @else
+                                                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                                                @endif
+                                                                            </div>
+                                                                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">{{ $dokumen->nama_file }}</div>
                                                                         </div>
+                                                                        <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
+                                                                            <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                                                                        </div>
+                                                                    </a>
                                                                     @else
-                                                                        <span class="text-[10px] text-slate-400 italic">{{ __('Belum ada dokumen bukti') }}</span>
+                                                                    <div class="flex items-center justify-between gap-3 bg-amber-50/60 p-2.5 rounded-xl border border-amber-200/80 shadow-sm">
+                                                                        <div class="flex items-center gap-2.5 min-w-0">
+                                                                            <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                                                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                                                            </div>
+                                                                            <div class="text-[11px] font-bold text-amber-900 truncate" title="{{ $dokumen->nama_file }}">{{ $dokumen->nama_file }}</div>
+                                                                        </div>
+                                                                        <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded shrink-0">File tidak ada / dihapus</span>
+                                                                    </div>
                                                                     @endif
-                                                                </div>
-                                                            </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @else
-                                                        <!-- Indicator itself has files (No sub-indicators) -->
-                                                        <div class="pl-6 space-y-1.5 border-l border-slate-200 ml-3.5">
-                                                            @if ($ind->dokumenBuktis->count() > 0)
-                                                                @foreach ($ind->dokumenBuktis as $dokumen)
-                                                                <a href="{{ route('dokumen.view', $dokumen->id) }}" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group max-w-2xl cursor-pointer">
-                                                                    <div class="flex items-center gap-2.5 min-w-0">
-                                                                        <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
-                                                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                                                        </div>
-                                                                        <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">
-                                                                            {{ $dokumen->nama_file }}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
-                                                                        <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-                                                                    </div>
-                                                                </a>
                                                                 @endforeach
-                                                            @else
-                                                                <span class="text-[10px] text-slate-400 italic">{{ __('Belum ada dokumen bukti') }}</span>
-                                                            @endif
-                                                        </div>
-                                                    @endif
+                                                            </div>
+                                                        @else
+                                                            <div class="flex items-center gap-2 p-3 bg-slate-50 border border-dashed border-slate-200 rounded-lg text-slate-400 text-xs italic">
+                                                                <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                                <span>{{ __('Belum ada dokumen bukti terupload') }}</span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                                 @endforeach
-                                            @else
-                                                <!-- Sub-component itself has files (No indicators) -->
-                                                <div class="space-y-1.5">
-                                                    @if ($sub->dokumenBuktis->count() > 0)
-                                                        @foreach ($sub->dokumenBuktis as $dokumen)
-                                                        <a href="{{ route('dokumen.view', $dokumen->id) }}" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group max-w-2xl cursor-pointer">
-                                                            <div class="flex items-center gap-2.5 min-w-0">
-                                                                <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
-                                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                                                </div>
-                                                                <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">
-                                                                    {{ $dokumen->nama_file }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
-                                                                <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-                                                            </div>
-                                                        </a>
-                                                        @endforeach
-                                                    @else
-                                                        <span class="text-[10px] text-slate-400 italic">{{ __('Belum ada dokumen bukti') }}</span>
-                                                    @endif
-                                                </div>
-                                            @endif
+                                            @endforeach
 
                                         </div>
                                     </div>
@@ -297,6 +289,77 @@
                 </div>
             </div>
             @endforeach
+        </div>
+        <!-- Modal Popup for Document Preview -->
+        <div x-show="modalOpen" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs"
+             x-cloak>
+            
+            <!-- Modal Box -->
+            <div @click.away="closeModal()" 
+                 class="bg-white flex flex-col shadow-2xl transition-all duration-300 overflow-hidden"
+                 :class="modalIsFullscreen ? 'fixed inset-0 w-full h-full rounded-none' : 'rounded-2xl max-w-5xl w-full h-[85vh]'"
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="scale-95 translate-y-4"
+                 x-transition:enter-end="scale-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200 transform"
+                 x-transition:leave-start="scale-100 translate-y-0"
+                 x-transition:leave-end="scale-95 translate-y-4">
+                
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200/80 shrink-0">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <!-- Play Icon for Youtube vs Document Icon for Files -->
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" 
+                             :class="modalIsYoutube ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'">
+                            <template x-if="modalIsYoutube">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                            </template>
+                            <template x-if="!modalIsYoutube">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </template>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-800 truncate" x-text="modalTitle">Pratinjau Dokumen</h3>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="flex items-center gap-2">
+                        <!-- Fullscreen Toggle Button -->
+                        <button @click="toggleFullscreen()" 
+                                class="w-8 h-8 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 flex items-center justify-center transition-colors cursor-pointer" 
+                                :title="modalIsFullscreen ? 'Keluar Layar Penuh' : 'Layar Penuh'">
+                            <template x-if="!modalIsFullscreen">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 20v-4m0 4h4m-4 0l5-5m11 5h-4m4 0v-4m0 4l-5-5"></path></svg>
+                            </template>
+                            <template x-if="modalIsFullscreen">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h5v5H4V4zm10 0h5v5h-5V4zM4 14h5v5H4v-5zm10 0h5v5h-5v-5z"></path></svg>
+                            </template>
+                        </button>
+                        
+                        <!-- Close Button -->
+                        <button @click="closeModal()" class="w-8 h-8 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 flex items-center justify-center transition-colors cursor-pointer" title="Tutup">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Modal Body (Iframe) -->
+                <div class="flex-1 bg-slate-100 relative">
+                    <template x-if="modalOpen">
+                        <iframe :src="modalUrl" 
+                                class="w-full h-full border-none"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </template>
+                </div>
+            </div>
         </div>
     </main>
 @endsection

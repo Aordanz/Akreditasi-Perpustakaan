@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Komponen;
 use App\Models\SubKomponen;
+use App\Models\Indikator;
+use App\Models\SubIndikator;
 use App\Models\DokumenBukti;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AkreditasiController extends Controller
 {
@@ -43,18 +46,28 @@ class AkreditasiController extends Controller
 
     public function upload(Request $request, $type = null, $id = null)
     {
-        $request->validate([
-            'dokumen' => 'required|file|extensions:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240',
-        ]);
+        $isYoutube = $request->has('youtube_link') && !empty($request->youtube_link);
+
+        if ($isYoutube) {
+            $request->validate([
+                'youtube_link' => 'required|url',
+                'nama_video' => 'nullable|string|max:255',
+            ]);
+            $path_file = $request->youtube_link;
+            $nama_file = $request->nama_video ?: 'Video YouTube';
+        } else {
+            $request->validate([
+                'dokumen' => 'required|file|extensions:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240',
+            ]);
+            $file = $request->file('dokumen');
+            $nama_file = $file->getClientOriginalName();
+        }
 
         // Handle backward compatibility (if old route is called)
         if (is_numeric($type) && $id === null) {
             $id = $type;
             $type = 'sub_komponen';
         }
-
-        $file = $request->file('dokumen');
-        $nama_file = $file->getClientOriginalName();
 
         $subKomponenId = null;
         $indikatorId = null;
@@ -111,18 +124,56 @@ class AkreditasiController extends Controller
             $nama_file = $code . ' ' . $nama_file;
         }
 
-        $path_file = $file->store($dynamic_path, 'public');
+        if (!$isYoutube) {
+            $path_file = $file->store($dynamic_path, 'public');
+        }
 
-        DokumenBukti::create([
-            'sub_komponen_id' => $subKomponenId,
-            'indikator_id' => $indikatorId,
-            'sub_indikator_id' => $subIndikatorId,
-            'nama_file' => $nama_file,
-            'path_file' => $path_file,
-            'tanggal_upload' => now(),
-        ]);
+        // Find if there is an empty slot for this target to update
+        $query = DokumenBukti::query();
+        if ($type === 'sub_indikator') {
+            $query->where('sub_indikator_id', $subIndikatorId);
+        } elseif ($type === 'indikator') {
+            $query->where('indikator_id', $indikatorId);
+        } else {
+            $query->where('sub_komponen_id', $subKomponenId);
+        }
 
-        return back()->with('success', 'Dokumen berhasil diunggah!');
+        $emptySlot = $query->where(function($q) {
+            $q->whereNull('nama_file')->orWhere('nama_file', '');
+        })->first();
+
+        try {
+            DB::statement('COMMIT');
+        } catch (\Exception $e) {}
+
+        DB::beginTransaction();
+        try {
+            if ($emptySlot) {
+                $emptySlot->update([
+                    'kode_dokumen' => $code,
+                    'nama_file' => $nama_file,
+                    'path_file' => $path_file,
+                    'tanggal_upload' => now(),
+                ]);
+            } else {
+                DokumenBukti::create([
+                    'sub_komponen_id' => $subKomponenId,
+                    'indikator_id' => $indikatorId,
+                    'sub_indikator_id' => $subIndikatorId,
+                    'kode_dokumen' => $code,
+                    'nama_file' => $nama_file,
+                    'path_file' => $path_file,
+                    'tanggal_upload' => now(),
+                ]);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('DB save error in upload: ' . $e->getMessage());
+            throw $e;
+        }
+
+        return back()->with('success', $isYoutube ? 'Link YouTube berhasil ditambahkan!' : 'Dokumen berhasil diunggah!');
     }
 
     public function viewDocument($id)
@@ -136,13 +187,28 @@ class AkreditasiController extends Controller
         $dokumen = DokumenBukti::findOrFail($id);
         
         // Delete the physical file if it exists
-        if (Storage::disk('public')->exists($dokumen->path_file)) {
+        if ($dokumen->path_file && Storage::disk('public')->exists($dokumen->path_file)) {
             Storage::disk('public')->delete($dokumen->path_file);
         }
         
-        // Delete the database record
-        $dokumen->delete();
+        try {
+            DB::statement('COMMIT');
+        } catch (\Exception $e) {}
+
+        DB::beginTransaction();
+        try {
+            $dokumen->update([
+                'nama_file' => null,
+                'path_file' => null,
+                'tanggal_upload' => null,
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('DB delete error in deleteDokumen: ' . $e->getMessage());
+            throw $e;
+        }
         
-        return back()->with('success', 'Dokumen berhasil dihapus!');
+        return back()->with('success', 'Dokumen berhasil dihapus! Slot tetap tersedia untuk upload ulang.');
     }
 }

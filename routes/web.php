@@ -39,3 +39,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/akreditasi/upload/{type}/{id}', [AkreditasiController::class, 'upload'])->name('admin.akreditasi.upload.spesifik');
     Route::delete('/admin/akreditasi/dokumen/{id}', [AkreditasiController::class, 'deleteDokumen'])->name('admin.dokumen.delete');
 });
+
+

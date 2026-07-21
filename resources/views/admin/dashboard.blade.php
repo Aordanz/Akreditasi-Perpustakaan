@@ -113,16 +113,16 @@
                         if ($ind->subIndikators->count() > 0) {
                             foreach ($ind->subIndikators as $si) {
                                 $compTotalSlot++;
-                                if ($si->dokumenBuktis->count() > 0) $compSlotTerisi++;
+                                if ($si->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) $compSlotTerisi++;
                             }
                         } else {
                             $compTotalSlot++;
-                            if ($ind->dokumenBuktis->count() > 0) $compSlotTerisi++;
+                            if ($ind->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) $compSlotTerisi++;
                         }
                     }
                 } else {
                     $compTotalSlot++;
-                    if ($sub->dokumenBuktis->count() > 0) $compSlotTerisi++;
+                    if ($sub->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) $compSlotTerisi++;
                 }
             }
             $compTotalSub   = $komponen->subKomponens->count();
@@ -171,16 +171,16 @@
                                 if ($ind->subIndikators->count() > 0) {
                                     foreach ($ind->subIndikators as $si) {
                                         $subTotalSlot++;
-                                        if ($si->dokumenBuktis->count() > 0) $subSlotTerisi++;
+                                        if ($si->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) $subSlotTerisi++;
                                     }
                                 } else {
                                     $subTotalSlot++;
-                                    if ($ind->dokumenBuktis->count() > 0) $subSlotTerisi++;
+                                    if ($ind->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) $subSlotTerisi++;
                                 }
                             }
                         } else {
                             $subTotalSlot++;
-                            if ($sub->dokumenBuktis->count() > 0) $subSlotTerisi++;
+                            if ($sub->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) $subSlotTerisi++;
                         }
                         // Sub-komponen dianggap SELESAI hanya jika SEMUA slot terisi
                         $isSubTerisi   = $subTotalSlot > 0 && $subSlotTerisi === $subTotalSlot;
@@ -219,36 +219,20 @@
                         <div x-show="openSub" x-collapse x-cloak class="p-6 bg-white space-y-6">
                             
                             @if ($sub->indikators->count() > 0)
-                                <div class="space-y-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                                     @foreach ($sub->indikators as $ind)
-                                    <div class="border-l-2 border-slate-200 pl-4 space-y-4">
-                                        
-                                        <!-- Header Indikator (Level 3) -->
-                                        <div class="flex items-start gap-2.5">
-                                            <span class="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-100 rounded text-[10px] font-black mt-0.5">{{ $ind->nomor_indikator }}</span>
-                                            <h5 class="text-xs font-bold text-slate-700 leading-relaxed">{{ $ind->nama_indikator }}</h5>
-                                        </div>
-
-                                        <!-- Level 4: Sub Indikator / Leaf Node -->
                                         @if ($ind->subIndikators->count() > 0)
-                                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                                @foreach ($ind->subIndikators as $subInd)
-                                                    @include('admin.partials.document-card', ['title' => $subInd->nama_sub_indikator, 'code' => $subInd->nomor_sub_indikator, 'type' => 'sub_indikator', 'target' => $subInd])
-                                                @endforeach
-                                            </div>
+                                            @foreach ($ind->subIndikators as $subInd)
+                                                @include('admin.partials.document-card', ['title' => $subInd->nama_sub_indikator, 'code' => $subInd->nomor_sub_indikator, 'type' => 'sub_indikator', 'target' => $subInd])
+                                            @endforeach
                                         @else
-                                            <!-- Leaf node is the Indicator itself -->
-                                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                                @include('admin.partials.document-card', ['title' => $ind->nama_indikator, 'code' => $ind->nomor_indikator, 'type' => 'indikator', 'target' => $ind])
-                                            </div>
+                                            @include('admin.partials.document-card', ['title' => $ind->nama_indikator, 'code' => $ind->nomor_indikator, 'type' => 'indikator', 'target' => $ind])
                                         @endif
-
-                                    </div>
                                     @endforeach
                                 </div>
                             @else
                                 <!-- Leaf node is the SubComponent itself -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                                     @include('admin.partials.document-card', ['title' => $sub->nama_sub_komponen, 'code' => $sub->nomor_sub, 'type' => 'sub_komponen', 'target' => $sub])
                                 </div>
                             @endif
