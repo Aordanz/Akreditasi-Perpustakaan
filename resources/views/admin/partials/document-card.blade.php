@@ -42,7 +42,8 @@
                     @foreach ($uploadedDocs as $dokumen)
                         @php
                             $isYt = $dokumen->is_youtube;
-                            $fileExists = $isYt ? true : ($dokumen->path_file ? Storage::disk('public')->exists($dokumen->path_file) : false);
+                            $isDrive = $dokumen->is_drive;
+                            $fileExists = ($isYt || $isDrive) ? true : ($dokumen->path_file ? Storage::disk('public')->exists($dokumen->path_file) : false);
                         @endphp
                         <div class="flex items-center justify-between gap-2 p-2 rounded-xl {{ $fileExists ? 'bg-white border border-emerald-200/80 shadow-2xs' : 'bg-amber-50 border border-amber-200' }} transition-all">
                             <div class="flex items-center gap-2 min-w-0">
@@ -58,7 +59,7 @@
                                 </a>
                             </div>
                             
-                            <form action="{{ route('admin.dokumen.delete', $dokumen->id) }}" method="POST" class="shrink-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus dokumen ini?');">
+                            <form action="{{ route('admin.dokumen.delete', $dokumen->id) }}" method="POST" class="shrink-0" onsubmit="return confirmDelete(event, this);">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="w-6 h-6 rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors border border-red-100 cursor-pointer" title="Hapus Dokumen">
@@ -76,24 +77,30 @@
             @endif
         </div>
 
-        <!-- Upload Form & YouTube Option -->
-        <div class="mt-auto pt-1" x-data="{ showYoutube: false }">
+        <!-- Upload Form & YouTube/Drive Option -->
+        <div class="mt-auto pt-1" x-data="{ showYoutube: false, showDrive: false }">
             <form action="{{ route('admin.akreditasi.upload.spesifik', [$type, $target->id]) }}" method="POST" enctype="multipart/form-data" class="w-full">
                 @csrf
-                <!-- File input -->
-                <input type="file" name="dokumen" id="file-{{ $type }}-{{ $target->id }}" 
-                       onchange="this.form.submit()"
-                       class="hidden">
-                
-                <div class="flex gap-2" x-show="!showYoutube">
-                    <label for="file-{{ $type }}-{{ $target->id }}" class="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 border {{ $hasFiles ? 'border-emerald-300 bg-white hover:bg-emerald-50 text-emerald-700' : 'border-dashed border-[#0a7a3b] bg-green-50/50 hover:bg-[#0a7a3b] text-[#0a7a3b] hover:text-white' }} rounded-xl text-[10px] font-black transition-all cursor-pointer shadow-2xs active:scale-[0.98] truncate">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
-                        <span>{{ $hasFiles ? 'Tambah File' : 'Unggah File' }}</span>
-                    </label>
-                    <button type="button" @click="showYoutube = true" class="px-3 py-2 rounded-xl border border-red-200 hover:border-red-500 bg-red-50/50 hover:bg-red-500 hover:text-white text-red-600 transition-colors shadow-2xs flex items-center justify-center cursor-pointer active:scale-[0.98]" title="Tambah Link YouTube">
-                        <!-- YouTube Icon -->
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                <div class="flex gap-2" x-show="!showYoutube && !showDrive">
+                    <button type="button" @click="showDrive = true" class="flex-1 px-3 py-2 rounded-xl border border-blue-200 hover:border-blue-500 bg-blue-50/50 hover:bg-blue-500 hover:text-white text-blue-600 transition-colors shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98]" title="Tambah Link Google Drive">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.01 2.215L17.265 11.3l-5.255 9.1L6.755 11.3l5.255-9.085zM6.55 11.69l3.96 6.85-2.025 3.52-6.28-10.875L4.405 7.42l2.145 4.27zM17.45 11.69l-2.145-4.27 2.195-3.795 6.295 10.875-2.035 3.52-4.31-6.33z"/></svg>
+                        <span class="text-[10px] font-black">Link Drive</span>
                     </button>
+                    <button type="button" @click="showYoutube = true" class="flex-1 px-3 py-2 rounded-xl border border-red-200 hover:border-red-500 bg-red-50/50 hover:bg-red-500 hover:text-white text-red-600 transition-colors shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98]" title="Tambah Link YouTube">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        <span class="text-[10px] font-black">Link YouTube</span>
+                    </button>
+                </div>
+
+                <!-- Drive Form -->
+                <div x-show="showDrive" x-cloak x-transition class="space-y-2 mt-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                    <div class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Input Link Google Drive</div>
+                    <input type="url" name="drive_link" placeholder="https://drive.google.com/file/d/..." class="w-full text-[10px] p-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
+                    <input type="text" name="nama_drive" placeholder="Nama Dokumen (Opsional)" class="w-full text-[10px] p-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
+                    <div class="flex gap-2 justify-end">
+                        <button type="button" @click="showDrive = false" class="px-2 py-1 text-[9px] font-bold text-slate-500 hover:text-slate-700 bg-slate-200/60 rounded-lg cursor-pointer">Batal</button>
+                        <button type="submit" class="px-2.5 py-1 text-[9px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg cursor-pointer">Simpan</button>
+                    </div>
                 </div>
 
                 <!-- Youtube Form -->

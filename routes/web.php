@@ -5,20 +5,14 @@ use App\Http\Controllers\AuthController;
 
 // Public routes (Only accessible to guests)
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
-
-    Route::get('/profil', function () {
-        return view('profil');
-    });
-
     // Auth routes
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 });
 
 // Public routes accessible by everyone (guest or auth)
+Route::get('/', [AkreditasiController::class, 'index']);
+// Keep /akreditasi as an alias just in case some hardcoded links exist
 Route::get('/akreditasi', [AkreditasiController::class, 'index']);
 Route::get('/dokumen/{id}/view', [AkreditasiController::class, 'viewDocument'])->name('dokumen.view');
 
@@ -32,6 +26,9 @@ Route::get('lang/{locale}', function ($locale) {
 
 // Protected admin routes
 Route::middleware('auth')->group(function () {
+    Route::get('/admin', function () {
+        return redirect()->route('admin.dashboard');
+    });
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/admin/dashboard', [AkreditasiController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::get('/admin/report', [AkreditasiController::class, 'exportReport'])->name('admin.report');

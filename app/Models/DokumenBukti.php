@@ -31,6 +31,11 @@ class DokumenBukti extends Model
         return str_contains($this->path_file, 'youtube.com') || str_contains($this->path_file, 'youtu.be');
     }
 
+    public function getIsDriveAttribute()
+    {
+        return str_contains($this->path_file, 'drive.google.com') || str_contains($this->path_file, 'docs.google.com');
+    }
+
     public function getYoutubeEmbedUrlAttribute()
     {
         $url = $this->path_file;

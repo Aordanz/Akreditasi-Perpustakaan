@@ -21,7 +21,7 @@ class AkreditasiController extends Controller
             'subKomponens.indikators.dokumenBuktis',
             'subKomponens.dokumenBuktis'
         ])->get();
-        return view('akreditasi', compact('komponens'));
+        return view('welcome', compact('komponens'));
     }
 
     public function adminDashboard()
@@ -47,6 +47,7 @@ class AkreditasiController extends Controller
     public function upload(Request $request, $type = null, $id = null)
     {
         $isYoutube = $request->has('youtube_link') && !empty($request->youtube_link);
+        $isDrive = $request->has('drive_link') && !empty($request->drive_link);
 
         if ($isYoutube) {
             $request->validate([
@@ -55,12 +56,15 @@ class AkreditasiController extends Controller
             ]);
             $path_file = $request->youtube_link;
             $nama_file = $request->nama_video ?: 'Video YouTube';
-        } else {
+        } elseif ($isDrive) {
             $request->validate([
-                'dokumen' => 'required|file|extensions:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240',
+                'drive_link' => 'required|url',
+                'nama_drive' => 'nullable|string|max:255',
             ]);
-            $file = $request->file('dokumen');
-            $nama_file = $file->getClientOriginalName();
+            $path_file = $request->drive_link;
+            $nama_file = $request->nama_drive ?: 'Dokumen Drive';
+        } else {
+            return back()->with('error', 'Silakan masukkan link Google Drive atau YouTube.');
         }
 
         // Handle backward compatibility (if old route is called)
@@ -122,10 +126,6 @@ class AkreditasiController extends Controller
         // Prepend code/prefix to filename if not already present
         if (!str_starts_with($nama_file, $code)) {
             $nama_file = $code . ' ' . $nama_file;
-        }
-
-        if (!$isYoutube) {
-            $path_file = $file->store($dynamic_path, 'public');
         }
 
         // Find if there is an empty slot for this target to update
@@ -197,11 +197,7 @@ class AkreditasiController extends Controller
 
         DB::beginTransaction();
         try {
-            $dokumen->update([
-                'nama_file' => null,
-                'path_file' => null,
-                'tanggal_upload' => null,
-            ]);
+            $dokumen->delete();
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -209,6 +205,6 @@ class AkreditasiController extends Controller
             throw $e;
         }
         
-        return back()->with('success', 'Dokumen berhasil dihapus! Slot tetap tersedia untuk upload ulang.');
+        return back()->with('success', 'Dokumen berhasil dihapus dari sistem dan database!');
     }
 }
