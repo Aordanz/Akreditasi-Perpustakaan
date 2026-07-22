@@ -52,20 +52,6 @@
 
                 <!-- Desktop Nav -->
                 <nav class="hidden lg:flex items-center gap-8 font-semibold text-sm">
-                    <a href="/" class="group relative py-2">
-                        <span class="{{ request()->is('/') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">{{ __('Beranda') }}</span>
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left transition-transform duration-300 {{ request()->is('/') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
-                    </a>
-                    
-                    <a href="/profil" class="group relative py-2">
-                        <span class="{{ request()->is('profil') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">{{ __('Profil') }}</span>
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left transition-transform duration-300 {{ request()->is('profil') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
-                    </a>
-                    
-                    <a href="/akreditasi" class="group relative py-2">
-                        <span class="{{ request()->is('akreditasi') ? 'text-[#0a7a3b]' : 'text-slate-600 group-hover:text-[#0a7a3b]' }} transition-colors duration-300">{{ __('Akreditasi') }}</span>
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0a7a3b] rounded-full transform origin-left transition-transform duration-300 {{ request()->is('akreditasi') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
-                    </a>
 
                     <!-- Language Switcher Desktop -->
                     <div class="relative" @click.away="langMenu = false">
@@ -107,9 +93,6 @@
         <!-- Mobile Navigation (Alpine) -->
         <div x-show="mobileMenu" x-collapse x-cloak class="lg:hidden bg-white border-t border-slate-100 shadow-xl absolute w-full">
             <div class="px-4 pt-2 pb-6 space-y-1">
-                <a href="/" class="block px-4 py-3 rounded-xl {{ request()->is('/') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">{{ __('Beranda') }}</a>
-                <a href="/profil" class="block px-4 py-3 rounded-xl {{ request()->is('profil') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">{{ __('Profil') }}</a>
-                <a href="/akreditasi" class="block px-4 py-3 rounded-xl {{ request()->is('akreditasi') ? 'bg-green-50 text-[#0a7a3b] font-bold' : 'text-slate-600 hover:bg-slate-50' }}">{{ __('Akreditasi') }}</a>
                 
                 <div class="border-t border-slate-100 my-2 pt-2">
                     <p class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Bahasa / Language</p>
@@ -147,8 +130,8 @@
         <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-[#0a7a3b] opacity-20 blur-3xl pointer-events-none"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div class="col-span-1 md:col-span-2">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
+                <div class="col-span-1 md:col-span-4 lg:col-span-4">
                     <a href="/" class="flex items-center gap-3 mb-6 group">
                         <div class="rounded-full group-hover:shadow-[0_0_15px_rgba(254,203,0,0.5)] transition duration-300">
                             <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-12 h-12 object-cover rounded-full bg-white">
@@ -159,42 +142,58 @@
                         </div>
                     </a>
                     <p class="text-green-100/80 text-sm leading-relaxed mb-6 max-w-md">
-                        {{ __('Mewujudkan layanan prima dan infrastruktur berstandar nasional menuju universitas bereputasi global.') }}
+                        {{ __('Menjadi suatu Perpustakaan Perguruan Tinggi yang berada dalam tataran dunia global dan terkemuka dalam pelayanan terhadap Sivitas Akademikanya.') }}
                     </p>
                     <div class="flex gap-4">
-                        <!-- X (Twitter) -->
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 transform hover:-translate-y-1">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        <!-- TikTok -->
+                        <a href="https://www.tiktok.com/@usulibrary?is_from_webapp=1&sender_device=pc" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 transform hover:-translate-y-1" title="TikTok">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"></path></svg>
                         </a>
                         <!-- Instagram -->
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#E1306C] hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                        <a href="https://www.instagram.com/usulibraryofficial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#E1306C] hover:text-white transition-all duration-300 transform hover:-translate-y-1" title="Instagram">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                         </a>
                         <!-- YouTube -->
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                        <a href="https://youtube.com/@usulibraryofficial?si=pCIGVDGKjt7iYaMe" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all duration-300 transform hover:-translate-y-1" title="YouTube">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                         </a>
                     </div>
                 </div>
                 
-                <div>
+                <div class="col-span-1 md:col-span-3 lg:col-span-3">
                     <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm border-b border-white/20 pb-2">{{ __('Tautan Cepat') }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="/profil" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Profil') }}</a></li>
-                        <li><a href="/akreditasi" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Akreditasi') }}</a></li>
+                        <li><a href="https://www.usu.ac.id/" target="_blank" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Universitas Sumatera Utara') }}</a></li>
+                        <li><a href="https://library.usu.ac.id/id" target="_blank" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Perpustakaan USU') }}</a></li>
+                        <li><a href="https://digilib.usu.ac.id/" target="_blank" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('OPAC USU') }}</a></li>
+                        <li><a href="https://repositori.usu.ac.id/" target="_blank" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Repositori (USU-IR)') }}</a></li>
+                        <li><a href="https://library.usu.ac.id/id/jurnal-elektronik" target="_blank" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Scientific eJournals') }}</a></li>
+                        <li><a href="https://library.usu.ac.id/id/buku-elektronik" target="_blank" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Scientific eBooks') }}</a></li>
                     </ul>
                 </div>
                 
-                <div>
+                <div class="col-span-1 md:col-span-5 lg:col-span-5">
                     <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm border-b border-white/20 pb-2">Kontak Kami</h3>
                     <ul class="space-y-4 text-green-100/80">
                         <li class="flex items-start gap-3 hover:text-white transition-colors duration-300">
                             <svg class="w-5 h-5 text-[#fecb00] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             <span class="text-sm">{{ __('Jalan Perpustakaan No.1, Kampus USU, Padang Bulan, Medan') }} 20155</span>
                         </li>
-                        <li class="flex items-center gap-3 hover:text-white transition-colors duration-300">
-                            <svg class="w-5 h-5 text-[#fecb00] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                            <span class="text-sm">+62 61 8218666</span>
+                        <li class="flex items-start gap-3 hover:text-white transition-colors duration-300">
+                            <svg class="w-5 h-5 text-[#fecb00] shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <div class="text-sm grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 pt-0.5">
+                                <span class="text-green-100/70">Reservasi Buku & Referensi</span>
+                                <span class="font-medium text-white/90">0812-6260-2129</span>
+                                
+                                <span class="text-green-100/70">Reservasi Artikel</span>
+                                <span class="font-medium text-white/90">0813-9677-7904</span>
+                                
+                                <span class="text-green-100/70">Layanan Bebas Pustaka</span>
+                                <span class="font-medium text-white/90">0813-6215-8587</span>
+                                
+                                <span class="text-green-100/70">Telepon Kantor (Humas)</span>
+                                <span class="font-medium text-white/90">(061) 8218666</span>
+                            </div>
                         </li>
                         <li class="flex items-center gap-3 hover:text-white transition-colors duration-300">
                             <svg class="w-5 h-5 text-[#fecb00] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
@@ -204,22 +203,35 @@
                 </div>
             </div>
             
-            <div class="pt-8 border-t border-white/10 text-center md:flex md:justify-between md:items-center text-xs md:text-sm text-green-100/60">
+            <div class="pt-8 border-t border-white/10 text-center text-xs md:text-sm text-green-100/60 pb-4">
                 <p>&copy; {{ date('Y') }} {{ __('Perpustakaan USU') }}. {{ __('Seluruh hak cipta dilindungi undang-undang.') }}</p>
-                <div class="mt-4 md:mt-0 space-x-4">
-                    <a href="#" class="hover:text-white transition-colors">{{ __('Kebijakan Privasi') }}</a>
-                    <a href="#" class="hover:text-white transition-colors">{{ __('Syarat & Ketentuan') }}</a>
-                    @auth
-                        <a href="{{ route('admin.dashboard') }}" class="hover:text-white transition-colors">{{ __('Dashboard Admin') }}</a>
-                    @else
-                        <a href="{{ route('login') }}" class="hover:text-white transition-colors">Login Admin</a>
-                    @endauth
-                </div>
             </div>
         </div>
     </footer>
 
     @stack('scripts')
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(event, formElement) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Hapus Dokumen?',
+                text: "Dokumen bukti ini akan dihapus secara permanen dan tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formElement.submit();
+                }
+            })
+        }
+    </script>
     <!-- AOS Init -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

@@ -6,19 +6,105 @@
     <title>Laporan Progres Akreditasi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Base styles that apply always */
+        .page-break-inside-avoid {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
         @media print {
-            body { font-size: 12pt; }
+            @page {
+                size: A4 portrait;
+                margin: 1.5cm; /* Set margins so content doesn't get cut off at edges */
+            }
+
+            body { 
+                font-size: 11pt; 
+                color: #000 !important; 
+                padding: 0 !important; /* Let @page handle margins */
+                margin: 0 !important;
+                width: 100% !important;
+            }
+            
             .no-print { display: none !important; }
             .page-break { page-break-before: always; }
+            
+            /* Paksa semua font menjadi hitam saat dicetak */
+            * { color: #000 !important; }
+            
+            /* Hapus background warna-warni yang menghabiskan tinta */
+            .bg-slate-800 { background-color: transparent !important; border: 1px solid #000; border-bottom: none; }
+            .bg-slate-100 { background-color: transparent !important; }
+            .bg-red-50, .bg-white { background-color: transparent !important; }
+            .bg-slate-100.p-4 { border: 1px solid #000 !important; }
+            
+            /* Pengaturan khusus tabel dengan font Times New Roman */
+            table {
+                font-family: "Times New Roman", Times, serif !important;
+                border: 1px solid #000 !important;
+                width: 100% !important;
+                table-layout: auto !important;
+                border-collapse: collapse !important;
+            }
+            table th, table td {
+                border: 1px solid #000 !important;
+                color: #000 !important;
+                padding: 6px 8px !important; /* Lebar sel yang rapi */
+            }
+            
+            /* Mencegah tabel atau baris terpotong di tengah halaman */
+            table, tr, th, td {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            /* Hapus bayangan dan lengkungan (radius) agar lebih formal */
+            .shadow-sm, .rounded-lg, .rounded-t-lg, .rounded, .rounded-2xl {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            
+            /* Warna border disamakan jadi hitam */
+            .border-slate-300, .border-slate-800, .border-b-2 { 
+                border-color: #000 !important; 
+            }
         }
     </style>
 </head>
 <body class="bg-white text-slate-800 p-8" onload="window.print()">
 
     @php
-        $totalSub = $komponens->sum(fn($k) => $k->subKomponens->count());
-        $subTerisi = $komponens->flatMap->subKomponens->filter(fn($sub) => $sub->dokumenBuktis->count() > 0)->count();
-        $persentase = $totalSub > 0 ? round(($subTerisi / $totalSub) * 100) : 0;
+        $globalTotalSlot = 0;
+        $globalSlotTerisi = 0;
+        $totalDocs = 0;
+        
+        foreach ($komponens as $komponen) {
+            foreach ($komponen->subKomponens as $sub) {
+                if ($sub->indikators->count() > 0) {
+                    foreach ($sub->indikators as $ind) {
+                        if ($ind->subIndikators->count() > 0) {
+                            foreach ($ind->subIndikators as $si) {
+                                $globalTotalSlot++;
+                                $validDocs = $si->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count();
+                                if ($validDocs > 0) $globalSlotTerisi++;
+                                $totalDocs += $si->dokumenBuktis->count();
+                            }
+                        } else {
+                            $globalTotalSlot++;
+                            $validDocs = $ind->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count();
+                            if ($validDocs > 0) $globalSlotTerisi++;
+                            $totalDocs += $ind->dokumenBuktis->count();
+                        }
+                    }
+                } else {
+                    $globalTotalSlot++;
+                    $validDocs = $sub->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count();
+                    if ($validDocs > 0) $globalSlotTerisi++;
+                    $totalDocs += $sub->dokumenBuktis->count();
+                }
+            }
+        }
+        $persentase = $globalTotalSlot > 0 ? round(($globalSlotTerisi / $globalTotalSlot) * 100) : 0;
     @endphp
 
     <!-- Header Laporan -->
@@ -35,8 +121,8 @@
             <div class="text-3xl font-black text-[#0a7a3b]">{{ $persentase }}% Selesai</div>
         </div>
         <div class="text-right">
-            <div class="text-sm font-bold text-slate-700">Sub Komponen Terisi: {{ $subTerisi }} dari {{ $totalSub }}</div>
-            <div class="text-sm font-bold text-slate-700 mt-1">Total Dokumen: {{ collect($komponens)->flatMap->subKomponens->flatMap->dokumenBuktis->count() }} File</div>
+            <div class="text-sm font-bold text-slate-700">Slot Terisi: {{ $globalSlotTerisi }} dari {{ $globalTotalSlot }}</div>
+            <div class="text-sm font-bold text-slate-700 mt-1">Total Dokumen: {{ $totalDocs }} File</div>
         </div>
     </div>
 
@@ -48,9 +134,56 @@
     <!-- Rincian per Komponen -->
     @foreach ($komponens as $komponen)
         @php
-            $k_totalSub = $komponen->subKomponens->count();
-            $k_subTerisi = $komponen->subKomponens->filter(fn($sub) => $sub->dokumenBuktis->count() > 0)->count();
-            $k_persentase = $k_totalSub > 0 ? round(($k_subTerisi / $k_totalSub) * 100) : 0;
+            $k_totalSlot = 0;
+            $k_slotTerisi = 0;
+            
+            foreach ($komponen->subKomponens as $sub) {
+                $subTotalSlot = 0;
+                $subSlotTerisi = 0;
+                $sub_docCount = 0;
+                
+                if ($sub->indikators->count() > 0) {
+                    foreach ($sub->indikators as $ind) {
+                        if ($ind->subIndikators->count() > 0) {
+                            foreach ($ind->subIndikators as $si) {
+                                $subTotalSlot++;
+                                $k_totalSlot++;
+                                if ($si->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) {
+                                    $subSlotTerisi++;
+                                    $k_slotTerisi++;
+                                }
+                                $sub_docCount += $si->dokumenBuktis->count();
+                            }
+                        } else {
+                            $subTotalSlot++;
+                            $k_totalSlot++;
+                            if ($ind->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) {
+                                $subSlotTerisi++;
+                                $k_slotTerisi++;
+                            }
+                            $sub_docCount += $ind->dokumenBuktis->count();
+                        }
+                    }
+                } else {
+                    $subTotalSlot++;
+                    $k_totalSlot++;
+                    if ($sub->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) {
+                        $subSlotTerisi++;
+                        $k_slotTerisi++;
+                    }
+                    $sub_docCount += $sub->dokumenBuktis->count();
+                }
+                
+                if ($subTotalSlot > 0 && $subSlotTerisi === $subTotalSlot) {
+                    $sub->is_terisi = true;
+                } else {
+                    $sub->is_terisi = false;
+                }
+                $sub->doc_count = $sub_docCount;
+                $sub->slot_terisi = $subSlotTerisi;
+                $sub->total_slot = $subTotalSlot;
+            }
+            $k_persentase = $k_totalSlot > 0 ? round(($k_slotTerisi / $k_totalSlot) * 100) : 0;
         @endphp
 
         <div class="mb-6 page-break-inside-avoid">
@@ -69,20 +202,17 @@
                 </thead>
                 <tbody>
                     @foreach ($komponen->subKomponens as $sub)
-                        @php
-                            $docCount = $sub->dokumenBuktis->count();
-                        @endphp
-                        <tr class="{{ $docCount > 0 ? 'bg-white' : 'bg-red-50' }}">
+                        <tr class="{{ $sub->is_terisi ? 'bg-white' : 'bg-red-50' }}">
                             <td class="border border-slate-300 p-2 font-semibold">{{ $sub->nomor_sub }}</td>
                             <td class="border border-slate-300 p-2">{{ $sub->nama_sub_komponen }}</td>
                             <td class="border border-slate-300 p-2 text-center">
-                                @if($docCount > 0)
-                                    <span class="text-green-600 font-bold">Terisi</span>
+                                @if($sub->is_terisi)
+                                    <span class="text-green-600 font-bold">Terisi Lengkap</span>
                                 @else
-                                    <span class="text-red-600 font-bold">KOSONG</span>
+                                    <span class="text-red-600 font-bold">BELUM LENGKAP ({{ $sub->slot_terisi }}/{{ $sub->total_slot }} Slot)</span>
                                 @endif
                             </td>
-                            <td class="border border-slate-300 p-2 text-center font-bold">{{ $docCount }}</td>
+                            <td class="border border-slate-300 p-2 text-center font-bold">{{ $sub->doc_count }}</td>
                         </tr>
                     @endforeach
                 </tbody>

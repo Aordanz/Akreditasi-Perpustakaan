@@ -113,7 +113,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ url('/login') }}" method="POST" class="space-y-6">
+                    <form action="/login" method="POST" class="space-y-6">
                         @csrf
                         
                         <div class="relative group">

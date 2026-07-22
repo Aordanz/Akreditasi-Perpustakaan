@@ -41,7 +41,8 @@
             $previousUrl = Auth::check() ? '/admin/dashboard' : '/akreditasi';
         }
         $isYoutube = $dokumen->is_youtube;
-        $fileExists = $isYoutube ? true : Storage::disk('public')->exists($dokumen->path_file);
+        $isDrive = $dokumen->is_drive;
+        $fileExists = ($isYoutube || $isDrive) ? true : Storage::disk('public')->exists($dokumen->path_file);
     @endphp
     @if(!request()->has('embed'))
     <div class="header">
@@ -64,6 +65,11 @@
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
             Buka di YouTube
         </a>
+        @elseif($isDrive)
+        <a href="{{ $dokumen->path_file }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.01 2.215L17.265 11.3l-5.255 9.1L6.755 11.3l5.255-9.085zM6.55 11.69l3.96 6.85-2.025 3.52-6.28-10.875L4.405 7.42l2.145 4.27zM17.45 11.69l-2.145-4.27 2.195-3.795 6.295 10.875-2.035 3.52-4.31-6.33z"/></svg>
+            Buka di Google Drive
+        </a>
         @endif
     </div>
     @endif
@@ -84,13 +90,16 @@
             </div>
         @else
             @php
-                $ext = !$isYoutube ? strtolower(pathinfo($dokumen->path_file, PATHINFO_EXTENSION)) : '';
-                $url = !$isYoutube ? url(Storage::url($dokumen->path_file)) : '';
+                $ext = (!$isYoutube && !$isDrive) ? strtolower(pathinfo($dokumen->path_file, PATHINFO_EXTENSION)) : '';
+                $url = (!$isYoutube && !$isDrive) ? url(Storage::url($dokumen->path_file)) : '';
             @endphp
 
             @if($isYoutube)
                 <!-- YouTube Embed Video -->
                 <iframe src="{{ $dokumen->youtube_embed_url }}" title="{{ $dokumen->nama_file }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            @elseif($isDrive)
+                <!-- Google Drive Viewer -->
+                <iframe src="{{ str_replace('/view', '/preview', $dokumen->path_file) }}" title="{{ $dokumen->nama_file }}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             @elseif($ext == 'pdf')
                 <!-- Native PDF Viewer -->
                 <iframe src="{{ Storage::url($dokumen->path_file) }}#toolbar=0" title="{{ $dokumen->nama_file }}"></iframe>
