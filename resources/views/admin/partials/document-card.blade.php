@@ -1,6 +1,6 @@
 @php
     $allDocs = $target->dokumenBuktis;
-    $uploadedDocs = $allDocs->filter(fn($d) => !empty($d->nama_file));
+    $uploadedDocs = $allDocs->filter(fn($d) => !empty($d->nama_file))->sortBy('nama_file', SORT_NATURAL | SORT_FLAG_CASE)->values();
     $emptySlots = $allDocs->filter(fn($d) => empty($d->nama_file));
     $hasFiles = $uploadedDocs->count() > 0;
 @endphp
