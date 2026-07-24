@@ -93,11 +93,11 @@
                 <div x-show="show" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-x-10" x-transition:enter-end="opacity-100 translate-x-0">
                     
                     <!-- Mobile Logo (hides on desktop) -->
-                    <div class="lg:hidden flex items-center gap-3 mb-10">
-                        <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-12 h-12 object-contain rounded-lg shadow-sm border border-slate-100">
-                        <div>
-                            <span class="block font-black text-slate-800 leading-tight">{{ __('Perpustakaan') }}</span>
-                            <span class="block text-xs font-bold text-[#0a7a3b] uppercase tracking-wider">{{ __('Universitas Sumatera Utara') }}</span>
+                    <div class="lg:hidden flex items-center gap-3 mb-10 mt-6 sm:mt-0">
+                        <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-12 h-12 object-contain rounded-lg shadow-sm border border-slate-100 shrink-0">
+                        <div class="min-w-0">
+                            <span class="block font-black text-slate-800 leading-tight truncate">{{ __('Perpustakaan') }}</span>
+                            <span class="block text-[10px] sm:text-xs font-bold text-[#0a7a3b] uppercase tracking-wider truncate">{{ __('Universitas Sumatera Utara') }}</span>
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
                         
                         <div class="relative group">
                             <input type="email" name="email" id="email" value="{{ old('email') }}" required placeholder=" " 
-                                   class="floating-input w-full px-4 py-4 rounded-xl outline-none text-slate-800 font-medium z-10 relative bg-transparent">
+                                   class="floating-input w-full px-4 py-4 rounded-xl outline-none text-base sm:text-sm font-medium z-10 relative bg-transparent">
                             <label for="email" class="floating-label z-20">{{ __('Alamat Email') }}</label>
                             
                             <!-- Icon inside input -->
@@ -129,7 +129,7 @@
 
                         <div class="relative group" x-data="{ showPass: false }">
                             <input :type="showPass ? 'text' : 'password'" name="password" id="password" required placeholder=" " 
-                                   class="floating-input w-full px-4 py-4 rounded-xl outline-none text-slate-800 font-medium z-10 relative bg-transparent pr-12">
+                                   class="floating-input w-full px-4 py-4 rounded-xl outline-none text-base sm:text-sm font-medium z-10 relative bg-transparent pr-12">
                             <label for="password" class="floating-label z-20">{{ __('Kata Sandi') }}</label>
                             
                             <button type="button" @click="showPass = !showPass" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-[#0a7a3b] focus:text-[#0a7a3b] transition-colors z-20 focus:outline-none">
@@ -139,8 +139,8 @@
                         </div>
                         
                         <div class="flex items-center justify-between">
-                            <label class="flex items-center gap-2 cursor-pointer group">
-                                <input type="checkbox" name="remember" class="w-4 h-4 text-[#0a7a3b] rounded border-slate-300 focus:ring-[#0a7a3b]">
+                            <label class="flex items-center gap-3 cursor-pointer group py-2">
+                                <input type="checkbox" name="remember" class="w-5 h-5 sm:w-4 sm:h-4 text-[#0a7a3b] rounded border-slate-300 focus:ring-[#0a7a3b]">
                                 <span class="text-sm font-medium text-slate-600 group-hover:text-slate-800 transition-colors">{{ __('Ingat Saya') }}</span>
                             </label>
                         </div>

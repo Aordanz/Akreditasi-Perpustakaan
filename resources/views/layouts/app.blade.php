@@ -39,14 +39,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center transition-all duration-300 h-16">
                 <!-- Logo -->
-                <a href="/" class="flex items-center gap-3 md:gap-4 group">
-                    <div class="relative">
+                <a href="/" class="flex items-center gap-2 sm:gap-3 md:gap-4 group">
+                    <div class="relative shrink-0">
                         <div class="absolute inset-0 bg-[#0a7a3b] rounded-full blur-md opacity-0 group-hover:opacity-40 transition duration-500"></div>
-                        <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-12 h-12 md:w-14 md:h-14 object-contain relative z-10 transform group-hover:scale-105 transition duration-500">
+                        <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain relative z-10 transform group-hover:scale-105 transition duration-500">
                     </div>
-                    <div class="flex flex-col justify-center">
-                        <span class="font-black text-lg md:text-xl text-slate-900 tracking-tight leading-tight">{{ __('Perpustakaan') }}</span>
-                        <span class="font-bold text-xs md:text-sm text-[#0a7a3b] tracking-wide uppercase">{{ __('Universitas Sumatera Utara') }}</span>
+                    <div class="flex flex-col justify-center min-w-0">
+                        <span class="font-black text-base sm:text-lg md:text-xl text-slate-900 tracking-tight leading-tight truncate">{{ __('Perpustakaan') }}</span>
+                        <span class="font-bold text-[10px] sm:text-xs md:text-sm text-[#0a7a3b] tracking-wide uppercase truncate">{{ __('Universitas Sumatera Utara') }}</span>
                     </div>
                 </a>
 
@@ -83,7 +83,7 @@
                 </nav>
 
                 <!-- Mobile Menu Button -->
-                <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 text-slate-600 hover:text-[#0a7a3b] focus:outline-none">
+                <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-3 -mr-2 text-slate-600 hover:text-[#0a7a3b] focus:outline-none flex items-center justify-center cursor-pointer min-h-[44px] min-w-[44px]">
                     <svg x-show="!mobileMenu" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     <svg x-show="mobileMenu" x-cloak class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -130,8 +130,8 @@
         <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-[#0a7a3b] opacity-20 blur-3xl pointer-events-none"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
-                <div class="col-span-1 md:col-span-4 lg:col-span-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
+                <div class="col-span-1 sm:col-span-2 lg:col-span-4">
                     <a href="/" class="flex items-center gap-3 mb-6 group">
                         <div class="rounded-full group-hover:shadow-[0_0_15px_rgba(254,203,0,0.5)] transition duration-300">
                             <img src="{{ asset('logousu.jpeg') }}" alt="Logo USU" class="w-12 h-12 object-cover rounded-full bg-white">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 
-                <div class="col-span-1 md:col-span-3 lg:col-span-3">
+                <div class="col-span-1 sm:col-span-1 lg:col-span-3">
                     <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm border-b border-white/20 pb-2">{{ __('Tautan Cepat') }}</h3>
                     <ul class="space-y-3">
                         <li><a href="https://www.usu.ac.id/" target="_blank" class="text-green-100/80 hover:text-[#fecb00] hover:translate-x-1 inline-block transition-all duration-300">{{ __('Universitas Sumatera Utara') }}</a></li>
@@ -172,7 +172,7 @@
                     </ul>
                 </div>
                 
-                <div class="col-span-1 md:col-span-5 lg:col-span-5">
+                <div class="col-span-1 sm:col-span-1 lg:col-span-5">
                     <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm border-b border-white/20 pb-2">Kontak Kami</h3>
                     <ul class="space-y-4 text-green-100/80">
                         <li class="flex items-start gap-3 hover:text-white transition-colors duration-300">

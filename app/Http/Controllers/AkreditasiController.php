@@ -55,14 +55,63 @@ class AkreditasiController extends Controller
                 'nama_video' => 'nullable|string|max:255',
             ]);
             $path_file = $request->youtube_link;
-            $nama_file = $request->nama_video ?: 'Video YouTube';
+            $nama_file = $request->nama_video;
+            
+            // Auto-fetch title from YouTube if not provided
+            if (empty($nama_file)) {
+                try {
+                    $response = \Illuminate\Support\Facades\Http::timeout(5)->get($path_file);
+                    if ($response->successful() && preg_match('/<title>(.*?)<\/title>/i', $response->body(), $matches)) {
+                        $title = html_entity_decode($matches[1]);
+                        $nama_file = trim(str_ireplace(' - YouTube', '', $title));
+                    }
+                } catch (\Exception $e) {}
+                
+                if (empty($nama_file)) $nama_file = 'Video YouTube';
+            }
         } elseif ($isDrive) {
             $request->validate([
                 'drive_link' => 'required|url',
                 'nama_drive' => 'nullable|string|max:255',
             ]);
             $path_file = $request->drive_link;
-            $nama_file = $request->nama_drive ?: 'Dokumen Drive';
+            $nama_file = $request->nama_drive;
+            
+            // Auto-fetch title from Google Drive if not provided
+            if (empty($nama_file)) {
+                try {
+                    $response = \Illuminate\Support\Facades\Http::timeout(5)->get($path_file);
+                    if ($response->successful()) {
+                        $body = $response->body();
+                        $title = '';
+                        
+                        if (preg_match('/<meta\s+property=["\']og:title["\']\s+content=["\'](.*?)["\']/i', $body, $matches) || preg_match('/<meta\s+content=["\'](.*?)["\']\s+property=["\']og:title["\']/i', $body, $matches)) {
+                            $title = html_entity_decode($matches[1]);
+                        } elseif (preg_match('/<title>(.*?)<\/title>/i', $body, $matches)) {
+                            $title = html_entity_decode($matches[1]);
+                        }
+
+                        $hapusKata = [
+                            ' - Google Drive', ' - Google Docs', ' - Google Dokumen', 
+                            ' - Google Sheets', ' - Google Spreadsheet', ' - Google Slides',
+                            ' - Microsoft Word', ' - Microsoft Excel', ' - Microsoft PowerPoint',
+                            'Google Dokumen - ', 'Google Docs - ', 'Microsoft Word - '
+                        ];
+                        
+                        $nama_file = trim(str_ireplace($hapusKata, '', $title));
+                    }
+                } catch (\Exception $e) {}
+                
+                // Fallbacks in case it hits a generic login or error page
+                $genericNames = [
+                    'Google Drive', 'Google Dokumen', 'Google Docs', 
+                    'Microsoft Word', 'Microsoft Dokumen', 'Meet Google Drive',
+                    'Memuat Google Dokumen', 'Loading Google Docs'
+                ];
+                if (empty($nama_file) || in_array($nama_file, $genericNames) || str_contains(strtolower($nama_file), 'meet google drive')) {
+                    $nama_file = 'Dokumen Drive';
+                }
+            }
         } else {
             return back()->with('error', 'Silakan masukkan link Google Drive atau YouTube.');
         }
@@ -180,6 +229,37 @@ class AkreditasiController extends Controller
     {
         $dokumen = DokumenBukti::findOrFail($id);
         return view('viewer', compact('dokumen'));
+    }
+    public function updateDokumen(Request $request, $id)
+    {
+        $request->validate([
+            'nama_file' => 'required|string|max:255',
+            'link' => 'nullable|url|max:2000'
+        ]);
+
+        $dokumen = DokumenBukti::findOrFail($id);
+        
+        try {
+            DB::statement('COMMIT');
+        } catch (\Exception $e) {}
+
+        DB::beginTransaction();
+        try {
+            $data = ['nama_file' => $request->nama_file];
+            
+            if (($dokumen->is_youtube || $dokumen->is_drive) && $request->filled('link')) {
+                $data['path_file'] = $request->link;
+            }
+            
+            $dokumen->update($data);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('DB save error in updateDokumen: ' . $e->getMessage());
+            throw $e;
+        }
+
+        return back()->with('success', 'Dokumen berhasil diperbarui!');
     }
 
     public function deleteDokumen($id)

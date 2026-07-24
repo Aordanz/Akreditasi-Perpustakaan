@@ -175,11 +175,6 @@
                 "indikators": [
                     {
                         "nomor_indikator": "1.5.8",
-                        "nama_indikator": "Perpustakaan universitas memiliki alat atau sarana untuk akses koleksi yang lebih mudah dan cepat",
-                        "sub_indikators": []
-                    },
-                    {
-                        "nomor_indikator": "1.5.8",
                         "nama_indikator": "Foto/tangkapan layar sistem pencarian",
                         "sub_indikators": []
                     }
@@ -260,6 +255,10 @@
                             {
                                 "nomor_sub_indikator": "1.7.12-3",
                                 "nama_sub_indikator": "Tangkapan Layar OPAC"
+                            },
+                            {
+                                "nomor_sub_indikator": "1.7.12-4",
+                                "nama_sub_indikator": "Foto dokumentasi fisik Standard Pengolahan Bahan Perpustakaan"
                             }
                         ]
                     }
@@ -309,11 +308,6 @@
                 "indikators": [
                     {
                         "nomor_indikator": "2.1.1",
-                        "nama_indikator": "Perpustakaan memiliki luas gedung atau ruang yang memadai dan representatif untuk mendukung fungsi layanan, pengelolaan koleksi, kegiatan literasi, serta kenyamanan sivitas akademika",
-                        "sub_indikators": []
-                    },
-                    {
-                        "nomor_indikator": "2.1.1",
                         "nama_indikator": "Gambar/denah/blueprint ruang/gedung perpustakaan",
                         "sub_indikators": []
                     },
@@ -347,7 +341,15 @@
                             },
                             {
                                 "nomor_sub_indikator": "2.2.3-2",
-                                "nama_sub_indikator": "Foto dokumentasi fisik sarana dan prasarana"
+                                "nama_sub_indikator": "Foto dokumentasi fisik sarana akses"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.2.3-3",
+                                "nama_sub_indikator": "Foto dokumentasi fisik sarana kenyamanan"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.2.3-4",
+                                "nama_sub_indikator": "Foto dokumentasi fisik sarana keamanan"
                             }
                         ]
                     }
@@ -359,13 +361,29 @@
                 "indikators": [
                     {
                         "nomor_indikator": "2.3.4",
-                        "nama_indikator": "Tersedianya perabot dan peralatan perpustakaan yang mendukung kenyamanan aktivitas membaca sesuai kebutuhan",
-                        "sub_indikators": []
-                    },
-                    {
-                        "nomor_indikator": "2.3.4",
                         "nama_indikator": "Daftar inventaris dan foto perabotan dan peralatan perpustakaan",
-                        "sub_indikators": []
+                        "sub_indikators": [
+                            {
+                                "nomor_sub_indikator": "2.3.4-A",
+                                "nama_sub_indikator": "Perabot dan Peralatan Penyimpanan Koleksi"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.3.4-B",
+                                "nama_sub_indikator": "Perabot dan Peralatan Baca di Tempat"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.3.4-C",
+                                "nama_sub_indikator": "Perabot dan Peralatan Layanan Informasi"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.3.4-D",
+                                "nama_sub_indikator": "Perabot dan Peralatan Pengolahan/Kerja Pegawai"
+                            },
+                            {
+                                "nomor_sub_indikator": "2.3.4-2A",
+                                "nama_sub_indikator": "Perabotan dan Peralatan Layanan Pendukung atau Area Terbuka"
+                            }
+                        ]
                     }
                 ]
             },
@@ -767,15 +785,15 @@
                             },
                             {
                                 "nomor_sub_indikator": "4.1.1-3",
-                                "nama_sub_indikator": "SK jabatan fungsional perpustakaan"
-                            },
-                            {
-                                "nomor_sub_indikator": "4.1.1-4",
                                 "nama_sub_indikator": "Daftar Riwayat Hidup dan dokumen kepala perpustakaan; pengalaman kerja di bidang perpustakaan"
                             },
                             {
-                                "nomor_sub_indikator": "4.1.1-5",
+                                "nomor_sub_indikator": "4.1.1-4",
                                 "nama_sub_indikator": "Sertifikat pelatihan/kepemimpinan bidang perpustakaan kepala perpustakaan"
+                            },
+                            {
+                                "nomor_sub_indikator": "4.1.1-5",
+                                "nama_sub_indikator": "SK jabatan fungsional perpustakaan"
                             },
                             {
                                 "nomor_sub_indikator": "4.1.1-6",
