@@ -294,82 +294,104 @@
                                     </div>
                                 </button>
 
-                                <!-- LEVEL 3 & Dokumen Bukti Wrapper -->
+                                <!-- LEVEL 3: Indikator dropdowns & Dokumen Bukti Wrapper -->
                                 <div x-show="openLevel2 === {{ $sub->id }}" x-collapse x-cloak>
-                                    <div class="p-5 md:p-7 bg-slate-50/50 border-t border-slate-100">
-                                        <div class="w-full space-y-4">
+                                    <div class="p-4 md:p-6 bg-slate-50/50 border-t border-slate-100" x-data="{ openLevel3: null }">
+                                        <div class="w-full space-y-3">
                                             @foreach ($sub->indikators as $ind)
-                                                @foreach ($ind->subIndikators as $subInd)
-                                                <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm overflow-hidden transition-all">
-                                                    <div class="w-full flex items-center justify-between p-4 bg-slate-50/60 border-b border-slate-100">
-                                                        <div class="flex items-start gap-3 min-w-0 pr-3">
-                                                            <span class="px-2.5 py-1 bg-[#e6f4ea] text-[#0a7a3b] border border-green-200/80 rounded-lg text-xs font-black shrink-0 mt-0.5">{{ $subInd->nomor_sub_indikator }}</span>
-                                                            <h4 class="text-xs md:text-sm font-bold text-slate-800 leading-snug pt-0.5">{{ __($subInd->nama_sub_indikator) }}</h4>
-                                                        </div>
+                                            <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm overflow-hidden transition-all"
+                                                 :class="openLevel3 === {{ $ind->id }} ? 'border-[#0a7a3b]/40 shadow-md ring-1 ring-green-200/30' : 'hover:border-slate-300'">
+                                                
+                                                <!-- Header Indikator (Level 3) -->
+                                                <button @click="openLevel3 = openLevel3 === {{ $ind->id }} ? null : {{ $ind->id }}" 
+                                                        class="w-full flex items-start sm:items-center justify-between p-3.5 sm:p-4 focus:outline-none group bg-white text-left cursor-pointer">
+                                                    <div class="flex items-start gap-3 min-w-0 pr-3 w-full">
+                                                        <span class="px-2 py-0.5 bg-green-50 text-[#0a7a3b] border border-green-200/60 rounded-md text-[11px] font-black shrink-0 mt-0.5"
+                                                              :class="openLevel3 === {{ $ind->id }} ? 'bg-[#0a7a3b] text-white border-[#0a7a3b]' : ''">{{ $ind->nomor_indikator }}</span>
+                                                        <h4 class="text-xs md:text-sm font-bold text-slate-700 leading-snug pt-0.5 group-hover:text-[#0a7a3b] transition-colors"
+                                                            :class="openLevel3 === {{ $ind->id }} ? 'text-[#0a7a3b]' : ''">{{ __($ind->nama_indikator) }}</h4>
                                                     </div>
-                                                    <div class="p-4 bg-white">
-                                                        @php $activeDocs = $subInd->dokumenBuktis->filter(fn($d) => !empty($d->nama_file)); @endphp
-                                                        @if ($activeDocs->count() > 0)
-                                                            <div class="space-y-2" x-data="{ showAllUserDocs: false }">
-                                                                @foreach ($activeDocs as $dokumen)
-                                                                    @php 
-                                                                        $isYt = $dokumen->is_youtube;
-                                                                        $isDrive = $dokumen->is_drive;
-                                                                        $isExists = ($isYt || $isDrive) ? true : ($dokumen->path_file ? Storage::disk('public')->exists($dokumen->path_file) : false); 
-                                                                    @endphp
-                                                                    <div @if($loop->index >= 5)
-                                                                             x-show="showAllUserDocs" x-cloak
-                                                                             x-transition:enter="transition ease-out duration-200"
-                                                                             x-transition:enter-start="opacity-0 translate-y-1"
-                                                                             x-transition:enter-end="opacity-100 translate-y-0"
-                                                                         @endif
-                                                                    >
-                                                                        @if ($isExists)
-                                                                    <a href="#" @click.prevent="openModal('{{ addslashes($dokumen->nama_file) }}', '{{ $isYt ? $dokumen->youtube_embed_url : route('dokumen.view', ['id' => $dokumen->id, 'embed' => 'true']) }}', {{ $isYt ? 'true' : 'false' }})" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group cursor-pointer">
-                                                                        <div class="flex items-center gap-2.5 min-w-0">
-                                                                            <div class="w-7 h-7 rounded-lg {{ $isYt ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-emerald-50 text-emerald-600 border border-emerald-100' }} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
-                                                                                @if ($isYt)
-                                                                                    <svg class="w-3.5 h-3.5 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                                                                @else
-                                                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                    <svg class="w-4 h-4 text-slate-400 transform transition-transform duration-300 shrink-0 mt-1" :class="openLevel3 === {{ $ind->id }} ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                </button>
+
+                                                <!-- Dokumen Bukti inside Indikator -->
+                                                <div x-show="openLevel3 === {{ $ind->id }}" x-collapse x-cloak>
+                                                    <div class="p-4 bg-slate-50/30 border-t border-slate-100 space-y-4">
+                                                        @foreach ($ind->subIndikators as $subInd)
+                                                        <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm overflow-hidden transition-all">
+                                                            <div class="w-full flex items-center justify-between p-4 bg-slate-50/60 border-b border-slate-100">
+                                                                <div class="flex items-start gap-3 min-w-0 pr-3">
+                                                                    <span class="px-2.5 py-1 bg-[#e6f4ea] text-[#0a7a3b] border border-green-200/80 rounded-lg text-xs font-black shrink-0 mt-0.5">{{ $subInd->nomor_sub_indikator }}</span>
+                                                                    <h4 class="text-xs md:text-sm font-bold text-slate-800 leading-snug pt-0.5">{{ __($subInd->nama_sub_indikator) }}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-4 bg-white">
+                                                                @php $activeDocs = $subInd->dokumenBuktis->filter(fn($d) => !empty($d->nama_file)); @endphp
+                                                                @if ($activeDocs->count() > 0)
+                                                                    <div class="space-y-2" x-data="{ showAllUserDocs: false }">
+                                                                        @foreach ($activeDocs as $dokumen)
+                                                                            @php 
+                                                                                $isYt = $dokumen->is_youtube;
+                                                                                $isDrive = $dokumen->is_drive;
+                                                                                $isExists = ($isYt || $isDrive) ? true : ($dokumen->path_file ? Storage::disk('public')->exists($dokumen->path_file) : false); 
+                                                                            @endphp
+                                                                            <div @if($loop->index >= 5)
+                                                                                     x-show="showAllUserDocs" x-cloak
+                                                                                     x-transition:enter="transition ease-out duration-200"
+                                                                                     x-transition:enter-start="opacity-0 translate-y-1"
+                                                                                     x-transition:enter-end="opacity-100 translate-y-0"
+                                                                                 @endif
+                                                                            >
+                                                                                @if ($isExists)
+                                                                            <a href="#" @click.prevent="openModal('{{ addslashes($dokumen->nama_file) }}', '{{ $isYt ? $dokumen->youtube_embed_url : route('dokumen.view', ['id' => $dokumen->id, 'embed' => 'true']) }}', {{ $isYt ? 'true' : 'false' }})" class="flex items-center justify-between gap-3 bg-white hover:bg-green-50/10 p-2.5 rounded-xl border border-slate-200 hover:border-[#0a7a3b]/30 shadow-sm hover:shadow transition-all duration-200 group cursor-pointer">
+                                                                                <div class="flex items-center gap-2.5 min-w-0">
+                                                                                    <div class="w-7 h-7 rounded-lg {{ $isYt ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-emerald-50 text-emerald-600 border border-emerald-100' }} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+                                                                                        @if ($isYt)
+                                                                                            <svg class="w-3.5 h-3.5 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                                                                        @else
+                                                                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">{{ $dokumen->nama_file }}</div>
+                                                                                </div>
+                                                                                <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
+                                                                                    <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                                                                                </div>
+                                                                            </a>
+                                                                            @else
+                                                                            <div class="flex items-center justify-between gap-3 bg-amber-50/60 p-2.5 rounded-xl border border-amber-200/80 shadow-sm">
+                                                                                <div class="flex items-center gap-2.5 min-w-0">
+                                                                                    <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                                                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                                                                    </div>
+                                                                                    <div class="text-[11px] font-bold text-amber-900 truncate" title="{{ $dokumen->nama_file }}">{{ $dokumen->nama_file }}</div>
+                                                                                </div>
+                                                                                <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded shrink-0">File tidak ada / dihapus</span>
+                                                                            </div>
                                                                                 @endif
                                                                             </div>
-                                                                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-[#0a7a3b] transition-colors truncate" title="{{ $dokumen->nama_file }}">{{ $dokumen->nama_file }}</div>
-                                                                        </div>
-                                                                        <div class="text-slate-400 group-hover:text-[#0a7a3b] transition-colors shrink-0 pr-1">
-                                                                            <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-                                                                        </div>
-                                                                    </a>
-                                                                    @else
-                                                                    <div class="flex items-center justify-between gap-3 bg-amber-50/60 p-2.5 rounded-xl border border-amber-200/80 shadow-sm">
-                                                                        <div class="flex items-center gap-2.5 min-w-0">
-                                                                            <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-                                                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                                                                            </div>
-                                                                            <div class="text-[11px] font-bold text-amber-900 truncate" title="{{ $dokumen->nama_file }}">{{ $dokumen->nama_file }}</div>
-                                                                        </div>
-                                                                        <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded shrink-0">File tidak ada / dihapus</span>
-                                                                    </div>
+                                                                        @endforeach
+                                                                        
+                                                                        @if ($activeDocs->count() > 5)
+                                                                            <button @click="showAllUserDocs = !showAllUserDocs" type="button" class="w-full py-1.5 px-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-500 hover:text-[#0a7a3b] mt-1 flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+                                                                                <span x-text="showAllUserDocs ? 'Sembunyikan' : 'Tampilkan {{ $activeDocs->count() - 5 }} file lainnya...'"></span>
+                                                                                <svg class="w-3.5 h-3.5 transform transition-transform duration-300" :class="showAllUserDocs ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                                                                            </button>
                                                                         @endif
                                                                     </div>
-                                                                @endforeach
-                                                                
-                                                                @if ($activeDocs->count() > 5)
-                                                                    <button @click="showAllUserDocs = !showAllUserDocs" type="button" class="w-full py-1.5 px-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-500 hover:text-[#0a7a3b] mt-1 flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
-                                                                        <span x-text="showAllUserDocs ? 'Sembunyikan' : 'Tampilkan {{ $activeDocs->count() - 5 }} file lainnya...'"></span>
-                                                                        <svg class="w-3.5 h-3.5 transform transition-transform duration-300" :class="showAllUserDocs ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
-                                                                    </button>
+                                                                @else
+                                                                    <div class="flex items-center gap-2 p-3 bg-slate-50 border border-dashed border-slate-200 rounded-lg text-slate-400 text-xs italic">
+                                                                        <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                                        <span>{{ __('Belum ada dokumen bukti terupload') }}</span>
+                                                                    </div>
                                                                 @endif
                                                             </div>
-                                                        @else
-                                                            <div class="flex items-center gap-2 p-3 bg-slate-50 border border-dashed border-slate-200 rounded-lg text-slate-400 text-xs italic">
-                                                                <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                                                <span>{{ __('Belum ada dokumen bukti terupload') }}</span>
-                                                            </div>
-                                                        @endif
+                                                        </div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
-                                                @endforeach
+
+                                            </div>
                                             @endforeach
 
                                         </div>
