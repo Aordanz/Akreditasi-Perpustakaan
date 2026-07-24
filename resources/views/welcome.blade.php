@@ -326,7 +326,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="p-4 bg-white">
-                                                                @php $activeDocs = $subInd->dokumenBuktis->filter(fn($d) => !empty($d->nama_file)); @endphp
+                                                                @php $activeDocs = $subInd->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->sortBy('nama_file', SORT_NATURAL | SORT_FLAG_CASE)->values(); @endphp
                                                                 @if ($activeDocs->count() > 0)
                                                                     <div class="space-y-2" x-data="{ showAllUserDocs: false }">
                                                                         @foreach ($activeDocs as $dokumen)
