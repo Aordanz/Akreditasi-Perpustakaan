@@ -13,6 +13,26 @@ use Illuminate\Support\Facades\DB;
 
 class AkreditasiController extends Controller
 {
+    private function sortKomponens($komponens)
+    {
+        return $komponens->sortBy('nomor')->values()->map(function($komp) {
+            if ($komp->relationLoaded('subKomponens')) {
+                $komp->setRelation('subKomponens', $komp->subKomponens->sortBy('nomor_sub', SORT_NATURAL)->values()->map(function($sub) {
+                    if ($sub->relationLoaded('indikators')) {
+                        $sub->setRelation('indikators', $sub->indikators->sortBy('nomor_indikator', SORT_NATURAL)->values()->map(function($ind) {
+                            if ($ind->relationLoaded('subIndikators')) {
+                                $ind->setRelation('subIndikators', $ind->subIndikators->sortBy('nomor_sub_indikator', SORT_NATURAL)->values());
+                            }
+                            return $ind;
+                        }));
+                    }
+                    return $sub;
+                }));
+            }
+            return $komp;
+        });
+    }
+
     public function index()
     {
         // Fetch all komponen with their related data
@@ -21,6 +41,7 @@ class AkreditasiController extends Controller
             'subKomponens.indikators.dokumenBuktis',
             'subKomponens.dokumenBuktis'
         ])->get();
+        $komponens = $this->sortKomponens($komponens);
         return view('welcome', compact('komponens'));
     }
 
@@ -31,6 +52,7 @@ class AkreditasiController extends Controller
             'subKomponens.indikators.dokumenBuktis',
             'subKomponens.dokumenBuktis'
         ])->get();
+        $komponens = $this->sortKomponens($komponens);
         return view('admin.dashboard', compact('komponens'));
     }
 
@@ -41,6 +63,7 @@ class AkreditasiController extends Controller
             'subKomponens.indikators.dokumenBuktis',
             'subKomponens.dokumenBuktis'
         ])->get();
+        $komponens = $this->sortKomponens($komponens);
         return view('admin.report', compact('komponens'));
     }
 

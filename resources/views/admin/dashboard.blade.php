@@ -215,24 +215,74 @@
                             <svg class="w-4 h-4 text-slate-400 transform transition-transform duration-300" :class="openSub ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
 
-                        <!-- Content level 3/4 (Indikator & Cards) -->
-                        <div x-show="openSub" x-collapse x-cloak class="p-6 bg-white space-y-6">
+                        <!-- Content level 3 (Indikator dropdowns) -->
+                        <div x-show="openSub" x-collapse x-cloak class="p-4 bg-white space-y-3">
                             
                             @if ($sub->indikators->count() > 0)
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
-                                    @foreach ($sub->indikators as $ind)
-                                        @if ($ind->subIndikators->count() > 0)
-                                            @foreach ($ind->subIndikators as $subInd)
-                                                @include('admin.partials.document-card', ['title' => $subInd->nama_sub_indikator, 'code' => $subInd->nomor_sub_indikator, 'type' => 'sub_indikator', 'target' => $subInd])
-                                            @endforeach
-                                        @else
-                                            @include('admin.partials.document-card', ['title' => $ind->nama_indikator, 'code' => $ind->nomor_indikator, 'type' => 'indikator', 'target' => $ind])
-                                        @endif
-                                    @endforeach
+                                @foreach ($sub->indikators as $ind)
+                                @php
+                                    // Hitung slot dan terisi per indikator
+                                    $indTotalSlot = 0;
+                                    $indSlotTerisi = 0;
+                                    if ($ind->subIndikators->count() > 0) {
+                                        foreach ($ind->subIndikators as $si) {
+                                            $indTotalSlot++;
+                                            if ($si->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) $indSlotTerisi++;
+                                        }
+                                    } else {
+                                        $indTotalSlot = 1;
+                                        if ($ind->dokumenBuktis->filter(fn($d) => !empty($d->nama_file))->count() > 0) $indSlotTerisi = 1;
+                                    }
+                                    $isIndTerisi = $indTotalSlot > 0 && $indSlotTerisi === $indTotalSlot;
+                                    $isIndPartial = $indSlotTerisi > 0 && $indSlotTerisi < $indTotalSlot;
+                                @endphp
+
+                                <div class="bg-slate-50/80 rounded-xl border border-slate-200/60 overflow-hidden" x-data="{ openInd: false }" :class="openInd ? 'border-[#0a7a3b]/30 shadow-md ring-1 ring-green-200/30' : ''">
+                                    
+                                    <!-- Header Indikator (Level 3) -->
+                                    <button id="ind-header-{{ $ind->id }}" @click="openInd = !openInd" class="w-full flex items-start sm:items-center justify-between p-3.5 hover:bg-slate-100/80 transition-colors text-left focus:outline-none cursor-pointer">
+                                        <div class="flex items-start sm:items-center gap-2.5 w-full pr-3">
+                                            <div class="px-2 py-0.5 bg-green-50 text-[#0a7a3b] border border-green-200/60 rounded-md text-[11px] font-black shrink-0">
+                                                {{ $ind->nomor_indikator }}
+                                            </div>
+                                            <div class="min-w-0 flex-1">
+                                                <h5 class="text-[13px] font-semibold text-slate-700 leading-snug break-words whitespace-normal" :class="openInd ? 'text-[#0a7a3b]' : ''">{{ $ind->nama_indikator }}</h5>
+                                                @if ($isIndTerisi)
+                                                    <span class="inline-flex items-center gap-1 text-[9px] font-bold text-[#0a7a3b] uppercase mt-0.5">
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-[#0a7a3b]"></span> Selesai ({{ $indSlotTerisi }}/{{ $indTotalSlot }} Slot)
+                                                    </span>
+                                                @elseif ($isIndPartial)
+                                                    <span class="inline-flex items-center gap-1 text-[9px] font-bold text-amber-600 uppercase mt-0.5">
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Sebagian ({{ $indSlotTerisi }}/{{ $indTotalSlot }} Slot)
+                                                    </span>
+                                                @else
+                                                    <span class="inline-flex items-center gap-1 text-[9px] font-bold text-red-500 uppercase mt-0.5">
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Belum Ada Dokumen
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <svg class="w-3.5 h-3.5 text-slate-400 transform transition-transform duration-300 shrink-0 mt-1" :class="openInd ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </button>
+
+                                    <!-- Content level 4 (Document Cards) -->
+                                    <div x-show="openInd" x-collapse x-cloak class="p-4 pt-2 bg-white border-t border-slate-200/40">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+                                            @if ($ind->subIndikators->count() > 0)
+                                                @foreach ($ind->subIndikators as $subInd)
+                                                    @include('admin.partials.document-card', ['title' => $subInd->nama_sub_indikator, 'code' => $subInd->nomor_sub_indikator, 'type' => 'sub_indikator', 'target' => $subInd])
+                                                @endforeach
+                                            @else
+                                                @include('admin.partials.document-card', ['title' => $ind->nama_indikator, 'code' => $ind->nomor_indikator, 'type' => 'indikator', 'target' => $ind])
+                                            @endif
+                                        </div>
+                                    </div>
+
                                 </div>
+                                @endforeach
                             @else
                                 <!-- Leaf node is the SubComponent itself -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
                                     @include('admin.partials.document-card', ['title' => $sub->nama_sub_komponen, 'code' => $sub->nomor_sub, 'type' => 'sub_komponen', 'target' => $sub])
                                 </div>
                             @endif
