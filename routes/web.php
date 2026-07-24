@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/report', [AkreditasiController::class, 'exportReport'])->name('admin.report');
     Route::post('/admin/akreditasi/{subKomponenId}/upload', [AkreditasiController::class, 'upload'])->name('admin.akreditasi.upload');
     Route::post('/admin/akreditasi/upload/{type}/{id}', [AkreditasiController::class, 'upload'])->name('admin.akreditasi.upload.spesifik');
+    Route::put('/admin/akreditasi/dokumen/{id}/edit-dokumen', [AkreditasiController::class, 'updateDokumen'])->name('admin.dokumen.update');
     Route::delete('/admin/akreditasi/dokumen/{id}', [AkreditasiController::class, 'deleteDokumen'])->name('admin.dokumen.delete');
 });
 

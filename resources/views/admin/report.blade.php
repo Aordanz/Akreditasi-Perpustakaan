@@ -188,10 +188,14 @@
 
         <div class="mb-6 page-break-inside-avoid">
             <div class="bg-slate-800 text-white p-3 rounded-t-lg flex justify-between items-center">
-                <h3 class="font-bold text-lg">Komponen {{ $komponen->nomor }}: {{ $komponen->nama_komponen }}</h3>
-                <span class="font-bold bg-white/20 px-3 py-1 rounded">{{ $k_persentase }}%</span>
+                <h3 class="font-bold text-lg truncate pr-4">Komponen {{ $komponen->nomor }}: {{ $komponen->nama_komponen }}</h3>
+                <span class="font-bold bg-white/20 px-3 py-1 rounded shrink-0">{{ $k_persentase }}%</span>
             </div>
-            <table class="w-full border-collapse border border-slate-300 text-sm">
+            <div class="overflow-x-auto rounded-b-lg border-x border-b border-slate-300 shadow-sm relative">
+                <!-- Visual cue gradient for horizontal scroll -->
+                <div class="absolute right-0 top-0 bottom-0 w-4 bg-gradient-to-l from-black/5 to-transparent pointer-events-none md:hidden"></div>
+                
+                <table class="w-full border-collapse text-sm min-w-[600px]">
                 <thead>
                     <tr class="bg-slate-100">
                         <th class="border border-slate-300 p-2 text-left w-24">No</th>
@@ -217,6 +221,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
     @endforeach
 

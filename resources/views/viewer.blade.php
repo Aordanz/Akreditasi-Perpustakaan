@@ -14,14 +14,15 @@
             background-color: #f3f4f6;
         }
         .header {
-            height: 60px;
+            min-height: 60px;
             background-color: #ffffff;
             border-bottom: 1px solid #e5e7eb;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 10px 16px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            gap: 12px;
         }
         .viewer-container {
             height: {{ request()->has('embed') ? '100vh' : 'calc(100vh - 60px)' }};
@@ -46,29 +47,29 @@
     @endphp
     @if(!request()->has('embed'))
     <div class="header">
-        <div class="flex items-center gap-4">
-            <a href="{{ $previousUrl }}" onclick="if(window.opener) { window.close(); return false; }" class="text-slate-500 hover:text-slate-800 transition-colors">
+        <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+            <a href="{{ $previousUrl }}" onclick="if(window.opener) { window.close(); return false; }" class="text-slate-500 hover:text-slate-800 transition-colors shrink-0">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             </a>
-            <div>
-                <h1 class="text-sm font-bold text-slate-800">{{ $dokumen->nama_file }}</h1>
-                <p class="text-xs text-slate-500">Diunggah pada {{ \Carbon\Carbon::parse($dokumen->tanggal_upload)->format('d M Y') }}</p>
+            <div class="min-w-0">
+                <h1 class="text-xs sm:text-sm font-bold text-slate-800 truncate" title="{{ $dokumen->nama_file }}">{{ $dokumen->nama_file }}</h1>
+                <p class="text-[10px] sm:text-xs text-slate-500 truncate">Diunggah pada {{ \Carbon\Carbon::parse($dokumen->tanggal_upload)->format('d M Y') }}</p>
             </div>
         </div>
         @if ($fileExists && !$isYoutube)
-        <a href="{{ Storage::url($dokumen->path_file) }}" download class="bg-[#0a7a3b] hover:bg-[#086330] text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
+        <a href="{{ Storage::url($dokumen->path_file) }}" download class="shrink-0 bg-[#0a7a3b] hover:bg-[#086330] text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-            Unduh Dokumen
+            <span class="hidden sm:inline">Unduh Dokumen</span>
         </a>
         @elseif($isYoutube)
-        <a href="{{ $dokumen->path_file }}" target="_blank" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
+        <a href="{{ $dokumen->path_file }}" target="_blank" class="shrink-0 bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-            Buka di YouTube
+            <span class="hidden sm:inline">Buka di YouTube</span>
         </a>
         @elseif($isDrive)
-        <a href="{{ $dokumen->path_file }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
+        <a href="{{ $dokumen->path_file }}" target="_blank" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.01 2.215L17.265 11.3l-5.255 9.1L6.755 11.3l5.255-9.085zM6.55 11.69l3.96 6.85-2.025 3.52-6.28-10.875L4.405 7.42l2.145 4.27zM17.45 11.69l-2.145-4.27 2.195-3.795 6.295 10.875-2.035 3.52-4.31-6.33z"/></svg>
-            Buka di Google Drive
+            <span class="hidden sm:inline">Buka di Google Drive</span>
         </a>
         @endif
     </div>

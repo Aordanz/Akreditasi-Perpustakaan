@@ -55,7 +55,7 @@
                 </div>
             </div>
             
-            <button @click="sidebarOpen = false" class="lg:hidden ml-auto text-slate-400 hover:text-white cursor-pointer">
+            <button @click="sidebarOpen = false" class="lg:hidden ml-auto p-3 text-slate-400 hover:text-white cursor-pointer flex items-center justify-center min-h-[44px] min-w-[44px] focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
@@ -101,12 +101,12 @@
         <!-- Topbar -->
         <header class="h-20 bg-white/70 backdrop-blur-md border-b border-slate-200/60 flex items-center justify-between px-4 sm:px-8 shrink-0 z-30">
             <div class="flex items-center gap-4">
-                <button @click="sidebarOpen = true" class="lg:hidden p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors focus:outline-none cursor-pointer">
+                <button @click="sidebarOpen = true" class="lg:hidden p-3 -ml-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors focus:outline-none cursor-pointer flex items-center justify-center min-h-[44px] min-w-[44px] shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
                 </button>
-                <div>
-                    <h2 class="text-xl font-black text-slate-900 tracking-tight leading-none">@yield('page_title', 'Dashboard')</h2>
-                    <p class="text-xs text-slate-500 font-semibold mt-1">@yield('page_subtitle', 'Panel Kendali Utama')</p>
+                <div class="min-w-0">
+                    <h2 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight leading-none truncate">@yield('page_title', 'Dashboard')</h2>
+                    <p class="text-[10px] sm:text-xs text-slate-500 font-semibold mt-1 truncate">@yield('page_subtitle', 'Panel Kendali Utama')</p>
                 </div>
             </div>
             
@@ -145,5 +145,127 @@
     </div>
 
     @stack('scripts')
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        async function submitAjax(event, formElement, cardId, komponenId, subId) {
+            if (event) event.preventDefault();
+            
+            // Prevent double submission
+            if (formElement.dataset.submitting === 'true') return false;
+            formElement.dataset.submitting = 'true';
+            
+            // Show loading state on button
+            const btn = formElement.querySelector('button[type="submit"]');
+            let originalBtnHtml = '';
+            if (btn) {
+                originalBtnHtml = btn.innerHTML;
+                btn.innerHTML = '<svg class="animate-spin h-4 w-4 mx-auto text-current" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+                btn.disabled = true;
+            }
+
+            try {
+                const formData = new FormData(formElement);
+                const response = await fetch(formElement.action, {
+                    method: formElement.method || 'POST',
+                    body: formData,
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+
+                if (response.ok) {
+                    // Fetch updated page HTML
+                    const pageResponse = await fetch(window.location.href);
+                    const html = await pageResponse.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    // 1. Replace the specific card
+                    const newCard = doc.getElementById(cardId);
+                    if (newCard && document.getElementById(cardId)) {
+                        document.getElementById(cardId).innerHTML = newCard.innerHTML;
+                    }
+
+                    // 2. Replace the top stats container
+                    const newStats = doc.getElementById('stats-container');
+                    if (newStats && document.getElementById('stats-container')) {
+                        document.getElementById('stats-container').innerHTML = newStats.innerHTML;
+                    }
+
+                    // 3. Replace Komponen Header
+                    if (komponenId) {
+                        const newKompHeader = doc.getElementById('komponen-header-' + komponenId);
+                        if (newKompHeader && document.getElementById('komponen-header-' + komponenId)) {
+                            document.getElementById('komponen-header-' + komponenId).innerHTML = newKompHeader.innerHTML;
+                        }
+                    }
+
+                    // 4. Replace Sub Komponen Header
+                    if (subId) {
+                        const newSubHeader = doc.getElementById('sub-header-' + subId);
+                        if (newSubHeader && document.getElementById('sub-header-' + subId)) {
+                            document.getElementById('sub-header-' + subId).innerHTML = newSubHeader.innerHTML;
+                        }
+                    }
+
+                    const method = formData.get('_method');
+                    const isDelete = method === 'DELETE';
+                    const isPut = method === 'PUT';
+                    const toastMsg = isDelete ? 'Dokumen berhasil dihapus!' : (isPut ? 'Nama dokumen berhasil diubah!' : 'Dokumen berhasil diunggah!');
+
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: toastMsg,
+                        showConfirmButton: false,
+                        timer: 2500,
+                        customClass: { popup: 'rounded-xl shadow-lg border border-slate-100' }
+                    });
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (e) {
+                console.error(e);
+                // Fallback to normal submit if fetch fails
+                formElement.submit();
+            } finally {
+                if (btn) {
+                    btn.innerHTML = originalBtnHtml;
+                    btn.disabled = false;
+                }
+                formElement.dataset.submitting = 'false';
+            }
+        }
+
+        function confirmDelete(event, formElement, cardId, komponenId, subId) {
+            event.preventDefault();
+            Swal.fire({
+                title: '<span class="text-xl font-black text-slate-800">Hapus Dokumen?</span>',
+                html: '<p class="text-sm text-slate-500 font-medium">Dokumen bukti ini akan dihapus secara permanen dan tidak dapat dikembalikan!</p>',
+                iconHtml: '<div class="relative w-20 h-20 mx-auto mb-2 flex items-center justify-center"><div class="absolute inset-0 bg-red-100 rounded-full animate-ping opacity-75"></div><div class="relative w-16 h-16 bg-red-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm"><svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div></div>',
+                customClass: {
+                    popup: 'rounded-3xl shadow-2xl border border-slate-100 pb-2',
+                    container: 'backdrop-blur-sm bg-slate-900/40',
+                    confirmButton: 'bg-red-500 hover:bg-red-600 text-white font-bold py-2.5 px-6 rounded-xl shadow-lg shadow-red-500/30 transition-all duration-300 transform hover:scale-105 active:scale-95',
+                    cancelButton: 'bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-6 rounded-xl transition-all duration-300 mr-3 transform hover:scale-105 active:scale-95 border border-slate-200/80',
+                    icon: '!border-none !border-0 mt-6 mb-0',
+                    actions: 'w-full gap-2 mt-4',
+                },
+                buttonsStyling: false,
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if(cardId) {
+                        submitAjax(null, formElement, cardId, komponenId, subId);
+                    } else {
+                        formElement.submit();
+                    }
+                }
+            })
+        }
+    </script>
 </body>
 </html>

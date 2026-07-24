@@ -43,7 +43,7 @@
 <div class="space-y-8 pb-12">
     
     <!-- Statistik Cepat -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div id="stats-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <!-- Card 1: Total Komponen -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/60 hover:shadow-xl hover:-translate-y-1 transition duration-300 flex items-center gap-4 group">
@@ -132,15 +132,15 @@
         <div class="bg-white rounded-3xl shadow-sm border border-slate-200/80 hover:shadow-md transition-all duration-300 overflow-hidden" x-data="{ open: false }">
             
             <!-- Header Komponen (Level 1) -->
-            <button @click="open = !open" class="w-full flex flex-col md:flex-row md:items-center justify-between p-6 bg-white hover:bg-slate-50/40 transition-colors border-b border-slate-100 focus:outline-none cursor-pointer text-left">
+            <button id="komponen-header-{{ $komponen->id }}" @click="open = !open" class="w-full flex flex-col md:flex-row md:items-center justify-between p-6 bg-white hover:bg-slate-50/40 transition-colors border-b border-slate-100 focus:outline-none cursor-pointer text-left">
                 <div class="flex items-center gap-4 flex-1 min-w-0">
                     <div class="w-12 h-12 bg-gradient-to-br from-[#0a7a3b] to-[#044b25] text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-md shadow-green-900/10 shrink-0">
                         {{ $komponen->nomor }}
                     </div>
                     <div class="flex-1 min-w-0 pr-4">
                         <span class="text-[10px] font-black tracking-widest text-slate-400 uppercase block mb-1">Komponen {{ $komponen->nomor }}</span>
-                        <h3 class="text-base md:text-lg font-bold text-slate-800 truncate">{{ $komponen->nama_komponen }}</h3>
-                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
+                        <h3 class="text-base md:text-lg font-bold text-slate-800 break-words whitespace-normal">{{ $komponen->nama_komponen }}</h3>
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2">
                             <span class="text-xs font-semibold text-slate-400 shrink-0">{{ $compTotalSub }} Sub Komponen</span>
                             <div class="w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden hidden sm:block">
                                 <div class="bg-[#0a7a3b] h-full rounded-full transition-all duration-500" style="width: {{ $compPersentase }}%"></div>
@@ -190,13 +190,13 @@
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" x-data="{ openSub: false }">
                         
                         <!-- Header Sub Komponen (Level 2) -->
-                        <button @click="openSub = !openSub" class="w-full flex items-center justify-between p-4 bg-slate-50/50 hover:bg-slate-100/50 transition-colors border-b border-slate-200/60 text-left focus:outline-none cursor-pointer">
-                            <div class="flex items-center gap-3">
+                        <button id="sub-header-{{ $sub->id }}" @click="openSub = !openSub" class="w-full flex items-start sm:items-center justify-between p-4 bg-slate-50/50 hover:bg-slate-100/50 transition-colors border-b border-slate-200/60 text-left focus:outline-none cursor-pointer">
+                            <div class="flex items-start sm:items-center gap-3 w-full pr-4">
                                 <div class="px-2.5 py-1 bg-green-100 text-[#0a7a3b] border border-green-200 rounded-lg text-xs font-black">
                                     {{ $sub->nomor_sub }}
                                 </div>
-                                <div>
-                                    <h4 class="text-sm font-bold text-slate-800 leading-snug">{{ $sub->nama_sub_komponen }}</h4>
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="text-sm font-bold text-slate-800 leading-snug break-words whitespace-normal">{{ $sub->nama_sub_komponen }}</h4>
                                     @if ($isSubTerisi)
                                         <span class="inline-flex items-center gap-1 text-[10px] font-bold text-[#0a7a3b] uppercase mt-0.5">
                                             <span class="w-1.5 h-1.5 rounded-full bg-[#0a7a3b]"></span> Selesai ({{ $subSlotTerisi }}/{{ $subTotalSlot }} Slot)
@@ -219,7 +219,7 @@
                         <div x-show="openSub" x-collapse x-cloak class="p-6 bg-white space-y-6">
                             
                             @if ($sub->indikators->count() > 0)
-                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                                     @foreach ($sub->indikators as $ind)
                                         @if ($ind->subIndikators->count() > 0)
                                             @foreach ($ind->subIndikators as $subInd)
@@ -232,7 +232,7 @@
                                 </div>
                             @else
                                 <!-- Leaf node is the SubComponent itself -->
-                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                                     @include('admin.partials.document-card', ['title' => $sub->nama_sub_komponen, 'code' => $sub->nomor_sub, 'type' => 'sub_komponen', 'target' => $sub])
                                 </div>
                             @endif
