@@ -226,8 +226,7 @@
                         
                         <div class="flex-1 flex flex-col items-center sm:items-start gap-1">
                             <!-- 2. Nomor -->
-                            <div class="bg-green-100 text-[#0a7a3b] px-2 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-xs sm:text-sm font-black border border-green-200 shadow-sm"
-                                 :class="openLevel1 === {{ $komponen->id }} ? 'bg-[#0a7a3b] text-white border-[#0a7a3b]' : ''">
+                            <div class="bg-green-100 text-[#0a7a3b] px-2 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-xs sm:text-sm font-black border border-green-200 shadow-sm">
                                 {{ $komponen->nomor }}
                             </div>
                             
@@ -268,15 +267,13 @@
                                         class="w-full flex items-center justify-between p-4 sm:p-5 focus:outline-none group bg-white relative z-10 text-left">
                                     <div class="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-5 w-full text-center sm:text-left">
                                         <!-- 1. Logo -->
-                                        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-lg sm:rounded-xl bg-[#e8f3ec] text-[#0a7a3b] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300"
-                                             :class="openLevel2 === {{ $sub->id }} ? 'bg-[#0a7a3b] text-white shadow-md' : ''">
+                                        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-lg sm:rounded-xl bg-[#e8f3ec] text-[#0a7a3b] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
                                             <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                                         </div>
                                         
                                         <div class="flex-1 flex flex-col items-center sm:items-start gap-0.5 sm:gap-1">
                                             <!-- 2. Nomor -->
-                                            <div class="bg-slate-100 text-slate-600 px-2 sm:px-2.5 py-0.5 rounded sm:rounded-md text-[10px] sm:text-xs font-bold border border-slate-200"
-                                                 :class="openLevel2 === {{ $sub->id }} ? 'bg-green-100 text-[#0a7a3b] border-green-200' : ''">
+                                            <div class="bg-slate-100 text-slate-600 px-2 sm:px-2.5 py-0.5 rounded sm:rounded-md text-[10px] sm:text-xs font-bold border border-slate-200">
                                                 {{ $sub->nomor_sub }}
                                             </div>
                                             
@@ -306,8 +303,7 @@
                                                 <button @click="openLevel3 = openLevel3 === {{ $ind->id }} ? null : {{ $ind->id }}" 
                                                         class="w-full flex items-start sm:items-center justify-between p-3.5 sm:p-4 focus:outline-none group bg-white text-left cursor-pointer">
                                                     <div class="flex items-start gap-3 min-w-0 pr-3 w-full">
-                                                        <span class="px-2 py-0.5 bg-green-50 text-[#0a7a3b] border border-green-200/60 rounded-md text-[11px] font-black shrink-0 mt-0.5"
-                                                              :class="openLevel3 === {{ $ind->id }} ? 'bg-[#0a7a3b] text-white border-[#0a7a3b]' : ''">{{ $ind->nomor_indikator }}</span>
+                                                        <span class="px-2 py-0.5 bg-green-50 text-[#0a7a3b] border border-green-200/60 rounded-md text-[11px] font-black shrink-0 mt-0.5">{{ $ind->nomor_indikator }}</span>
                                                         <h4 class="text-xs md:text-sm font-bold text-slate-700 leading-snug pt-0.5 group-hover:text-[#0a7a3b] transition-colors"
                                                             :class="openLevel3 === {{ $ind->id }} ? 'text-[#0a7a3b]' : ''">{{ __($ind->nama_indikator) }}</h4>
                                                     </div>
