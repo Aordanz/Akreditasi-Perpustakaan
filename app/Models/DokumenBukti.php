@@ -40,7 +40,7 @@ class DokumenBukti extends Model
     {
         $url = $this->path_file;
         $videoId = '';
-        if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|user/[^/]+/|u/\w+/)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match)) {
+        if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/\s]{11})%i', $url, $match)) {
             $videoId = $match[1];
         }
         return $videoId ? 'https://www.youtube.com/embed/' . $videoId : $url;
