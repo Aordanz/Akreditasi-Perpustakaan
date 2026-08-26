@@ -54,11 +54,11 @@
             @php
                 $displayTitle = $title;
             @endphp
-            <div class="flex items-start justify-between gap-2 group/title" x-data="{ editingSlot: false }">
+            <div class="flex items-start justify-between gap-2" x-data="{ editingSlot: false }">
                 <h6 x-show="!editingSlot" class="text-xs font-bold text-slate-800 leading-snug group-hover:text-[#0a7a3b] transition-colors break-words whitespace-normal flex-1" title="{{ $displayTitle }}">
                     {{ $displayTitle }}
                 </h6>
-                <button x-show="!editingSlot" type="button" @click="editingSlot = true" class="w-5 h-5 shrink-0 rounded bg-slate-100 text-slate-400 hover:text-[#0a7a3b] hover:bg-emerald-50 flex items-center justify-center transition-colors opacity-0 group-hover/title:opacity-100 focus:opacity-100 cursor-pointer" title="Edit Nama Slot">
+                <button x-show="!editingSlot" type="button" @click="editingSlot = true" class="w-5 h-5 shrink-0 rounded bg-slate-100 text-slate-400 hover:text-[#0a7a3b] hover:bg-emerald-50 flex items-center justify-center transition-colors opacity-100 lg:opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer" title="Edit Nama Slot">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                 </button>
                 
