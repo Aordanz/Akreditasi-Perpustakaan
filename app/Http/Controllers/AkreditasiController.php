@@ -310,4 +310,166 @@ class AkreditasiController extends Controller
         
         return back()->with('success', 'Dokumen berhasil dihapus dari sistem dan database!');
     }
+
+    public function tambahSlot(Request $request)
+    {
+        $request->validate([
+            'type'       => 'required|in:sub_komponen,indikator,sub_indikator',
+            'id'         => 'required|integer',
+            'nomor_slot' => 'nullable|string|max:50',
+            'nama_slot'  => 'nullable|string|max:255',
+        ]);
+
+        $type = $request->type;
+        $id   = $request->id;
+        $customNomor = trim($request->input('nomor_slot', ''));
+        $customNama  = trim($request->input('nama_slot', ''));
+
+        try { DB::statement('COMMIT'); } catch (\Exception $e) {}
+
+        DB::beginTransaction();
+        try {
+            if ($type === 'sub_indikator' || $type === 'indikator') {
+                if ($type === 'sub_indikator') {
+                    $subInd = SubIndikator::with('indikator')->findOrFail($id);
+                    $indikator = $subInd->indikator;
+                } else {
+                    $indikator = Indikator::with('subIndikators')->findOrFail($id);
+                }
+
+                if (!empty($customNomor)) {
+                    $newCode = $customNomor;
+                } else {
+                    $existing = SubIndikator::where('indikator_id', $indikator->id)->get();
+                    $existingNums = [];
+                    foreach ($existing as $item) {
+                        if (preg_match('/-(\d+)$/', $item->nomor_sub_indikator, $matches)) {
+                            $existingNums[] = (int)$matches[1];
+                        }
+                    }
+                    $nextSuffix = 1;
+                    if (!empty($existingNums)) {
+                        sort($existingNums);
+                        $foundGap = false;
+                        for ($i = 1; $i <= max($existingNums); $i++) {
+                            if (!in_array($i, $existingNums)) {
+                                $nextSuffix = $i;
+                                $foundGap = true;
+                                break;
+                            }
+                        }
+                        if (!$foundGap) {
+                            $nextSuffix = max($existingNums) + 1;
+                        }
+                    }
+                    $newCode = $indikator->nomor_indikator . '-' . $nextSuffix;
+                }
+
+                $namaSlot = !empty($customNama) ? $customNama : 'Slot ' . $newCode;
+
+                SubIndikator::create([
+                    'indikator_id'        => $indikator->id,
+                    'nomor_sub_indikator' => $newCode,
+                    'nama_sub_indikator'  => $namaSlot,
+                ]);
+
+            } else { // type === 'sub_komponen'
+                $subKomponen = SubKomponen::with('indikators')->findOrFail($id);
+                
+                if (!empty($customNomor)) {
+                    $newCode = $customNomor;
+                } else {
+                    $existing = Indikator::where('sub_komponen_id', $subKomponen->id)->get();
+                    $maxNum = 0;
+                    foreach ($existing as $item) {
+                        $parts = explode('.', $item->nomor_indikator);
+                        $lastPart = end($parts);
+                        if (is_numeric($lastPart)) {
+                            $num = (int)$lastPart;
+                            if ($num > $maxNum) {
+                                $maxNum = $num;
+                            }
+                        }
+                    }
+                    if ($maxNum === 0 && $existing->count() > 0) {
+                        $maxNum = $existing->count();
+                    }
+                    $nextNum = $maxNum + 1;
+                    $newCode = $subKomponen->nomor_sub . '.' . $nextNum;
+                }
+
+                $namaSlot = !empty($customNama) ? $customNama : 'Slot ' . $newCode;
+
+                Indikator::create([
+                    'sub_komponen_id' => $subKomponen->id,
+                    'nomor_indikator' => $newCode,
+                    'nama_indikator'  => $namaSlot,
+                ]);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('DB error in tambahSlot: ' . $e->getMessage());
+            throw $e;
+        }
+
+        return back()->with('success', 'Slot baru berhasil ditambahkan!');
+    }
+
+    public function hapusSlot(Request $request, $id)
+    {
+        $type = $request->input('type', 'sub_indikator');
+
+        try { DB::statement('COMMIT'); } catch (\Exception $e) {}
+
+        DB::beginTransaction();
+        try {
+            if ($type === 'sub_indikator') {
+                $subIndikator = SubIndikator::with('dokumenBuktis')->findOrFail($id);
+                foreach ($subIndikator->dokumenBuktis as $doc) {
+                    if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                        Storage::disk('public')->delete($doc->path_file);
+                    }
+                }
+                DokumenBukti::where('sub_indikator_id', $id)->delete();
+                $subIndikator->delete();
+            } elseif ($type === 'indikator') {
+                $indikator = Indikator::with(['dokumenBuktis', 'subIndikators.dokumenBuktis'])->findOrFail($id);
+                foreach ($indikator->dokumenBuktis as $doc) {
+                    if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                        Storage::disk('public')->delete($doc->path_file);
+                    }
+                }
+                foreach ($indikator->subIndikators as $si) {
+                    foreach ($si->dokumenBuktis as $doc) {
+                        if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                            Storage::disk('public')->delete($doc->path_file);
+                        }
+                    }
+                    DokumenBukti::where('sub_indikator_id', $si->id)->delete();
+                    $si->delete();
+                }
+                DokumenBukti::where('indikator_id', $id)->delete();
+                $indikator->delete();
+            } else {
+                $subKomponen = SubKomponen::with(['dokumenBuktis', 'indikators.dokumenBuktis'])->findOrFail($id);
+                foreach ($subKomponen->dokumenBuktis as $doc) {
+                    if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                        Storage::disk('public')->delete($doc->path_file);
+                    }
+                }
+                DokumenBukti::where('sub_komponen_id', $id)->delete();
+                $subKomponen->delete();
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('DB error in hapusSlot: ' . $e->getMessage());
+            throw $e;
+        }
+
+        return back()->with('success', 'Slot beserta seluruh isinya berhasil dihapus!');
+    }
 }

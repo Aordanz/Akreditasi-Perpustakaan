@@ -15,19 +15,37 @@
         <!-- Header -->
         <div>
             <div class="flex items-center justify-between gap-2 mb-2.5">
-                <span class="px-2.5 py-1 {{ $hasFiles ? 'bg-emerald-100 text-[#0a7a3b] border-emerald-200' : 'bg-slate-100 text-slate-700 border-slate-200' }} border rounded-md text-[10px] font-black uppercase tracking-wider">
-                    Slot {{ $code }}
-                </span>
-                
-                @if ($hasFiles)
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200 uppercase">
-                        <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span> Terisi ({{ $uploadedDocs->count() }})
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="px-2.5 py-1 {{ $hasFiles ? 'bg-emerald-100 text-[#0a7a3b] border-emerald-200' : 'bg-slate-100 text-slate-700 border-slate-200' }} border rounded-md text-[10px] font-black uppercase tracking-wider">
+                        Slot {{ $code }}
                     </span>
-                @else
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-red-50 text-red-700 border border-red-200 uppercase">
-                        <span class="w-2 h-2 rounded-full bg-red-500"></span> Belum Upload
-                    </span>
-                @endif
+                    
+                    @if ($hasFiles)
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200 uppercase">
+                            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span> Terisi ({{ $uploadedDocs->count() }})
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-red-50 text-red-700 border border-red-200 uppercase">
+                            <span class="w-2 h-2 rounded-full bg-red-500"></span> Belum Upload
+                        </span>
+                    @endif
+                </div>
+
+                <!-- Hapus Slot Button -->
+                <form action="{{ route('admin.slot.hapus', $target->id) }}" method="POST"
+                      onsubmit="return confirmDeleteSlot(event, this, '{{ $code }}');"
+                      class="shrink-0">
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" name="type" value="{{ $type }}">
+                    <button type="submit"
+                            title="Hapus Slot {{ $code }}"
+                            class="w-7 h-7 rounded-lg bg-red-50 text-red-500 hover:bg-red-600 hover:text-white flex items-center justify-center transition-all duration-200 border border-red-100 hover:border-red-600 cursor-pointer shadow-xs">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                </form>
             </div>
             
             {{-- Judul slot: otomatis ikut nama file pertama (dengan prefix, tanpa ekstensi) jika ada, tetap nama asli jika kosong --}}
