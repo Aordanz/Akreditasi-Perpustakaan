@@ -417,6 +417,40 @@ class AkreditasiController extends Controller
         return back()->with('success', 'Slot baru berhasil ditambahkan!');
     }
 
+    public function updateSlot(Request $request, $id)
+    {
+        $request->validate([
+            'type' => 'required|in:sub_komponen,indikator,sub_indikator',
+            'nama_slot' => 'required|string|max:255',
+        ]);
+
+        $type = $request->type;
+        $namaSlot = $request->nama_slot;
+
+        try { DB::statement('COMMIT'); } catch (\Exception $e) {}
+
+        DB::beginTransaction();
+        try {
+            if ($type === 'sub_indikator') {
+                $slot = SubIndikator::findOrFail($id);
+                $slot->update(['nama_sub_indikator' => $namaSlot]);
+            } elseif ($type === 'indikator') {
+                $slot = Indikator::findOrFail($id);
+                $slot->update(['nama_indikator' => $namaSlot]);
+            } else {
+                $slot = SubKomponen::findOrFail($id);
+                $slot->update(['nama_sub_komponen' => $namaSlot]);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('DB error in updateSlot: ' . $e->getMessage());
+            throw $e;
+        }
+
+        return back()->with('success', 'Nama slot berhasil diubah!');
+    }
+
     public function hapusSlot(Request $request, $id)
     {
         $type = $request->input('type', 'sub_indikator');

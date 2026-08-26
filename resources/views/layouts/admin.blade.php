@@ -154,7 +154,7 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        async function submitAjax(event, formElement, cardId, komponenId, subId) {
+        async function submitAjax(event, formElement, cardId, komponenId, subId, indId) {
             if (event) event.preventDefault();
             
             // Prevent double submission
@@ -189,6 +189,20 @@
                     const newCard = doc.getElementById(cardId);
                     if (newCard && document.getElementById(cardId)) {
                         document.getElementById(cardId).innerHTML = newCard.innerHTML;
+                    } else if (!newCard && document.getElementById(cardId)) {
+                        document.getElementById(cardId).remove();
+                    }
+
+                    // 1.5. Replace Indikator content and header if indId is provided
+                    if (indId) {
+                        const newIndContent = doc.getElementById('ind-content-' + indId);
+                        if (newIndContent && document.getElementById('ind-content-' + indId)) {
+                            document.getElementById('ind-content-' + indId).innerHTML = newIndContent.innerHTML;
+                        }
+                        const newIndHeader = doc.getElementById('ind-header-' + indId);
+                        if (newIndHeader && document.getElementById('ind-header-' + indId)) {
+                            document.getElementById('ind-header-' + indId).innerHTML = newIndHeader.innerHTML;
+                        }
                     }
 
                     // 2. Replace the top stats container
@@ -213,10 +227,13 @@
                         }
                     }
 
+
                     const method = formData.get('_method');
                     const isDelete = method === 'DELETE';
                     const isPut = method === 'PUT';
-                    const toastMsg = isDelete ? 'Dokumen berhasil dihapus!' : (isPut ? 'Nama dokumen berhasil diubah!' : 'Dokumen berhasil diunggah!');
+                    const isSlot = formElement.action.includes('/slot/');
+                    const isHapusSlot = formElement.action.includes('hapus-slot') || (isSlot && isDelete);
+                    const toastMsg = isDelete ? (isHapusSlot ? 'Slot berhasil dihapus!' : 'Dokumen berhasil dihapus!') : (isPut ? (isSlot ? 'Nama slot berhasil diubah!' : 'Nama dokumen berhasil diubah!') : 'Dokumen berhasil diunggah!');
 
                     Swal.fire({
                         toast: true,
@@ -265,7 +282,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     if(cardId) {
-                        submitAjax(null, formElement, cardId, komponenId, subId);
+                        submitAjax(null, formElement, cardId, komponenId, subId, null);
                     } else {
                         formElement.submit();
                     }
@@ -273,7 +290,7 @@
             });
         }
 
-        function confirmDeleteSlot(event, formElement, slotCode) {
+        function confirmDeleteSlot(event, formElement, slotCode, cardId, komponenId, subId, indId) {
             event.preventDefault();
             Swal.fire({
                 title: '<span class="text-xl font-black text-slate-800">Hapus Slot ' + (slotCode ? slotCode : '') + '?</span>',
@@ -294,7 +311,11 @@
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    formElement.submit();
+                    if(cardId) {
+                        submitAjax(null, formElement, cardId, komponenId, subId, indId);
+                    } else {
+                        formElement.submit();
+                    }
                 }
             });
         }
