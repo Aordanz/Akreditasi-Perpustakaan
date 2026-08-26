@@ -40,6 +40,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/admin/akreditasi/dokumen/{id}', [AkreditasiController::class, 'deleteDokumen'])->name('admin.dokumen.delete');
         Route::post('/admin/akreditasi/slot/tambah', [AkreditasiController::class, 'tambahSlot'])->name('admin.slot.tambah');
         Route::delete('/admin/akreditasi/slot/{id}', [AkreditasiController::class, 'hapusSlot'])->name('admin.slot.hapus');
+        
+        // Trash Routes
+        Route::get('/admin/trash', [AkreditasiController::class, 'trash'])->name('admin.trash');
+        Route::post('/admin/trash/restore/{id}', [AkreditasiController::class, 'restoreSlot'])->name('admin.trash.restore');
+        Route::delete('/admin/trash/force-delete/{id}', [AkreditasiController::class, 'forceDeleteSlot'])->name('admin.trash.force-delete');
     });
 });
 

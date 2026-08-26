@@ -32,6 +32,7 @@
                 </div>
 
                 <!-- Hapus Slot Button -->
+                @if ($type === 'sub_indikator')
                 <form action="{{ route('admin.slot.hapus', $target->id) }}" method="POST"
                       onsubmit="return confirmDeleteSlot(event, this, '{{ $code }}');"
                       class="shrink-0">
@@ -46,6 +47,7 @@
                         </svg>
                     </button>
                 </form>
+                @endif
             </div>
             
             {{-- Judul slot: otomatis ikut nama file pertama (dengan prefix, tanpa ekstensi) jika ada, tetap nama asli jika kosong --}}

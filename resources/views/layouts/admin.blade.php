@@ -67,6 +67,11 @@
                 <svg class="w-5 h-5 {{ request()->routeIs('admin.dashboard') ? 'text-[#fecb00]' : 'text-slate-400 group-hover:text-white transition-colors duration-300' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                 Manajemen Dokumen
             </a>
+
+            <a href="{{ route('admin.trash') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('admin.trash') ? 'bg-white/10 text-white font-bold border border-white/10 shadow-inner' : 'text-slate-300 hover:text-white hover:bg-white/5 font-medium transition-all' }} group">
+                <svg class="w-5 h-5 {{ request()->routeIs('admin.trash') ? 'text-red-400' : 'text-slate-400 group-hover:text-red-400 transition-colors duration-300' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                Tempat Sampah
+            </a>
             
             <a href="{{ url('/akreditasi') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-medium transition-all group">
                 <svg class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
@@ -242,7 +247,7 @@
             event.preventDefault();
             Swal.fire({
                 title: '<span class="text-xl font-black text-slate-800">Hapus Dokumen?</span>',
-                html: '<p class="text-sm text-slate-500 font-medium">Dokumen bukti ini akan dihapus secara permanen dan tidak dapat dikembalikan!</p>',
+                html: '<p class="text-sm text-slate-500 font-medium">Dokumen bukti ini akan dipindahkan ke Tempat Sampah.</p>',
                 iconHtml: '<div class="relative w-20 h-20 mx-auto mb-2 flex items-center justify-center"><div class="absolute inset-0 bg-red-100 rounded-full animate-ping opacity-75"></div><div class="relative w-16 h-16 bg-red-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm"><svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div></div>',
                 customClass: {
                     popup: 'rounded-3xl shadow-2xl border border-slate-100 pb-2',
@@ -272,7 +277,7 @@
             event.preventDefault();
             Swal.fire({
                 title: '<span class="text-xl font-black text-slate-800">Hapus Slot ' + (slotCode ? slotCode : '') + '?</span>',
-                html: '<p class="text-sm text-slate-500 font-medium mt-1">Seluruh isi dokumen dan data di dalam slot ini akan dihapus secara permanen.</p>',
+                html: '<p class="text-sm text-slate-500 font-medium mt-1">Seluruh isi dokumen dan data di dalam slot ini akan dipindahkan ke Tempat Sampah.</p>',
                 iconHtml: '<div class="relative w-20 h-20 mx-auto mb-2 flex items-center justify-center"><div class="absolute inset-0 bg-red-100 rounded-full animate-ping opacity-75"></div><div class="relative w-16 h-16 bg-red-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm"><svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></div></div>',
                 customClass: {
                     popup: 'rounded-3xl shadow-2xl border border-slate-100 pb-3 p-6',
