@@ -306,8 +306,7 @@
                                                     <span class="text-[10px] font-black uppercase tracking-wider text-[#0a7a3b] mt-2 group-hover:underline">Tambah Slot</span>
                                                 </button>
                                             @else
-                                                @include('admin.partials.document-card', ['title' => $ind->nama_indikator, 'code' => $ind->nomor_indikator, 'type' => 'indikator', 'target' => $ind])
-                                                {{-- Tombol Tambah Slot jika indikator belum punya sub-indikator --}}
+                                                {{-- Jika tidak ada sub-indikator sama sekali, HANYA tampilkan tombol tambah slot --}}
                                                 @php $nextCode = $ind->nomor_indikator . '-1'; @endphp
                                                 <button type="button" 
                                                         @click="modalType = 'indikator'; modalId = {{ $ind->id }}; modalNomor = '{{ $nextCode }}'; modalNama = ''; modalTitle = 'Tambah Slot Baru (Indikator {{ $ind->nomor_indikator }})'; showTambahModal = true;"
@@ -326,7 +325,7 @@
                             @else
                                 <!-- Leaf node is the SubComponent itself -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-                                    @include('admin.partials.document-card', ['title' => $sub->nama_sub_komponen, 'code' => $sub->nomor_sub, 'type' => 'sub_komponen', 'target' => $sub])
+                                    {{-- Hanya tampilkan tombol tambah slot --}}
                                     {{-- Tombol Tambah Slot untuk sub-komponen leaf --}}
                                     @php
                                         $maxSuffix = 0;

@@ -289,10 +289,10 @@ class AkreditasiController extends Controller
     {
         $dokumen = DokumenBukti::findOrFail($id);
         
-        // Delete the physical file if it exists
-        if ($dokumen->path_file && Storage::disk('public')->exists($dokumen->path_file)) {
-            Storage::disk('public')->delete($dokumen->path_file);
-        }
+        // Soft delete: Do NOT delete physical file here.
+        // if ($dokumen->path_file && Storage::disk('public')->exists($dokumen->path_file)) {
+        //     Storage::disk('public')->delete($dokumen->path_file);
+        // }
         
         try {
             DB::statement('COMMIT');
@@ -427,26 +427,12 @@ class AkreditasiController extends Controller
         try {
             if ($type === 'sub_indikator') {
                 $subIndikator = SubIndikator::with('dokumenBuktis')->findOrFail($id);
-                foreach ($subIndikator->dokumenBuktis as $doc) {
-                    if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
-                        Storage::disk('public')->delete($doc->path_file);
-                    }
-                }
+                // Soft delete only
                 DokumenBukti::where('sub_indikator_id', $id)->delete();
                 $subIndikator->delete();
             } elseif ($type === 'indikator') {
                 $indikator = Indikator::with(['dokumenBuktis', 'subIndikators.dokumenBuktis'])->findOrFail($id);
-                foreach ($indikator->dokumenBuktis as $doc) {
-                    if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
-                        Storage::disk('public')->delete($doc->path_file);
-                    }
-                }
                 foreach ($indikator->subIndikators as $si) {
-                    foreach ($si->dokumenBuktis as $doc) {
-                        if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
-                            Storage::disk('public')->delete($doc->path_file);
-                        }
-                    }
                     DokumenBukti::where('sub_indikator_id', $si->id)->delete();
                     $si->delete();
                 }
@@ -454,11 +440,7 @@ class AkreditasiController extends Controller
                 $indikator->delete();
             } else {
                 $subKomponen = SubKomponen::with(['dokumenBuktis', 'indikators.dokumenBuktis'])->findOrFail($id);
-                foreach ($subKomponen->dokumenBuktis as $doc) {
-                    if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
-                        Storage::disk('public')->delete($doc->path_file);
-                    }
-                }
+                // For sub_komponen, we only delete its own documents and itself based on previous logic
                 DokumenBukti::where('sub_komponen_id', $id)->delete();
                 $subKomponen->delete();
             }
@@ -470,6 +452,98 @@ class AkreditasiController extends Controller
             throw $e;
         }
 
-        return back()->with('success', 'Slot beserta seluruh isinya berhasil dihapus!');
+        return back()->with('success', 'Slot beserta seluruh isinya berhasil dimasukkan ke Tempat Sampah!');
+    }
+
+    public function trash()
+    {
+        $trashedDokumen = DokumenBukti::onlyTrashed()->get();
+        $trashedSubIndikator = SubIndikator::onlyTrashed()->get();
+        $trashedIndikator = Indikator::onlyTrashed()->get();
+        $trashedSubKomponen = SubKomponen::onlyTrashed()->get();
+
+        return view('admin.trash', compact('trashedDokumen', 'trashedSubIndikator', 'trashedIndikator', 'trashedSubKomponen'));
+    }
+
+    public function restoreSlot(Request $request, $id)
+    {
+        $type = $request->input('type');
+
+        if ($type === 'dokumen') {
+            DokumenBukti::onlyTrashed()->where('id', $id)->restore();
+        } elseif ($type === 'sub_indikator') {
+            SubIndikator::onlyTrashed()->where('id', $id)->restore();
+            DokumenBukti::onlyTrashed()->where('sub_indikator_id', $id)->restore();
+        } elseif ($type === 'indikator') {
+            Indikator::onlyTrashed()->where('id', $id)->restore();
+            $subIndikators = SubIndikator::onlyTrashed()->where('indikator_id', $id)->get();
+            foreach ($subIndikators as $si) {
+                $si->restore();
+                DokumenBukti::onlyTrashed()->where('sub_indikator_id', $si->id)->restore();
+            }
+            DokumenBukti::onlyTrashed()->where('indikator_id', $id)->restore();
+        } elseif ($type === 'sub_komponen') {
+            SubKomponen::onlyTrashed()->where('id', $id)->restore();
+            DokumenBukti::onlyTrashed()->where('sub_komponen_id', $id)->restore();
+        }
+
+        return back()->with('success', 'Data berhasil dipulihkan!');
+    }
+
+    public function forceDeleteSlot(Request $request, $id)
+    {
+        $type = $request->input('type');
+
+        if ($type === 'dokumen') {
+            $doc = DokumenBukti::onlyTrashed()->where('id', $id)->firstOrFail();
+            if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                Storage::disk('public')->delete($doc->path_file);
+            }
+            $doc->forceDelete();
+        } elseif ($type === 'sub_indikator') {
+            $subInd = SubIndikator::onlyTrashed()->with(['dokumenBuktis' => function($q) { $q->onlyTrashed(); }])->where('id', $id)->firstOrFail();
+            $docs = DokumenBukti::onlyTrashed()->where('sub_indikator_id', $id)->get();
+            foreach ($docs as $doc) {
+                if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                    Storage::disk('public')->delete($doc->path_file);
+                }
+                $doc->forceDelete();
+            }
+            $subInd->forceDelete();
+        } elseif ($type === 'indikator') {
+            $indikator = Indikator::onlyTrashed()->where('id', $id)->firstOrFail();
+            $docs = DokumenBukti::onlyTrashed()->where('indikator_id', $id)->get();
+            foreach ($docs as $doc) {
+                if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                    Storage::disk('public')->delete($doc->path_file);
+                }
+                $doc->forceDelete();
+            }
+            
+            $subIndikators = SubIndikator::onlyTrashed()->where('indikator_id', $id)->get();
+            foreach ($subIndikators as $si) {
+                $siDocs = DokumenBukti::onlyTrashed()->where('sub_indikator_id', $si->id)->get();
+                foreach ($siDocs as $doc) {
+                    if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                        Storage::disk('public')->delete($doc->path_file);
+                    }
+                    $doc->forceDelete();
+                }
+                $si->forceDelete();
+            }
+            $indikator->forceDelete();
+        } elseif ($type === 'sub_komponen') {
+            $subKomponen = SubKomponen::onlyTrashed()->where('id', $id)->firstOrFail();
+            $docs = DokumenBukti::onlyTrashed()->where('sub_komponen_id', $id)->get();
+            foreach ($docs as $doc) {
+                if ($doc->path_file && Storage::disk('public')->exists($doc->path_file)) {
+                    Storage::disk('public')->delete($doc->path_file);
+                }
+                $doc->forceDelete();
+            }
+            $subKomponen->forceDelete();
+        }
+
+        return back()->with('success', 'Data berhasil dihapus permanen!');
     }
 }
