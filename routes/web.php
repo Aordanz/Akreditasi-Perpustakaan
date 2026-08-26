@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/akreditasi/dokumen/{id}/edit-dokumen', [AkreditasiController::class, 'updateDokumen'])->name('admin.dokumen.update');
         Route::delete('/admin/akreditasi/dokumen/{id}', [AkreditasiController::class, 'deleteDokumen'])->name('admin.dokumen.delete');
         Route::post('/admin/akreditasi/slot/tambah', [AkreditasiController::class, 'tambahSlot'])->name('admin.slot.tambah');
+        Route::put('/admin/akreditasi/slot/{id}', [AkreditasiController::class, 'updateSlot'])->name('admin.slot.update');
         Route::delete('/admin/akreditasi/slot/{id}', [AkreditasiController::class, 'hapusSlot'])->name('admin.slot.hapus');
         
         // Trash Routes
