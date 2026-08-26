@@ -30,8 +30,16 @@
                 @endif
             </div>
             
-            <h6 class="text-xs font-bold text-slate-800 leading-snug group-hover:text-[#0a7a3b] transition-colors break-words whitespace-normal" title="{{ $title }}">
-                {{ $title }}
+            {{-- Judul slot: otomatis ikut nama file pertama (dengan prefix, tanpa ekstensi) jika ada, tetap nama asli jika kosong --}}
+            @php
+                if ($hasFiles) {
+                    $displayTitle = preg_replace('/\.[a-zA-Z]{2,5}$/', '', $uploadedDocs->first()->nama_file);
+                } else {
+                    $displayTitle = $title;
+                }
+            @endphp
+            <h6 class="text-xs font-bold text-slate-800 leading-snug group-hover:text-[#0a7a3b] transition-colors break-words whitespace-normal" title="{{ $displayTitle }}">
+                {{ $displayTitle }}
             </h6>
         </div>
 
