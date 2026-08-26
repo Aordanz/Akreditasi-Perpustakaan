@@ -12,7 +12,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->redirectUsersTo('/admin/dashboard');
+        $middleware->redirectUsersTo(function (Request $request) {
+            return auth()->check() && auth()->user()->role === 'admin' 
+                ? '/admin/dashboard' 
+                : '/akreditasi';
+        });
+        
+        $middleware->alias([
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
+        ]);
+        
         $middleware->web(append: [
             \App\Http\Middleware\LanguageMiddleware::class,
         ]);

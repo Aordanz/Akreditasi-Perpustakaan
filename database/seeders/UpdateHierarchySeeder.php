@@ -17,19 +17,19 @@ class UpdateHierarchySeeder extends Seeder
      */
     public function run(): void
     {
-        \DB::beginTransaction();
+        // \DB::beginTransaction();
         
         $jsonPath = database_path('seeders/hierarchy.json');
         if (!File::exists($jsonPath)) {
             $this->command->error("JSON file not found at: {$jsonPath}");
-            \DB::rollBack();
+            // \DB::rollBack();
             return;
         }
 
         $jsonData = json_decode(File::get($jsonPath), true);
         if (!$jsonData) {
             $this->command->error("Invalid JSON data");
-            \DB::rollBack();
+            // \DB::rollBack();
             return;
         }
 
@@ -174,6 +174,6 @@ class UpdateHierarchySeeder extends Seeder
 
         $this->command->info("Successfully migrated {$migratedCount} out of {$documents->count()} documents.");
         
-        \DB::commit();
+        // \DB::commit();
     }
 }

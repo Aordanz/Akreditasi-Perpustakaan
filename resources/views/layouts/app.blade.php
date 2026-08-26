@@ -69,10 +69,12 @@
                     
                     @auth
                         <div class="w-px h-6 bg-slate-300"></div>
+                        @if(auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}" class="bg-[#0a7a3b] hover:bg-[#044b25] text-white px-5 py-2 rounded-full font-bold transition-colors text-sm shadow-md shadow-[#0a7a3b]/20 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                             {{ __('Dashboard Admin') }}
                         </a>
+                        @endif
                         <form action="{{ route('logout') }}" method="POST" class="inline">
                             @csrf
                             <button type="submit" class="bg-red-50 hover:bg-red-500 text-red-600 hover:text-white px-5 py-2 rounded-full transition-all duration-300 font-bold shadow-sm hover:shadow-md border border-red-100 hover:border-red-500 flex items-center gap-2">
@@ -105,10 +107,12 @@
 
                 @auth
                     <div class="border-t border-slate-100 my-2 pt-2">
+                        @if(auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}" class="block px-4 py-3 rounded-xl bg-[#0a7a3b]/10 text-[#0a7a3b] font-bold mb-2 flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                             {{ __('Dashboard Admin') }}
                         </a>
+                        @endif
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="w-full text-left block px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 font-bold">{{ __('Logout') }}</button>
