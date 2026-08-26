@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/akreditasi/upload/{type}/{id}', [AkreditasiController::class, 'upload'])->name('admin.akreditasi.upload.spesifik');
         Route::put('/admin/akreditasi/dokumen/{id}/edit-dokumen', [AkreditasiController::class, 'updateDokumen'])->name('admin.dokumen.update');
         Route::delete('/admin/akreditasi/dokumen/{id}', [AkreditasiController::class, 'deleteDokumen'])->name('admin.dokumen.delete');
+        Route::post('/admin/akreditasi/slot/tambah', [AkreditasiController::class, 'tambahSlot'])->name('admin.slot.tambah');
+        Route::delete('/admin/akreditasi/slot/{id}', [AkreditasiController::class, 'hapusSlot'])->name('admin.slot.hapus');
     });
 });
 

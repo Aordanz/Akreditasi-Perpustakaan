@@ -265,7 +265,33 @@
                         formElement.submit();
                     }
                 }
-            })
+            });
+        }
+
+        function confirmDeleteSlot(event, formElement, slotCode) {
+            event.preventDefault();
+            Swal.fire({
+                title: '<span class="text-xl font-black text-slate-800">Hapus Slot ' + (slotCode ? slotCode : '') + '?</span>',
+                html: '<p class="text-sm text-slate-500 font-medium mt-1">Seluruh isi dokumen dan data di dalam slot ini akan dihapus secara permanen.</p>',
+                iconHtml: '<div class="relative w-20 h-20 mx-auto mb-2 flex items-center justify-center"><div class="absolute inset-0 bg-red-100 rounded-full animate-ping opacity-75"></div><div class="relative w-16 h-16 bg-red-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm"><svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></div></div>',
+                customClass: {
+                    popup: 'rounded-3xl shadow-2xl border border-slate-100 pb-3 p-6',
+                    container: 'backdrop-blur-sm bg-slate-900/50',
+                    confirmButton: 'bg-red-500 hover:bg-red-600 text-white font-bold py-2.5 px-6 rounded-xl shadow-lg shadow-red-500/30 transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer',
+                    cancelButton: 'bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-6 rounded-xl transition-all duration-300 mr-3 transform hover:scale-105 active:scale-95 border border-slate-200/80 cursor-pointer',
+                    icon: '!border-none !border-0 mt-4 mb-0',
+                    actions: 'w-full gap-2 mt-4',
+                },
+                buttonsStyling: false,
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus Slot!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formElement.submit();
+                }
+            });
         }
     </script>
 </body>

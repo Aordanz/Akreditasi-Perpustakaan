@@ -40,7 +40,7 @@
     $totalFiles  = $komponens->flatMap->subKomponens->flatMap->dokumenBuktis->count();
 @endphp
 
-<div class="space-y-8 pb-12">
+<div class="space-y-8 pb-12" x-data="{ showTambahModal: false, modalType: '', modalId: '', modalNomor: '', modalNama: '', modalTitle: '' }">
     
     <!-- Statistik Cepat -->
     <div id="stats-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -212,7 +212,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 transform transition-transform duration-300" :class="openSub ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="w-4 h-4 text-slate-400 transform transition-transform duration-300 shrink-0" :class="openSub ? 'rotate-180 text-[#0a7a3b]' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
 
                         <!-- Content level 3 (Indikator dropdowns) -->
@@ -272,8 +272,51 @@
                                                 @foreach ($ind->subIndikators as $subInd)
                                                     @include('admin.partials.document-card', ['title' => $subInd->nama_sub_indikator, 'code' => $subInd->nomor_sub_indikator, 'type' => 'sub_indikator', 'target' => $subInd])
                                                 @endforeach
+                                                {{-- Tombol Tambah Slot untuk sub-indikator (Buka Modal Popup) --}}
+                                                @php
+                                                    $existingNums = [];
+                                                    foreach ($ind->subIndikators as $si) {
+                                                        if (preg_match('/-(\d+)$/', $si->nomor_sub_indikator, $m)) {
+                                                            $existingNums[] = (int)$m[1];
+                                                        }
+                                                    }
+                                                    $nextSuffix = 1;
+                                                    if (!empty($existingNums)) {
+                                                        sort($existingNums);
+                                                        $foundGap = false;
+                                                        for ($i = 1; $i <= max($existingNums); $i++) {
+                                                            if (!in_array($i, $existingNums)) {
+                                                                $nextSuffix = $i;
+                                                                $foundGap = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                        if (!$foundGap) {
+                                                            $nextSuffix = max($existingNums) + 1;
+                                                        }
+                                                    }
+                                                    $nextCode = $ind->nomor_indikator . '-' . $nextSuffix;
+                                                @endphp
+                                                <button type="button" 
+                                                        @click="modalType = 'indikator'; modalId = {{ $ind->id }}; modalNomor = '{{ $nextCode }}'; modalNama = ''; modalTitle = 'Tambah Slot Baru (Indikator {{ $ind->nomor_indikator }})'; showTambahModal = true;"
+                                                        class="flex flex-col items-center justify-center min-h-[190px] border-2 border-dashed border-emerald-300 rounded-2xl bg-emerald-50/30 hover:bg-emerald-50/70 hover:border-emerald-500 transition-all group cursor-pointer">
+                                                    <div class="w-10 h-10 rounded-full bg-[#0a7a3b] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                                                    </div>
+                                                    <span class="text-[10px] font-black uppercase tracking-wider text-[#0a7a3b] mt-2 group-hover:underline">Tambah Slot</span>
+                                                </button>
                                             @else
                                                 @include('admin.partials.document-card', ['title' => $ind->nama_indikator, 'code' => $ind->nomor_indikator, 'type' => 'indikator', 'target' => $ind])
+                                                {{-- Tombol Tambah Slot jika indikator belum punya sub-indikator --}}
+                                                @php $nextCode = $ind->nomor_indikator . '-1'; @endphp
+                                                <button type="button" 
+                                                        @click="modalType = 'indikator'; modalId = {{ $ind->id }}; modalNomor = '{{ $nextCode }}'; modalNama = ''; modalTitle = 'Tambah Slot Baru (Indikator {{ $ind->nomor_indikator }})'; showTambahModal = true;"
+                                                        class="flex flex-col items-center justify-center min-h-[190px] border-2 border-dashed border-emerald-300 rounded-2xl bg-emerald-50/30 hover:bg-emerald-50/70 hover:border-emerald-500 transition-all group cursor-pointer">
+                                                    <div class="w-10 h-10 rounded-full bg-[#0a7a3b] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                                                    </div>
+                                                    <span class="text-[10px] font-black uppercase tracking-wider text-[#0a7a3b] mt-2 group-hover:underline">Tambah Slot</span>
+                                                </button>
                                             @endif
                                         </div>
                                     </div>
@@ -284,6 +327,29 @@
                                 <!-- Leaf node is the SubComponent itself -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
                                     @include('admin.partials.document-card', ['title' => $sub->nama_sub_komponen, 'code' => $sub->nomor_sub, 'type' => 'sub_komponen', 'target' => $sub])
+                                    {{-- Tombol Tambah Slot untuk sub-komponen leaf --}}
+                                    @php
+                                        $maxSuffix = 0;
+                                        foreach ($sub->indikators as $i) {
+                                            $parts = explode('.', $i->nomor_indikator);
+                                            $last = end($parts);
+                                            if (is_numeric($last)) {
+                                                $maxSuffix = max($maxSuffix, (int)$last);
+                                            }
+                                        }
+                                        if ($maxSuffix === 0 && $sub->indikators->count() > 0) {
+                                            $maxSuffix = $sub->indikators->count();
+                                        }
+                                        $nextCode = $sub->nomor_sub . '.' . ($maxSuffix + 1);
+                                    @endphp
+                                    <button type="button" 
+                                            @click="modalType = 'sub_komponen'; modalId = {{ $sub->id }}; modalNomor = '{{ $nextCode }}'; modalNama = ''; modalTitle = 'Tambah Slot Baru (Sub Komponen {{ $sub->nomor_sub }})'; showTambahModal = true;"
+                                            class="flex flex-col items-center justify-center min-h-[190px] border-2 border-dashed border-emerald-300 rounded-2xl bg-emerald-50/30 hover:bg-emerald-50/70 hover:border-emerald-500 transition-all group cursor-pointer">
+                                        <div class="w-10 h-10 rounded-full bg-[#0a7a3b] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-[#0a7a3b] mt-2 group-hover:underline">Tambah Slot</span>
+                                    </button>
                                 </div>
                             @endif
 
@@ -297,6 +363,65 @@
             
         </div>
         @endforeach
+    </div>
+
+    <!-- Modal Pop-Up Tambah Slot -->
+    <div x-show="showTambahModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4" @keydown.escape.window="showTambahModal = false">
+        <div @click.away="showTambahModal = false" class="bg-white rounded-3xl shadow-2xl border border-slate-100 w-full max-w-md p-6 text-left transform transition-all"
+             x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+            
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100 mb-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-2xl bg-emerald-100 text-[#0a7a3b] flex items-center justify-center shadow-xs">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black text-slate-800" x-text="modalTitle || 'Tambah Slot Dokumen Baru'"></h3>
+                        <p class="text-[11px] text-slate-400 font-medium">Buat slot portofolio dokumen bukti baru</p>
+                    </div>
+                </div>
+                <button @click="showTambahModal = false" type="button" class="text-slate-400 hover:text-slate-600 transition-colors p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <form action="{{ route('admin.slot.tambah') }}" method="POST" class="space-y-4">
+                @csrf
+                <input type="hidden" name="type" :value="modalType">
+                <input type="hidden" name="id" :value="modalId">
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Nomor Slot / Komponen <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="nomor_slot" x-model="modalNomor" required
+                           placeholder="Contoh: 4.1.1-7" 
+                           class="w-full text-sm font-semibold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#0a7a3b]/20 focus:border-[#0a7a3b] outline-none transition-all">
+                    <p class="text-[11px] text-slate-400 mt-1 font-medium">Nomor urutan kode slot file dokumen bukti.</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Nama / Judul Dokumen Slot <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="nama_slot" x-model="modalNama" required
+                           placeholder="Contoh: SK Pengangkatan Kepala Perpustakaan" 
+                           class="w-full text-sm font-semibold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#0a7a3b]/20 focus:border-[#0a7a3b] outline-none transition-all">
+                    <p class="text-[11px] text-slate-400 mt-1 font-medium">Keterangan deskripsi nama dokumen bukti.</p>
+                </div>
+
+                <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100 mt-6">
+                    <button type="button" @click="showTambahModal = false" class="px-5 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 text-xs font-bold text-white bg-[#0a7a3b] hover:bg-[#044b25] rounded-xl transition-all shadow-md shadow-emerald-900/15 flex items-center gap-1.5 cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                        Simpan Slot Baru
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
 </div>

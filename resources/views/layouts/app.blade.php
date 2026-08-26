@@ -234,7 +234,26 @@
                 if (result.isConfirmed) {
                     formElement.submit();
                 }
-            })
+            });
+        }
+
+        function confirmDeleteSlot(event, formElement, slotCode) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Hapus Slot ' + (slotCode ? slotCode : '') + '?',
+                text: "Seluruh isi dokumen dan data di dalam slot ini akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Ya, Hapus Slot!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formElement.submit();
+                }
+            });
         }
     </script>
     <!-- AOS Init -->
