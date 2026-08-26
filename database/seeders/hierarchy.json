@@ -105,23 +105,7 @@
                         "sub_indikators": [
                             {
                                 "nomor_sub_indikator": "1.3.5-1",
-                                "nama_sub_indikator": "Instrumen/formulir evaluasi koleksi"
-                            },
-                            {
-                                "nomor_sub_indikator": "1.3.5-2",
-                                "nama_sub_indikator": "Berita acara penyiangan (weeding) berdasarkan\nhasil evaluasi;"
-                            },
-                            {
-                                "nomor_sub_indikator": "1.3.5-3",
-                                "nama_sub_indikator": "Laporan bukti tindak lanjut"
-                            },
-                            {
-                                "nomor_sub_indikator": "1.3.5-4",
-                                "nama_sub_indikator": "Notulen rapat atau tim penilai koleksi;"
-                            },
-                            {
-                                "nomor_sub_indikator": "1.3.5-5",
-                                "nama_sub_indikator": "Daftar revisi koleksi pasca evaluasi"
+                                "nama_sub_indikator": "Laporan Evaluasi Koleksi"
                             }
                         ]
                     },
